@@ -1,0 +1,17 @@
+{
+    "name": "PartidaMarcada",
+    "description": "Trabalho de Conclusão de Curso de Análise e Desenvolvimento de Sistemas",
+    "authors": [
+        {
+            "name": "Guilherme Longaray de Fraga",
+            "email": "guilherme.lf@gmail.com"
+        }
+    ],
+    "require": {
+        "doctrine/orm": "2.*",
+        "symfony/yaml": "2.*"
+    },
+    "autoload": {
+        "psr-0": {"": "app/model/"}
+    }
+}
