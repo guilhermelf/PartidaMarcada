@@ -1,30 +1,29 @@
 <?php
-/**
- * Teste
- *
- * @Entity
- * @Table(name="teste")
- */
-class Teste {
+
+class Estado3 {
     
-    /**
-     * @Id
-     * @Column(type="integer", name="id")
-     * @GeneratedValue(strategy="AUTO")
-     */
-    protected $id;
+
+
+    private $nome;
     
-    /**
-     * @Column(type="string", name="teste")
-     */
-    protected $nome;
-    
+
+    private $uf;
+
+
     function getNome() {
         return $this->nome;
     }
 
+    function getUf() {
+        return $this->uf;
+    }
+
     function setNome($nome) {
         $this->nome = $nome;
+    }
+
+    function setUf($uf) {
+        $this->uf = $uf;
     }
 }
 
