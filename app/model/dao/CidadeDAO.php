@@ -1,14 +1,15 @@
 <?php
-
 class CidadeDAO {
 
     function insert($cidade) {
         DataBase::getFactory()->persist($cidade);
-        DataBase::getFactory()->flush();
+        
+        return DataBase::getFactory()->flush();
     }
 
     function update($cidade) {
         DataBase::getFactory()->persist($cidade);
+        
         return DataBase::getFactory()->flush();
     }
 
@@ -33,7 +34,7 @@ class CidadeDAO {
 
     function delete($cidade) {
         DataBase::getFactory()->remove($cidade);
+        
         return DataBase::getFactory()->flush();
     }
-
 }
