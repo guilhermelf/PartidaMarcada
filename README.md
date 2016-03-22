@@ -1,6 +1,6 @@
 # **PartidaMarcada**
 
-**Trabalho de Conclusão do Curso de Análise e Desenvolvimento de Sistemas - SenacRS - 1/2016**
+**Trabalho de Conclusão do Curso de Análise e Desenvolvimento de Sistemas - Senac RS - 1/2016**
 
 **Orientador:** Professor Me. Thiago Motta
 
@@ -9,6 +9,21 @@
 ####Sobre:
 
 Portal para organização de atividades esportivas.
+
+####Tecnologias e ferramentas utilizadas
+
+* PHP
+* MySQL
+* JavaScript (jQuery)
+* Json
+* Composer
+* GitHub
+* Microsoft Word
+* Astah
+* Balsamiq Mockups 3
+* MySQL Workbench
+* NetBeans
+* Sublime Text 3
 
 ####Funcionalidades:
 
