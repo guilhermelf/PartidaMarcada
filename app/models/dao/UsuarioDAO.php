@@ -2,9 +2,15 @@
 class UsuarioDAO {
 
     function insert($usuario) {
-        DataBase::getFactory()->persist($usuario);
+        try {
+            DataBase::getFactory()->persist($usuario);      
+            DataBase::getFactory()->flush();
         
-        return DataBase::getFactory()->flush();
+            return ($usuario->getId() ? true: false);
+        } catch (Exception $ex) {
+            return false;
+        }
+        
     }
 
     function update($usuario) {

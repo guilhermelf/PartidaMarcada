@@ -6,7 +6,7 @@
  */
 
 /**
- * Description of Genero
+ * Description of Piso
  *
  * @author Guilherme Longaray
  */

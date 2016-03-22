@@ -7,11 +7,12 @@
  * Estou falando principalmente do EntityManager, criado sobre a variável $entityManager
  */
 require_once '/system/doctrine.php';
-require_once './app/model/dao/EstadoDAO.php';
-require_once './app/model/dao/CidadeDAO.php';
-require_once './app/model/dao/UsuarioDAO.php';
-require_once './app/model/dao/VisibilidadeDAO.php';
-require_once './app/model/dao/GeneroDAO.php';
+require_once './app/models/dao/EstadoDAO.php';
+require_once './app/models/dao/CidadeDAO.php';
+require_once './app/models/dao/UsuarioDAO.php';
+require_once './app/models/dao/VisibilidadeDAO.php';
+require_once './app/models/dao/GeneroDAO.php';
+require_once './app/models/dao/ParqueEsportivoDAO.php';
  
 /**
  * 
@@ -48,10 +49,35 @@ $usuario->setSenha("654321");
 $usuario->setSobrenome("sobrenome");
 $usuario->setTelefone(92930438);
 $usuario->setVisibilidade($visibilidade);
-$usuarioDAO = new UsuarioDAO();
 
-$usuarioDAO->insert($usuario);
+$usuarioDAO = new UsuarioDAO();
+echo $usuarioDAO->insert($usuario);
 //final do teste de criacao de usuario
+
+$parque = new ParqueEsportivo();
+
+$parque->setAtivo(1);
+$parque->setCep("12345678");
+$parque->setChurrasqueira(1);
+$parque->setCidade($cidade);
+$parque->setCopa(1);
+$parque->setDdd(51);
+$parque->setEmail("email");
+$parque->setEndereco("endereço");
+$parque->setNome("Quadra do Guilherme");
+$parque->setNumero(171);
+$parque->setSenha(123456);
+$parque->setServicos(0);
+$parque->setSite("www.calote.com");
+$parque->setTelefone(92939293);
+$parque->setVestiario(1);
+
+try {
+    $parqueDAO = new ParqueEsportivoDAO();
+    echo $parqueDAO->insert($parque);  
+} catch (Exception $ex) {
+    echo $ex->getMessage();
+}
 
 
 /**

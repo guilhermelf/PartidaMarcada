@@ -1,5 +1,5 @@
 {
-    "name": "PartidaMarcada",
+    "name": "partidamarcada",
     "description": "Trabalho de Conclusão de Curso de Análise e Desenvolvimento de Sistemas",
     "authors": [
         {
@@ -12,6 +12,6 @@
         "symfony/yaml": "2.*"
     },
     "autoload": {
-        "psr-0": {"": "app/model/"}
+        "psr-0": {"": "app/models/"}
     }
 }
