@@ -12,10 +12,6 @@ class DataBase {
     public function __construct() {      
     }
 
-    /**
-     * Get a factory instance. 
-     * @return App_DaoFactory
-     */
     public static function getFactory() {
         if (!self::$_instance) {
             
@@ -39,13 +35,5 @@ class DataBase {
             self::$_instance = $em;
         }
         return self::$_instance;
-    }
-
-    /**
-     * Get a Question DAO
-     * @return App_Dao_Question_Interface
-     */
-    public function getQuestionDao() {
-        return new App_Dao_Doctrine_Question();
     }
 }
