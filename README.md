@@ -14,16 +14,20 @@ Portal para organização de atividades esportivas.
 
 * PHP
 * MySQL
-* JavaScript (jQuery)
+* JavaScript
 * Json
+* HTML
+* CSS
+* jQuery
+* NetBeans
+* Sublime Text 3
 * Composer
 * GitHub
-* Microsoft Word
 * Astah
 * Balsamiq Mockups 3
 * MySQL Workbench
-* NetBeans
-* Sublime Text 3
+* Google Docs
+* Microsoft Word
 
 ####Funcionalidades:
 
