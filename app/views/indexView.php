@@ -1,8 +1,8 @@
-<?php
-echo 'página inicial';
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+Página Inicial <br /><br />
 
+================= <br />
+Cadastrar usuário<br />
+Logar usuário<br />
+=================<br />
+Cadastar quadra<br />
+Logar quadra<br />

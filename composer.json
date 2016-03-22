@@ -9,7 +9,8 @@
     ],
     "require": {
         "doctrine/orm": "2.*",
-        "symfony/yaml": "2.*"
+        "symfony/yaml": "2.*",
+        "components/jquery": "1.9.*"
     },
     "autoload": {
         "psr-0": {"": "app/models/"}

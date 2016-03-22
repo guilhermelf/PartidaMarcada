@@ -17,6 +17,7 @@ class Route {
                     header("Content-Type: text/css");
                     break;
             }
+            
             require_once(PUBLIC_HTML . $url);
         } else {
             require_once(PUBLIC_HTML . '404.html');
