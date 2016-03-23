@@ -3,9 +3,11 @@ require (BLL.'/cidadeBLL.php');
 
 class CidadeController extends Controller {
     
-    function getAll() {
+    function listar() {
         $bll = new cidadeBLL();
         
         echo $bll->getAll();
     }
+    
+    
 }
