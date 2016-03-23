@@ -1,33 +1,46 @@
 <?php
 class GeneroDAO {
-
-    function insert($genero) {
-        DataBase::getFactory()->persist($genero);
-        
-        return DataBase::getFactory()->flush();
-    }
-
-    function update($genero) {
-        DataBase::getFactory()->persist($genero);
-        
-        return DataBase::getFactory()->flush();
+    function persist($genero) {
+        try {
+            DataBase::getFactory()->persist($genero);   
+            DataBase::getFactory()->flush();
+            
+            return DataBase::getFactory()->contains($genero);
+        } catch (Exception $ex) {
+            return false;
+        }
     }
 
     static function getById($id) {
-        $genero = DataBase::getFactory()->getRepository('Genero')->find(array('id' => $id));
+        try {
+            $genero =  DataBase::getFactory()->getRepository('Genero')->find(array('id' => $id));
 
-        return (empty($genero) ? false : $genero);
+            return (empty($genero) ? false : $genero);
+        } catch (Exception $ex) {
+            return false;
+        }    
     }
 
     function getAll() {
-        $generos = DataBase::getFactory()->getRepository('Genero')->findAll();
+        try {
+            $generos = DataBase::getFactory()->getRepository('Genero')->findAll();
 
-        return (empty($generos) ? false : $generos);
+            return (empty($generos) ? false : $generos);
+        } catch (Exception $ex) {
+            return false;
+        }
+        
     }
 
     function delete($genero) {
-        DataBase::getFactory()->remove($genero);
+        try {
+            DataBase::getFactory()->remove($genero);
+           
+            DataBase::getFactory()->flush();
         
-        return DataBase::getFactory()->flush();
+            return !DataBase::getFactory()->contains($genero);
+        } catch (Exception $ex) {
+            return false;
+        }   
     }
 }

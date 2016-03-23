@@ -1,30 +1,46 @@
 <?php
 class EstadoDAO {
-
-    function insert($estado) {
-        DataBase::getFactory()->persist($estado);
-        DataBase::getFactory()->flush();
-    }
-
-    function update($estado) {
-        DataBase::getFactory()->persist($estado);
-        return  DataBase::getFactory()->flush();
+    function persist($estado) {
+        try {
+            DataBase::getFactory()->persist($estado);   
+            DataBase::getFactory()->flush();
+            
+            return DataBase::getFactory()->contains($estado);
+        } catch (Exception $ex) {
+            return false;
+        }
     }
 
     static function getById($id) {
-        $estado =  DataBase::getFactory()->getRepository('Estado')->find(array('id' => $id));
+        try {
+            $estado =  DataBase::getFactory()->getRepository('Estado')->find(array('id' => $id));
 
-        return (empty($estado) ? false : $estado);
+            return (empty($estado) ? false : $estado);
+        } catch (Exception $ex) {
+            return false;
+        }    
     }
 
     function getAll() {
-        $estados = DataBase::getFactory()->getRepository('Estado')->findAll();
+        try {
+            $estados = DataBase::getFactory()->getRepository('Estado')->findAll();
 
-        return (empty($estados) ? false : $estados);
+            return (empty($estados) ? false : $estados);
+        } catch (Exception $ex) {
+            return false;
+        }
+        
     }
 
     function delete($estado) {
-        DataBase::getFactory()->remove($estado);
-        return DataBase::getFactory()->flush();
+        try {
+            DataBase::getFactory()->remove($estado);
+           
+            DataBase::getFactory()->flush();
+        
+            return !DataBase::getFactory()->contains($estado);
+        } catch (Exception $ex) {
+            return false;
+        }   
     }
 }

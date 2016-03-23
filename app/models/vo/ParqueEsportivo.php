@@ -217,4 +217,24 @@ class ParqueEsportivo {
     function setServicos($servicos) {
         $this->servicos = $servicos;
     }
+    
+    public function toJson() {
+        return array(           
+            'nome' => $this->getNome(),
+            'cidade' => $this->getCidade()->toJson(),
+            'site' => $this->getSite(),
+            'ativo' => $this->getAtivo(),
+            'churrasqueira' => $this->getChurrasqueira(),
+            'vestiario' => $this->getVestiario(),
+            'servicos' => $this->getServicos(),
+            'copa' => $this->getCopa(),
+            'cep' => $this->getCep(),
+            'ddd' => $this->getDdd(),
+            'endereco' => $this->getEndereco(),
+            'numero' => $this->getNumero(),
+            'email' => $this->getEmail(),
+            'telefone' => $this->getTelefone(),
+            'senha' => $this->getSenha()
+        );
+    }
 }

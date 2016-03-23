@@ -15,7 +15,7 @@ class DataBase {
     public static function getFactory() {
         if (!self::$_instance) {
             
-            $entidades = array("../app/models/");
+            $entidades = array("../app/models/vo");
             $isDevMode = true;
 
             // configurações de conexão. Coloque aqui os seus dados

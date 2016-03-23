@@ -65,7 +65,7 @@ class Cidade {
         return array(
             'id' => $this->getId(),
             'nome' => $this->getNome(),
-            'estado' => $this->getEstado()
+            'estado' => $this->getEstado()->toJson()
         );
     }
 }

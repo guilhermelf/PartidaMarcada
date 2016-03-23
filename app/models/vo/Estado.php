@@ -6,9 +6,8 @@
  * @Table(name="estado")
  */
 class Estado {
-
     public function __construct() {
-        $this->cidades = new ArrayCollection();
+        $this->cidades = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -67,15 +66,11 @@ class Estado {
       
     public function toJson() {
         $cidades = [];
-        foreach ($this->getCidades() as $cid) {
-            $cidades[] = $cid->getNome();
-        }
-        
+       
         return array(
             'id' => $this->getId(),
             'nome' => $this->getNome(),
-            'uf' => $this->getUf(),
-            'cidades' => $cidades
+            'uf' => $this->getUf()
         );
     }
 }

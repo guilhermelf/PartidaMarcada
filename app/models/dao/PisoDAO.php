@@ -1,33 +1,46 @@
 <?php
 class PisoDAO {
-
-    function insert($piso) {
-        DataBase::getFactory()->persist($piso);
-        
-        return DataBase::getFactory()->flush();
-    }
-
-    function update($piso) {
-        DataBase::getFactory()->persist($piso);
-        
-        return DataBase::getFactory()->flush();
+    function persist($piso) {
+        try {
+            DataBase::getFactory()->persist($piso);   
+            DataBase::getFactory()->flush();
+            
+            return DataBase::getFactory()->contains($piso);
+        } catch (Exception $ex) {
+            return false;
+        }
     }
 
     static function getById($id) {
-        $piso = DataBase::getFactory()->getRepository('Piso')->find(array('id' => $id));
+        try {
+            $piso =  DataBase::getFactory()->getRepository('Piso')->find(array('id' => $id));
 
-        return (empty($piso) ? false : $piso);
+            return (empty($piso) ? false : $piso);
+        } catch (Exception $ex) {
+            return false;
+        }    
     }
 
     function getAll() {
-        $pisos = DataBase::getFactory()->getRepository('Piso')->findAll();
+        try {
+            $pisos = DataBase::getFactory()->getRepository('Piso')->findAll();
 
-        return (empty($pisos) ? false : $pisos);
+            return (empty($pisos) ? false : $pisos);
+        } catch (Exception $ex) {
+            return false;
+        }
+        
     }
 
     function delete($piso) {
-        DataBase::getFactory()->remove($piso);
+        try {
+            DataBase::getFactory()->remove($piso);
+           
+            DataBase::getFactory()->flush();
         
-        return DataBase::getFactory()->flush();
+            return !DataBase::getFactory()->contains($piso);
+        } catch (Exception $ex) {
+            return false;
+        }   
     }
 }

@@ -1,10 +1,10 @@
 <?php
-class usuarioController extends Controller {
+class UsuarioController extends Controller {
     function index_action() {
         $this->View('index');
     }
     
     function cadastrar() {
-        $this->View('./usuario/cadastrar');
+        $this->listar('./usuario/cadastrar');
     }
 }

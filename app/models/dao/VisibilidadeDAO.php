@@ -1,32 +1,46 @@
 <?php
 class VisibilidadeDAO {
-
-    function insert($visibilidade) {
-        DataBase::getFactory()->persist($visibilidade);
-        
-        return DataBase::getFactory()->flush();
-    }
-
-    function update($visibilidade) {
-        DataBase::getFactory()->persist($visibilidade);
-        return DataBase::getFactory()->flush();
+    function persist($visibilidade) {
+        try {
+            DataBase::getFactory()->persist($visibilidade);   
+            DataBase::getFactory()->flush();
+            
+            return DataBase::getFactory()->contains($visibilidade);
+        } catch (Exception $ex) {
+            return false;
+        }
     }
 
     static function getById($id) {
-        $visibilidade = DataBase::getFactory()->getRepository('Visibilidade')->find(array('id' => $id));
+        try {
+            $visibilidade =  DataBase::getFactory()->getRepository('Visibilidade')->find(array('id' => $id));
 
-        return (empty($visibilidade) ? false : $visibilidade);
+            return (empty($visibilidade) ? false : $visibilidade);
+        } catch (Exception $ex) {
+            return false;
+        }    
     }
 
     function getAll() {
-        $visibilidades = DataBase::getFactory()->getRepository('Visibilidade')->findAll();
+        try {
+            $visibilidades = DataBase::getFactory()->getRepository('Visibilidade')->findAll();
 
-        return (empty($visibilidades) ? false : $visibilidades);
+            return (empty($visibilidades) ? false : $visibilidades);
+        } catch (Exception $ex) {
+            return false;
+        }
+        
     }
 
     function delete($visibilidade) {
-        DataBase::getFactory()->remove($visibilidade);
+        try {
+            DataBase::getFactory()->remove($visibilidade);
+           
+            DataBase::getFactory()->flush();
         
-        return DataBase::getFactory()->flush();
+            return DataBase::getFactory()->contains($visibilidade);
+        } catch (Exception $ex) {
+            return false;
+        }   
     }
 }

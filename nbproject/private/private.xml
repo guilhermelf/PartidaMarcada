@@ -3,8 +3,25 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/xampp/htdocs/PartidaMarcada/teste.php</file>
+            <file>file:/C:/xampp/htdocs/PartidaMarcada/app/models/dao/GeneroDAO.php</file>
+            <file>file:/C:/xampp/htdocs/PartidaMarcada/app/models/Genero.php</file>
+            <file>file:/C:/xampp/htdocs/PartidaMarcada/app/controllers/indexController.php</file>
+            <file>file:/C:/xampp/htdocs/PartidaMarcada/app/models/Usuario.php</file>
+            <file>file:/C:/xampp/htdocs/PartidaMarcada/.gitignore</file>
+            <file>file:/C:/xampp/htdocs/PartidaMarcada/public/403.html</file>
+            <file>file:/C:/xampp/htdocs/PartidaMarcada/system/doctrine.php</file>
+            <file>file:/C:/xampp/htdocs/PartidaMarcada/app/models/dao/UsuarioDAO.php</file>
+            <file>file:/C:/xampp/htdocs/PartidaMarcada/README.md</file>
+            <file>file:/C:/xampp/htdocs/PartidaMarcada/public/404.html</file>
+            <file>file:/C:/xampp/htdocs/PartidaMarcada/system/route.php</file>
             <file>file:/C:/xampp/htdocs/PartidaMarcada/app/models/dao/ParqueEsportivoDAO.php</file>
+            <file>file:/C:/xampp/htdocs/PartidaMarcada/system/doctrine.EXAMPLE</file>
+            <file>file:/C:/xampp/htdocs/PartidaMarcada/app/views/indexView.php</file>
+            <file>file:/C:/xampp/htdocs/PartidaMarcada/teste.php</file>
+            <file>file:/C:/xampp/htdocs/PartidaMarcada/app/models/Piso.php</file>
+            <file>file:/C:/xampp/htdocs/PartidaMarcada/app/controllers/usuarioController.php</file>
+            <file>file:/C:/xampp/htdocs/PartidaMarcada/system/start.php</file>
+            <file>file:/C:/xampp/htdocs/PartidaMarcada/app/models/ParqueEsportivo.php</file>
         </group>
     </open-files>
 </project-private>

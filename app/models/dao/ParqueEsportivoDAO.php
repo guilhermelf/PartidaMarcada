@@ -1,38 +1,46 @@
 <?php
 class ParqueEsportivoDAO {
-
-    function insert($parqueEsportivo) {
+    function persist($parqueEsportivo) {
         try {
-            DataBase::getFactory()->persist($parqueEsportivo);      
+            DataBase::getFactory()->persist($parqueEsportivo);   
             DataBase::getFactory()->flush();
-        
-            return ($parqueEsportivo->getId() ? 1: 0);
+            
+            return DataBase::getFactory()->contains($parqueEsportivo);
         } catch (Exception $ex) {
-            return $ex->getMessage();
-        }       
-    }
-
-    function update($parqueEsportivo) {
-        DataBase::getFactory()->persist($parqueEsportivo);
-        
-        return DataBase::getFactory()->flush();
+            return false;
+        }
     }
 
     static function getById($id) {
-        $parqueEsportivo = DataBase::getFactory()->getRepository('ParqueEsportivo')->find(array('id' => $id));
+        try {
+            $parqueEsportivo =  DataBase::getFactory()->getRepository('ParqueEsportivo')->find(array('id' => $id));
 
-        return (empty($parqueEsportivo) ? false : $parqueEsportivo);
+            return (empty($parqueEsportivo) ? false : $parqueEsportivo);
+        } catch (Exception $ex) {
+            return false;
+        }    
     }
 
     function getAll() {
-        $parquesEsportivos = DataBase::getFactory()->getRepository('ParqueEsportivo')->findAll();
+        try {
+            $parquesEsportivos = DataBase::getFactory()->getRepository('ParqueEsportivo')->findAll();
 
-        return (empty($parquesEsportivos) ? false : $parquesEsportivos);
+            return (empty($parquesEsportivos) ? false : $parquesEsportivos);
+        } catch (Exception $ex) {
+            return false;
+        }
+        
     }
 
     function delete($parqueEsportivo) {
-        DataBase::getFactory()->remove($parqueEsportivo);
+        try {
+            DataBase::getFactory()->remove($parqueEsportivo);
+           
+            DataBase::getFactory()->flush();
         
-        return DataBase::getFactory()->flush();
+            return !DataBase::getFactory()->contains($parqueEsportivo);
+        } catch (Exception $ex) {
+            return false;
+        }   
     }
 }

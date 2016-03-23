@@ -15,19 +15,19 @@ class Retorno {
     private $status;
     private $mensagem;
     
-    function getStatus() {
+    static function getStatus() {
         return $this->status;
     }
 
-    function getMensagem() {
+    static function getMensagem() {
         return $this->mensagem;
     }
 
-    function setStatus($status) {
+    static function setStatus($status) {
         $this->status = $status;
     }
 
-    function setMensagem($mensagem) {
+    static function setMensagem($mensagem) {
         $this->mensagem = $mensagem;
     }
 }

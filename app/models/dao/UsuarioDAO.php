@@ -1,39 +1,46 @@
 <?php
 class UsuarioDAO {
-
-    function insert($usuario) {
+    function persist($usuario) {
         try {
-            DataBase::getFactory()->persist($usuario);      
+            DataBase::getFactory()->persist($usuario);   
             DataBase::getFactory()->flush();
-        
-            return ($usuario->getId() ? true: false);
+            
+            return DataBase::getFactory()->contains($usuario);
+        } catch (Exception $ex) {
+            return false;
+        }
+    }
+
+    static function getById($id) {
+        try {
+            $usuario =  DataBase::getFactory()->getRepository('Usuario')->find(array('id' => $id));
+
+            return (empty($usuario) ? false : $usuario);
+        } catch (Exception $ex) {
+            return false;
+        }    
+    }
+
+    function getAll() {
+        try {
+            $usuarios = DataBase::getFactory()->getRepository('Usuario')->findAll();
+
+            return (empty($usuarios) ? false : $usuarios);
         } catch (Exception $ex) {
             return false;
         }
         
     }
 
-    function update($usuario) {
-        DataBase::getFactory()->persist($usuario);
-        
-        return DataBase::getFactory()->flush();
-    }
-
-    static function getById($id) {
-        $usuario = DataBase::getFactory()->getRepository('Usuario')->find(array('id' => $id));
-
-        return (empty($usuario) ? false : $usuario);
-    }
-
-    function getAll() {
-        $usuarios = DataBase::getFactory()->getRepository('Usuario')->findAll();
-
-        return (empty($usuarios) ? false : $usuarios);
-    }
-
     function delete($usuario) {
-        DataBase::getFactory()->remove($usuario);
+        try {
+            DataBase::getFactory()->remove($usuario);
+           
+            DataBase::getFactory()->flush();
         
-        return DataBase::getFactory()->flush();
+            return !DataBase::getFactory()->contains($usuario);
+        } catch (Exception $ex) {
+            return false;
+        }   
     }
 }

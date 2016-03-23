@@ -1,5 +1,5 @@
 <?php
-class indexController extends Controller {
+class IndexController extends Controller {
     function index_action() {
         $this->View('index');
     }

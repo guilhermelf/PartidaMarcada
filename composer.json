@@ -13,6 +13,6 @@
         "components/jquery": "1.9.*"
     },
     "autoload": {
-        "psr-0": {"": "app/models/"}
+        "psr-0": {"": "app/models/vo/"}
     }
 }

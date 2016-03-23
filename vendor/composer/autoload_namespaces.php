@@ -14,5 +14,5 @@ return array(
     'Doctrine\\Common\\Annotations\\' => array($vendorDir . '/doctrine/annotations/lib'),
     'ComponentInstaller' => array($vendorDir . '/robloach/component-installer/src'),
     'Assetic' => array($vendorDir . '/kriswallsmith/assetic/src'),
-    '' => array($baseDir . '/app/models'),
+    '' => array($baseDir . '/app/models/vo'),
 );

@@ -13,71 +13,80 @@ require_once './app/models/dao/UsuarioDAO.php';
 require_once './app/models/dao/VisibilidadeDAO.php';
 require_once './app/models/dao/GeneroDAO.php';
 require_once './app/models/dao/ParqueEsportivoDAO.php';
+require_once './app/models/dao/PisoDAO.php';
  
+$dao = new EstadoDAO();
+$estado = new Estado();
+
+$estado->setNome('tsadsa');
+
+echo $dao->delete($estado);
+
+
 /**
  * 
  *  instanciando a entidade Categoria
  */
-$teste = new Cidade();
- 
-//Inicio teste de criação de usuário
-$cidadeDAO = new CidadeDAO();
-$cidade = $cidadeDAO->getById(1);
-
-$generoDAO = new GeneroDAO();
-$genero = $generoDAO->getById(1);
-
-$visibilidadeDAO = new VisibilidadeDAO();
-$visibilidade = $visibilidadeDAO->getById(1);
-
-$usuario = new Usuario();
-
-$usuario->setApelido("apelido");
-$usuario->setCep("12345678");
-$usuario->setAtivo(1);
-$usuario->setCidade($cidade);
-$usuario->setDataNascimento(new \DateTime('11-11-1190'));
-$usuario->setMostrarEndereco(1);
-$usuario->setMostrarTelefone(1);
-$usuario->setDdd(51);
-$usuario->setEmail("email");
-$usuario->setEndereco("endereco");
-$usuario->setGenero($genero);
-$usuario->setNome("nome");
-$usuario->setNumero('1234');
-$usuario->setSenha("654321");
-$usuario->setSobrenome("sobrenome");
-$usuario->setTelefone(92930438);
-$usuario->setVisibilidade($visibilidade);
-
-$usuarioDAO = new UsuarioDAO();
-echo $usuarioDAO->insert($usuario);
-//final do teste de criacao de usuario
-
-$parque = new ParqueEsportivo();
-
-$parque->setAtivo(1);
-$parque->setCep("12345678");
-$parque->setChurrasqueira(1);
-$parque->setCidade($cidade);
-$parque->setCopa(1);
-$parque->setDdd(51);
-$parque->setEmail("email");
-$parque->setEndereco("endereço");
-$parque->setNome("Quadra do Guilherme");
-$parque->setNumero(171);
-$parque->setSenha(123456);
-$parque->setServicos(0);
-$parque->setSite("www.calote.com");
-$parque->setTelefone(92939293);
-$parque->setVestiario(1);
-
-try {
-    $parqueDAO = new ParqueEsportivoDAO();
-    echo $parqueDAO->insert($parque);  
-} catch (Exception $ex) {
-    echo $ex->getMessage();
-}
+//$teste = new Cidade();
+// 
+////Inicio teste de criação de usuário
+//$cidadeDAO = new CidadeDAO();
+//$cidade = $cidadeDAO->getById(1);
+//
+//$generoDAO = new GeneroDAO();
+//$genero = $generoDAO->getById(1);
+//
+//$visibilidadeDAO = new VisibilidadeDAO();
+//$visibilidade = $visibilidadeDAO->getById(1);
+//
+//$usuario = new Usuario();
+//
+//$usuario->setApelido("apelido");
+//$usuario->setCep("12345678");
+//$usuario->setAtivo(1);
+//$usuario->setCidade($cidade);
+//$usuario->setDataNascimento(new \DateTime('11-11-1190'));
+//$usuario->setMostrarEndereco(1);
+//$usuario->setMostrarTelefone(1);
+//$usuario->setDdd(51);
+//$usuario->setEmail("email");
+//$usuario->setEndereco("endereco");
+//$usuario->setGenero($genero);
+//$usuario->setNome("nome");
+//$usuario->setNumero('1234');
+//$usuario->setSenha("654321");
+//$usuario->setSobrenome("sobrenome");
+//$usuario->setTelefone(92930438);
+//$usuario->setVisibilidade($visibilidade);
+//
+//$usuarioDAO = new UsuarioDAO();
+//echo $usuarioDAO->insert($usuario);
+////final do teste de criacao de usuario
+//
+//$parque = new ParqueEsportivo();
+//
+//$parque->setAtivo(1);
+//$parque->setCep("12345678");
+//$parque->setChurrasqueira(1);
+//$parque->setCidade($cidade);
+//$parque->setCopa(1);
+//$parque->setDdd(51);
+//$parque->setEmail("email");
+//$parque->setEndereco("endereço");
+//$parque->setNome("Quadra do Guilherme");
+//$parque->setNumero(171);
+//$parque->setSenha(123456);
+//$parque->setServicos(0);
+//$parque->setSite("www.calote.com");
+//$parque->setTelefone(92939293);
+//$parque->setVestiario(1);
+//
+//try {
+//    $parqueDAO = new ParqueEsportivoDAO();
+//    echo $parqueDAO->insert($parque);  
+//} catch (Exception $ex) {
+//    echo $ex->getMessage();
+//}
 
 
 /**
