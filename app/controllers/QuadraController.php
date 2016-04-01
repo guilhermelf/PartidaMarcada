@@ -7,4 +7,4 @@ class quadraController extends Controller {
         
         echo $bll->getAll();
     }
-} 
+}
