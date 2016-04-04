@@ -247,4 +247,22 @@ class Usuario {
     function setMostrarTelefone($mostrarTelefone) {
         $this->mostrarTelefone = $mostrarTelefone;
     }
+    
+    public function toJson() {
+        return array(           
+            'nome' => $this->getNome(),
+            'cidade' => $this->getCidade()->toJson(),
+            'sobrenome' => $this->getSobrenome(),
+            'apelido' => $this->getApelido(),
+            'dataNascimento' => $this->getDataNascimento(),
+            'cep' => $this->getCep(),
+            'ddd' => $this->getDdd(),
+            'endereco' => $this->getEndereco(),
+            'numero' => $this->getNumero(),        
+            'ativo' => $this->getAtivo(),
+            'email' => $this->getEmail(),
+            'telefone' => $this->getTelefone(),
+            'senha' => $this->getSenha()           
+        );
+    } 
 }

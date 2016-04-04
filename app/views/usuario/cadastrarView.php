@@ -1,186 +1,63 @@
-<script src="/partidamarcada/vendor/components/jquery/jquery.min.js"></script>
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="/partidamarcada/components/metro-ui-css/build/css/metro.css" />
+        <link href="/partidamarcada/components/metro-ui-css/build/css/metro-icons.css" rel="stylesheet" />
+        <link href="/partidamarcada/components/metro-ui-css/build/css/metro-schemes.css" rel="stylesheet">
+        <link href="/partidamarcada/components/metro-ui-css/build/css/metro-responsive.css" rel="stylesheet">
+        <link href="/partidamarcada/components/css/style.css" rel="stylesheet">
+        <script src="/partidamarcada/components/jquery/jquery.min.js"></script>
+        <script src="/partidamarcada/components/js/scripts.js"></script>
+        <script src="/partidamarcada/components/metro-ui-css/build/js/metro.js"></script>
+    </head>
+    <body>
+        <div class="bg-lightBlue">
+            <?php include 'app/views/header/header.php'; ?>
 
-<script type="text/javascript">
+            <form>
+                <fieldset>
+                    <legend>Legend</legend>
+                    <label>Label name</label>
+                    <div class="input-control text" data-role="input-control">
+                        <input type="text" placeholder="type text">
+                        <button class="btn-clear" tabindex="-1" type="button"></button>
+                    </div>
+                    <label>Label name</label>
+                    <div class="input-control password" data-role="input-control">
+                        <input type="password" placeholder="type password" autofocus="">
+                        <button class="btn-reveal" tabindex="-1" type="button"></button>
+                    </div>
+                    <div class="input-control checkbox" data-role="input-control">
+                        <label>
+                            <input type="checkbox" checked="">
+                            <span class="check"></span>
+                            Check me out
+                        </label>
+                    </div>
 
+                    <div>
+                        <div class="input-control radio default-style" data-role="input-control">
+                            <label>
+                                <input type="radio" name="r1" checked="">
+                                <span class="check"></span>
+                                R1
+                            </label>
+                        </div>
+                        <div class="input-control radio  default-style" data-role="input-control">
+                            <label>
+                                <input type="radio" name="r1">
+                                <span class="check"></span>
+                                R2
+                            </label>
+                        </div>
+                    </div>
 
-</script>
-
-<h1>Cadastrar usuário</h1>
-<form id="form-cadastro" class="form-horizontal">
-    <fieldset>
-
-        <!-- Form Name -->
-        <legend>Informações gerais</legend>
-        <p class="erros">
-            &nbsp;
-        </p>
-        <!-- Text input-->
-        <div class="form-group">
-            <label class="col-md-4 control-label" for="nome">Nome</label>  
-            <div class="col-md-4">
-                <input id="nome" name="nome" type="text" placeholder="" class="form-control input-md">
-            </div>
+                    <input type="submit" value="Submit">
+                </fieldset>
+            </form>
         </div>
 
-        <!-- Text input-->
-        <div class="form-group">
-            <label class="col-md-4 control-label" for="sobrenome">Sobrenome</label>  
-            <div class="col-md-4">
-                <input id="sobrenome" name="sobrenome" type="text" placeholder="" class="form-control input-md">
 
-            </div>
-        </div>
-
-        <!-- Text input-->
-        <div class="form-group">
-            <label class="col-md-4 control-label" for="email">E-mail</label>  
-            <div class="col-md-4">
-                <input id="email" name="email" type="text" placeholder="" class="form-control input-md">
-
-            </div>
-        </div>
-
-        <!-- Text input-->
-        <div class="form-group">
-            <label class="col-md-4 control-label" for="apelido">Apelido</label>  
-            <div class="col-md-4">
-                <input id="apelido" name="apelido" type="text" placeholder="" class="form-control input-md">
-
-            </div>
-        </div>
-
-        <!-- Password input-->
-        <div class="form-group">
-            <label class="col-md-4 control-label" for="senha">Senha</label>
-            <div class="col-md-4">
-                <input id="senha" name="senha" type="password" placeholder="" class="form-control input-md">
-            </div>
-        </div>
-
-        <!-- Text input-->
-        <div class="form-group">
-            <label class="col-md-4 control-label" for="">Data de nascimento</label>  
-            <div class="col-md-4">
-                <input id="dtNascimento" name="dtNascimento" type="date" placeholder="" class="form-control input-md">
-            </div>
-        </div>
-
-        <!-- Select Basic -->
-        <div class="form-group">
-            <label class="col-md-4 control-label" for="genero">Gênero</label>
-            <div class="col-md-4">
-                <select id="genero" name="genero" class="form-control">
-                    <option value="0">Selecione</option>
-                </select>
-            </div>
-        </div>
-
-        <!-- Text input-->
-        <div class="form-group">
-            <label class="col-md-4 control-label" for="cep">CEP</label>  
-            <div class="col-md-4">
-                <input id="cep" name="cep" type="text" placeholder="" class="form-control input-md">
-
-            </div>
-        </div>
-
-        <!-- Select Basic -->
-        <div class="form-group">
-            <label class="col-md-4 control-label" for="estado">Estado</label>
-            <div class="col-md-4">
-                <select id="estado" name="estado" class="form-control">
-                    <option value="0">Selecione</option>
-                </select>
-            </div>
-        </div>
-
-        <!-- Select Basic -->
-        <div class="form-group">
-            <label class="col-md-4 control-label" for="cidade">Cidade</label>
-            <div class="col-md-4">
-                <select id="cidade" name="cidade" class="form-control">
-                    <option value="0">Selecione</option>
-                </select>
-            </div>
-        </div>
-
-        <!-- Text input-->
-        <div class="form-group">
-            <label class="col-md-4 control-label" for="endereco">Endereço</label>  
-            <div class="col-md-4">
-                <input id="endereco" name="endereco" type="text" placeholder="" class="form-control input-md">
-
-            </div>
-        </div>
-
-        <!-- Text input-->
-        <div class="form-group">
-            <label class="col-md-4 control-label" for="numero">Número</label>  
-            <div class="col-md-4">
-                <input id="numero" name="numero" type="text" placeholder="" class="form-control input-md">
-
-            </div>
-        </div>
-
-        <!-- Text input-->
-        <div class="form-group">
-            <label class="col-md-4 control-label" for="ddd">DDD</label>  
-            <div class="col-md-4">
-                <input id="ddd" maxlength="2" name="ddd" type="text" placeholder="" class="form-control input-md">
-
-            </div>
-        </div>
-
-        <!-- Text input-->
-        <div class="form-group">
-            <label class="col-md-4 control-label" for="telefone">Telefone</label>  
-            <div class="col-md-4">
-                <input id="telefone" maxlength="8" name="telefone" type="text" placeholder="" class="form-control input-md">
-
-            </div>
-        </div>
-    </fieldset>
-    <fieldset>
-        <legend>Opções de privacidade</legend>
-        <!-- Select Basic -->
-        <div class="form-group">
-            <label class="col-md-4 control-label" for="visibilidade">Visibilidade do perfil</label>
-            <div class="col-md-4">
-                <select id="visibilidade" name="visibilidade" class="form-control">
-                    <option value="0">Selecione</option>
-                </select>
-            </div>
-        </div>
-        <!-- Select Basic -->
-        <div class="form-group">
-            <label class="col-md-4 control-label" for="mostrarTelefone">Exibir telefone</label>
-            <div class="col-md-4">
-                <select id="visibilidade" name="mostrarTelefone" class="form-control">
-                    <option value="1">Sim</option>
-                    <option value="0">Não</option>
-                </select>
-            </div>
-        </div>
-        <!-- Select Basic -->
-        <div class="form-group">
-            <label class="col-md-4 control-label" for="mostrarEndereco">Exibir endereço</label>
-            <div class="col-md-4">
-                <select id="visibilidade" name="mostrarEndereco" class="form-control">
-                    <option value="1">Sim</option>
-                    <option value="0">Não</option>
-                </select>
-            </div>
-        </div>
-    </fieldset>
-    <br />
-    <br />
-    <fieldset>
-        <!-- Button -->
-        <div class="form-group">
-            <label class="col-md-4 control-label" for="btnCadastrar"></label>
-            <div class="col-md-4">
-                <button id="btnCadastrar" name="btnCadastrar" class="btn btn-info">Cadastrar</button>
-            </div>
-        </div>
-    </fieldset>
-</form>
+    </div>
+</body>
+</html>

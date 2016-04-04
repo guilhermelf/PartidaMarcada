@@ -16,6 +16,9 @@ class Route {
                 case 'css':
                     header("Content-Type: text/css");
                     break;
+                case 'js':
+                    header("Content-Type: application/javascript");
+                    break;
             }
             
             require_once(PUBLIC_HTML . $url);
