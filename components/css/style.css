@@ -24,3 +24,12 @@ and open the template in the editor.
 }
 
 input[type="button"] {color: #fff;}
+
+.contorno {
+    border: 1px #ccc dashed;
+}
+
+.accordion > .frame > .heading {
+    text-transform: none !important;
+    padding: 3px;
+}

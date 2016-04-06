@@ -8,40 +8,119 @@ $(document).ready(function () {
     $('#login-usuario').on('click', '.btn-usuario-logar', function () {
         $.ajax({
             type: "post",
+            dataType: 'json',
             url: "/partidamarcada/usuario/logar",
             data: $("#login-usuario").serialize(),
             success: function (resposta) {
-                alert(resposta);
-                window.location.href = "/partidamarcada/usuario";
+                
+                if(resposta.status) {
+                    $(".resposta-titulo").html("Sucesso");
+                    $(".resposta-mensagem").html(resposta.mensagem);
+                    $("#resposta").attr('style', 'background-color: #60a917; color: #fff;');
+                    
+                    window.location.href = "/partidamarcada/usuario";
+                } else {
+                    $(".resposta-titulo").html("Erro");
+                    $(".resposta-mensagem").html(resposta.mensagem); 
+                    $("#resposta").attr('style', 'background-color: #ce352c; color: #fff;');
+                }                                                        
+                
+                $("#resposta").data('dialog').open();
             }
         });
 
         return false;
     });
     
-    //logar usuário
-    $('#login-usuario').on('click', '.btn-usuario-logar', function () {
+    //deslogar usuário
+    $("#btn-usuario-deslogar").on('click', function () {
+         
+         $.ajax({
+             type: "get",
+             url: "/partidamarcada/usuario/deslogar",
+             success: function (resposta) {
+                 window.location.href = "/partidamarcada";
+             }
+         });
+         
+         return false;
+     });
+     
+    //atualizar senha de usuário
+    $("#btn-usuario-alterarsenha").on('click', function () {
+
         $.ajax({
             type: "post",
-            url: "/partidamarcada/usuario/logar",
-            data: $("#login-usuario").serialize(),
-            success: function (resposta) {
-                alert(resposta);
-                window.location.href = "/partidamarcada/usuario";
-            }
+            dataType: 'json',
+            data: $("#form-usuario-alterarsenha").serialize(),
+            url: "/partidamarcada/usuario/atualizarSenha",
+            success: function (resposta) { 
+                if(resposta.status) {
+                    $(".resposta-titulo").html("Sucesso");
+                    $("#resposta").attr('style', 'background-color: #60a917; color: #fff;');
+                } else {
+                    $(".resposta-titulo").html("Erro");
+                    $("#resposta").attr('style', 'background-color: #ce352c; color: #fff;');
+                }
+                $(".resposta-mensagem").html(resposta.mensagem);                            
+                
+                
+                $("#resposta").data('dialog').open();
+                console.log(resposta);
+            }     
         });
+        
+        return false;
+    });
+    
+    //atualizar e-mail de usuário
+    $("#btn-usuario-alteraremail").on('click', function () {
 
+        $.ajax({
+            type: "post",
+            dataType: 'json',
+            data: $("#form-usuario-alteraremail").serialize(),
+            url: "/partidamarcada/usuario/atualizarEmail",
+            success: function (resposta) { 
+                if(resposta.status) {
+                    $(".resposta-titulo").html("Sucesso");
+                    $("#resposta").attr('style', 'background-color: #60a917; color: #fff;');
+                } else {
+                    $(".resposta-titulo").html("Erro");
+                    $("#resposta").attr('style', 'background-color: #ce352c; color: #fff;');
+                }
+                $(".resposta-mensagem").html(resposta.mensagem);                            
+                
+                
+                $("#resposta").data('dialog').open();
+                console.log(resposta);
+            }     
+        });
+        
         return false;
     });
 
     //cadastrar usuário
     $("#btn-usuario-cadastrar").on('click', function () {
-
+        
         $.ajax({
             type: "post",
+            dataType: 'json',
             data: $("#form-usuario-cadastrar").serialize(),
             url: "/partidamarcada/usuario/salvar",
-            success: function (resposta) {
+            success: function (resposta) {                
+                
+                if(resposta.status) {
+                    $(".resposta-titulo").html("Sucesso");
+                    $("#resposta").attr('style', 'background-color: #60a917; color: #fff;');
+                } else {
+                    $(".resposta-titulo").html("Erro");
+                    $("#resposta").attr('style', 'background-color: #ce352c; color: #fff;');
+                }
+                $(".resposta-mensagem").html(resposta.mensagem);                            
+                
+                
+                $("#resposta").data('dialog').open();
                 console.log(resposta);
             }
         });

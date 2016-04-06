@@ -28,9 +28,15 @@ class UsuarioBLL {
             $_SESSION['nome'] = $usuario->getNome() . " " . $usuario->getSobrenome();
             $_SESSION['tipo'] = "usuario";
 
-            return true;
+            Retorno::setStatus(1);
+            Retorno::setMensagem("Login efetuado com sucesso!");
+
+            return Retorno::toJson();
         } else {
-            return false;
+            Retorno::setStatus(0);
+            Retorno::setMensagem("Usuário e/ou senha inválido(s). Tente novamente!");
+
+            return Retorno::toJson();
         }
     }
 
@@ -38,6 +44,72 @@ class UsuarioBLL {
         session_destroy();
 
         return true;
+    }
+
+    public function atualizarSenha($dados) {
+
+        if ($dados['nova_senha'] == $dados['nova_senha2']) {
+            if (strlen($dados['nova_senha']) > 5) {
+
+
+                $dao = new UsuarioDAO();
+
+                $usuario = $dao->getById($_SESSION['id']);
+
+                if ($usuario->getSenha() == $dados['senha']) {
+                    $usuario->setSenha($dados['nova_senha']);
+
+                    $dao->persist($usuario);
+
+                    Retorno::setStatus(1);
+                    Retorno::setMensagem("Senha alterada com sucesso!");
+                } else {
+                    Retorno::setStatus(0);
+                    Retorno::setMensagem("A senha atual digitada não confere com a senha salva no sistema. Tente novamente!");
+                }
+
+                return Retorno::toJson();
+            } else {
+                Retorno::setStatus(0);
+                Retorno::setMensagem("A senha deve ter entre 6 e 18 caracteres. Tente novamente.");
+
+                return Retorno::toJson();
+            }
+        } else {
+            Retorno::setStatus(0);
+            Retorno::setMensagem("As novas senhas inseridas não conferem. Tente novamente.");
+
+            return Retorno::toJson();
+        }
+    }
+
+    public function atualizarEmail($dados) {
+
+        if ($dados['novo_email'] == $dados['novo_email2']) {
+
+            $dao = new UsuarioDAO();
+
+            $usuario = $dao->getById($_SESSION['id']);
+
+            if ($usuario->getEmail() == $dados['email']) {
+                $usuario->setEmail($dados['novo_email']);
+
+                $dao->persist($usuario);
+
+                Retorno::setStatus(1);
+                Retorno::setMensagem("E-mail alterado com sucesso!");
+            } else {
+                Retorno::setStatus(0);
+                Retorno::setMensagem("O e-mail atual digitado não confere com o e-mail salvo no sistema. Tente novamente!");
+            }
+
+            return Retorno::toJson();
+        } else {
+            Retorno::setStatus(0);
+            Retorno::setMensagem("Os novos e-mails digitados não conferem. Tente novamente.");
+
+            return Retorno::toJson();
+        }
     }
 
     public function insert($dados) {
@@ -76,10 +148,21 @@ class UsuarioBLL {
 
                 $dao = new UsuarioDAO();
 
-                echo $dao->persist($usuario);
+                if ($dao->persist($usuario)) {
+                    Retorno::setStatus(1);
+                    Retorno::setMensagem("Usuário cadastrado com sucesso, efetue o login no sistema!");
+
+                    return Retorno::toJson();
+                } else {
+                    Retorno::setStatus(0);
+                    Retorno::setMensagem("Erro ao cadastrar usuário no sistema!");
+
+                    return Retorno::toJson();
+                }
             }
         } catch (Exception $ex) {
             return $ex->getMessage();
         }
     }
+
 }

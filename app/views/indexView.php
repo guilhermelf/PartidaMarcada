@@ -7,15 +7,20 @@
         <link href="/partidamarcada/components/metro-ui-css/build/css/metro-responsive.css" rel="stylesheet">
         <link href="/partidamarcada/components/css/style.css" rel="stylesheet">
         <script src="/partidamarcada/components/jquery/jquery.min.js"></script>
-        <script src="/partidamarcada/components/js/scripts.js"></script>
+        <script src="/partidamarcada/components/js/scripts.js" charset="UTF-8"></script>
         <script src="/partidamarcada/components/metro-ui-css/build/js/metro.js"></script>
+        <title>PartidaMarcada.com</title>
     </head>
-    <body>
-        <div class="bg-lightBlue">
-            <?php include 'app/views/header/header.php'; ?>
+    <body> 
+        <div data-role="dialog" data-close-button="true" data-overlay="true" id="resposta" class="padding20">
+            <h3 class="resposta-titulo"></h3>
 
-
-
+            <p class="resposta-mensagem"></p>
+        </div>
+        <?php include 'app/views/header/header.php'; ?>
+        
+        <div class="conteudo">
+            
 
         </div>
     </body>

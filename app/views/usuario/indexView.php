@@ -9,13 +9,32 @@
         <script src="/partidamarcada/components/jquery/jquery.min.js"></script>
         <script src="/partidamarcada/components/js/scripts.js"></script>
         <script src="/partidamarcada/components/metro-ui-css/build/js/metro.js"></script>
+        <title>PartidaMarcada.com</title>
     </head>
     <body>
-        <div class="bg-lightBlue">
-            <?php include 'app/views/header/headerUsuario.php'; ?>
+         <div data-role="dialog" data-close-button="true" data-overlay="true" id="resposta" class="padding20">
+            <h3 class="resposta-titulo">aa</h3>
 
-            <h1>Logado</h1>
-
+            <p class="resposta-mensagem">aa</p>
+        </div>
+        <?php include 'app/views/header/headerUsuario.php'; ?>
+        <div class="conteudo">
+            <div class="contorno">
+                <div class="accordion large-heading" data-role="accordion">
+                    <div class="frame active">
+                        <div class="heading">Partidas futuras <span class="mif-calendar icon"></span></div>
+                        <div class="content">Frame content</div>
+                    </div>
+                    <div class="frame active">
+                        <div class="heading">Solicitações de amizades pendentes <span class="mif-users icon"></span></div>
+                        <div class="content">Frame content</div>
+                    </div>
+                    <div class="frame active ">
+                        <div class="heading">Avaliações pendentes <span class="mif-pencil icon"></div>
+                        <div class="content">Módulo ainda não desenvolvido.</div>
+                    </div>
+                </div>
+            </div>
         </div>
     </body>
 </html>

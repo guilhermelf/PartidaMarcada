@@ -12,22 +12,29 @@
  * @author Guilherme Longaray
  */
 class Retorno {
-    private $status;
-    private $mensagem;
+    static private $status;
+    static private $mensagem;
     
     static function getStatus() {
-        return $this->status;
+        return self::$status;
     }
 
     static function getMensagem() {
-        return $this->mensagem;
+        return self::$mensagem;
     }
 
     static function setStatus($status) {
-        $this->status = $status;
+        self::$status = $status;
     }
 
     static function setMensagem($mensagem) {
-        $this->mensagem = $mensagem;
+        self::$mensagem = $mensagem;
+    }
+    
+    static function toJson() {
+        return array(
+            'status' => self::getStatus(),
+            'mensagem' => self::getMensagem()
+        );
     }
 }

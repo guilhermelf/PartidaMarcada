@@ -25,24 +25,52 @@ class UsuarioController extends Controller {
 
             $usuario = new UsuarioBLL();
 
-            $user = $usuario->logar($email, $senha);
-
-            print_r($_SESSION['nome']);
+            echo json_encode($usuario->logar($email, $senha));
         }
     }
 
     function deslogar() {
         $usuario = new UsuarioBLL();
-
         $usuario->deslogar();
-
-        echo 'erro';
     }
 
     function salvar() {
         $usuario = new UsuarioBLL();
 
-        echo $usuario->insert($_POST);    
+        echo json_encode($usuario->insert($_POST));    
     }
-
+    
+    function alterarSenha() {
+        if(empty($_SESSION['tipo'] or $_SESSION['tipo'] != 'usuario'))
+            $this->AccessDenied ();
+        else
+            $this->View('usuario/alterarsenha');
+    }
+    
+    function alterarEmail() {
+        if(empty($_SESSION['tipo'] or $_SESSION['tipo'] != 'usuario'))
+            $this->AccessDenied ();
+        else
+            $this->View('usuario/alteraremail');
+    }
+    
+    function atualizarEmail() {
+        if(empty($_SESSION['tipo'] or $_SESSION['tipo'] != 'usuario'))
+            $this->AccessDenied();
+        else {
+            $bll = new UsuarioBLL();
+                       
+            echo json_encode($bll->atualizarEmail($_POST));
+        }
+    }
+    
+    function atualizarSenha() {
+        if(empty($_SESSION['tipo'] or $_SESSION['tipo'] != 'usuario'))
+            $this->AccessDenied();
+        else {
+            $bll = new UsuarioBLL();
+                       
+            echo json_encode($bll->atualizarSenha($_POST));
+        }
+    }
 }

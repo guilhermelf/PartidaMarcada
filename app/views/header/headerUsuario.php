@@ -34,7 +34,7 @@
 
     <span class="app-bar-divider"></span>
     <ul class="app-bar-menu">
-        <li><a href="">Partida Marcada 2</a></li>
+        <li><a href="/partidamarcada">Partida Marcada</a></li>
         <li><a href="">Quadras</a></li>
         <li><a href="">Sobre</a></li>
     </ul>
@@ -45,7 +45,8 @@
             <h2 class="text-light">Opções</h2>
             <ul class="unstyled-list fg-dark">
                 <li><a href="" class="fg-white1 fg-hover-yellow">Perfil</a></li>
-                <li><a href="" class="fg-white2 fg-hover-yellow">Segurança</a></li>
+                <li><a href="/partidamarcada/usuario/alteraremail" class="fg-white2 fg-hover-yellow">Alterar e-mail</a></li>
+                <li><a href="/partidamarcada/usuario/alterarsenha" class="fg-white2 fg-hover-yellow">Alterar senha</a></li>
                 <li><a href="" class="fg-white3 fg-hover-yellow" id="btn-usuario-deslogar">Sair</a></li>
             </ul>
         </div>

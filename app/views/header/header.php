@@ -5,11 +5,11 @@
         <li>
             <a href="" class="dropdown-toggle"><span class="mif-apps mif-2x"></span> Menu</a>
             <ul class="d-menu" data-role="dropdown">
-                <li><a href="usuario/cadastrar">Cadastrar usuário</a></li>
+                <li><a href="/partidamarcada/usuario/cadastrar">Cadastrar usuário</a></li>
             </ul>
         </li>
 
-        <li><a href="">Partida Marcada</a></li>
+        <li><a href="/partidamarcada">Partida Marcada</a></li>
         <li><a href="">Quadras</a></li>
         <li><a href="">Sobre</a></li>
     </ul>

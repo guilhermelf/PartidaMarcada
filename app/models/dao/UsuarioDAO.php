@@ -6,10 +6,10 @@ class UsuarioDAO {
         try {
             DataBase::getFactory()->persist($usuario);
             DataBase::getFactory()->flush();
-
-            return DataBase::getFactory()->contains($usuario);
+            
+            return true;
         } catch (Exception $ex) {
-            return $ex->getMessage();
+            return false;
         }
     }
 
