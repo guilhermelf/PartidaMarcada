@@ -19,4 +19,12 @@ class VisibilidadeBLL {
             return json_encode($json);
         }
     }
+    
+    function getById($id) {
+        $dao = new VisibilidadeDAO();
+        
+        $visibilidade = $dao->getById($id);
+        
+        return $visibilidade;
+    }
 }

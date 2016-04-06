@@ -9,5 +9,11 @@ class CidadeController extends Controller {
         echo $bll->getAll();
     }
     
-    
+    function listarPorEstado() {
+        $idEstado = $_POST["estado"];
+        
+        $bll = new cidadeBLL();
+        
+        echo $bll->getByEstado($idEstado);
+    }
 }

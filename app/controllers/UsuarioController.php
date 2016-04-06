@@ -5,7 +5,7 @@ require (BLL . '/UsuarioBLL.php');
 class UsuarioController extends Controller {
 
     function index_action() {
-        if(empty($_SESSION['tipo']) || $_SESSION['tipo'] != "usuario") {
+        if (empty($_SESSION['tipo']) || $_SESSION['tipo'] != "usuario") {
             $this->AccessDenied();
         } else {
             $this->View('usuario/index');
@@ -33,9 +33,16 @@ class UsuarioController extends Controller {
 
     function deslogar() {
         $usuario = new UsuarioBLL();
-        
+
         $usuario->deslogar();
-        
+
         echo 'erro';
     }
+
+    function salvar() {
+        $usuario = new UsuarioBLL();
+
+        echo $usuario->insert($_POST);    
+    }
+
 }

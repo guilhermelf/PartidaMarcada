@@ -7,3 +7,20 @@ and open the template in the editor.
     Created on : 04/04/2016, 13:49:47
     Author     : Guilherme Longaray
 */
+.conteudo {
+    width: 70%;
+    margin: 0 auto;  
+    
+    margin-top: 75px;
+}
+
+.form-cadastro {    
+    width: 80%;
+    margin: 0 auto;
+    
+    border: 1px #ccc dashed;
+    
+    padding: 15px 50px 15px 50px;
+}
+
+input[type="button"] {color: #fff;}

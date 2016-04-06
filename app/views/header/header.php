@@ -5,7 +5,7 @@
         <li>
             <a href="" class="dropdown-toggle"><span class="mif-apps mif-2x"></span> Menu</a>
             <ul class="d-menu" data-role="dropdown">
-                <li><a href="">Cadastrar usuário</a></li>
+                <li><a href="usuario/cadastrar">Cadastrar usuário</a></li>
             </ul>
         </li>
 

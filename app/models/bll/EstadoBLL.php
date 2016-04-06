@@ -19,4 +19,12 @@ class EstadoBLL {
             return json_encode($json);
         }
     }
+    
+    function getById($id) {
+        $dao = new EstadoDAO();
+        
+        $estado = $dao->getById($id);
+        
+        return $estado;
+    }
 }

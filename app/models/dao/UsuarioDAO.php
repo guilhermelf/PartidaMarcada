@@ -9,7 +9,7 @@ class UsuarioDAO {
 
             return DataBase::getFactory()->contains($usuario);
         } catch (Exception $ex) {
-            return false;
+            return $ex->getMessage();
         }
     }
 
@@ -47,9 +47,9 @@ class UsuarioDAO {
 
     function logar($email, $senha) {
         try {
-             $usuario = DataBase::getFactory()->getRepository('Usuario')->findOneBy(array('email' => $email, 'senha' => $senha));
+            $usuario = DataBase::getFactory()->getRepository('Usuario')->findOneBy(array('email' => $email, 'senha' => $senha));
              
-              return (empty($usuario) ? false : $usuario);
+            return (empty($usuario) ? false : $usuario);
         } catch (Exception $ex) {
             return false;
         }  
