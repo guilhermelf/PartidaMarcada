@@ -10,10 +10,15 @@
         </li>
 
         <li><a href="/partidamarcada">Partida Marcada</a></li>
-        <li><a href="">Quadras</a></li>
+        <li>
+            <a class="dropdown-toggle" href="/partidamarcada/parqueesportivo">Quadras</a>
+            <ul class="d-menu" data-role="dropdown">
+                <li><a href="/partidamarcada/parqueesportivo/cadastrar">Entrar no sistema</a></li>
+                <li><a href="/partidamarcada/parqueesportivo/logar">Cadastrar</a></li>
+            </ul>
+        </li>
         <li><a href="">Sobre</a></li>
     </ul>
-
 
     <div class="app-bar-element place-right">
         <a class="dropdown-toggle fg-white"><span class="mif-enter"></span> Entrar no sistema</a>
@@ -33,7 +38,7 @@
 
                     <div class="form-actions">
                         <button class="button btn-usuario-logar">Entrar</button>
-                        <button class="button">Cancelar</button>
+                        <button class="button" id="btn-cancelar">Cancelar</button>
                     </div>
                 </form>
             </div>

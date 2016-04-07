@@ -1,4 +1,4 @@
-<?php $usuario = $_SESSION['nome']; ?>
+<?php $quadra = $_SESSION['nome']; ?>
 
 <div class="app-bar" id="menu-usuario">
     <a class="app-bar-element">
@@ -40,14 +40,13 @@
     </ul>
 
     <div class="app-bar-element place-right active-container">
-        <span class="dropdown-toggle active-toggle"><span class="mif-cog"></span> <?php echo $usuario;?></span>
+        <span class="dropdown-toggle active-toggle"><span class="mif-cog"></span> <?php echo $quadra;?></span>
         <div class="app-bar-drop-container padding10 place-right no-margin-top block-shadow fg-dark" data-role="dropdown" data-no-close="true" style="width: 220px; display: block;">
             <h2 class="text-light">Opções</h2>
             <ul class="unstyled-list fg-dark">
-                <li><a href="/partidamarcada/usuario/perfil/<?php echo $_SESSION['id']; ?>" class="fg-white1 fg-hover-yellow">Meu perfil</a></li>
-                <li><a href="/partidamarcada/usuario/atualizarperfil" class="fg-white2 fg-hover-yellow">Atualizar perfil</a></li>
-                <li><a href="/partidamarcada/usuario/alteraremail" class="fg-white2 fg-hover-yellow">Alterar e-mail</a></li>
-                <li><a href="/partidamarcada/usuario/alterarsenha" class="fg-white2 fg-hover-yellow">Alterar senha</a></li>
+                <li><a href="" class="fg-white1 fg-hover-yellow">Perfil</a></li>
+                <li><a href="/partidamarcada/quadra/alteraremail" class="fg-white2 fg-hover-yellow">Alterar e-mail</a></li>
+                <li><a href="/partidamarcada/quadra/alterarsenha" class="fg-white2 fg-hover-yellow">Alterar senha</a></li>
                 <li><a href="" class="fg-white3 fg-hover-yellow" id="btn-usuario-deslogar">Sair</a></li>
             </ul>
         </div>

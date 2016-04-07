@@ -6,12 +6,14 @@ class System extends Route {
     private $_explode;
     private $_controller;
     private $_action;
+    private $_data;
 
     function __construct() {
         $this->setUrl();
         $this->setExplode();
         $this->setController();
         $this->setAction();
+        $this->setData();
     }
 
     private function setUrl() {
@@ -29,6 +31,10 @@ class System extends Route {
     private function setAction() {
         $this->_action = (empty($this->_explode[1]) ? 'index_action' : $this->_explode[1]);
     }
+    
+    private function setData() {
+        $this->_data = (empty($this->_explode[2]) ? '' : $this->_explode[2]);
+    }
 
     function run() {
         if (file_exists(CONTROLLERS.$this->_controller.'.php')) {
@@ -39,7 +45,13 @@ class System extends Route {
                 $action = $this->_action;
 
                 if (method_exists($controller, $action)) {
-                    $controller->$action();
+                    
+                    if(!empty($this->_data)) {
+                        $controller->$action($this->_data);
+                    } else {
+                        $controller->$action(null);
+                    }
+            
                 } else {
                     parent::route($this->_url, $this->_explode);
                 }

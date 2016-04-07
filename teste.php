@@ -65,21 +65,21 @@ echo $usuarioDAO->persist($usuario);
 //
 //$parque = new ParqueEsportivo();
 //
-//$parque->setAtivo(1);
-//$parque->setCep("12345678");
-//$parque->setChurrasqueira(1);
-//$parque->setCidade($cidade);
-//$parque->setCopa(1);
-//$parque->setDdd(51);
-//$parque->setEmail("email");
-//$parque->setEndereco("endereço");
-//$parque->setNome("Quadra do Guilherme");
-//$parque->setNumero(171);
-//$parque->setSenha(123456);
-//$parque->setServicos(0);
-//$parque->setSite("www.calote.com");
-//$parque->setTelefone(92939293);
-//$parque->setVestiario(1);
+$parque->setAtivo(1);
+$parque->setCep("12345678");
+$parque->setChurrasqueira(1);
+$parque->setCidade($cidade);
+$parque->setCopa(1);
+$parque->setDdd(51);
+$parque->setEmail("email");
+$parque->setEndereco("endereço");
+$parque->setNome("Quadra do Guilherme");
+$parque->setNumero(171);
+$parque->setSenha(123456);
+$parque->setServicos(0);
+$parque->setSite("www.calote.com");
+$parque->setTelefone(92939293);
+$parque->setVestiario(1);
 //
 //try {
 //    $parqueDAO = new ParqueEsportivoDAO();

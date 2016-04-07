@@ -33,3 +33,5 @@ input[type="button"] {color: #fff;}
     text-transform: none !important;
     padding: 3px;
 }
+
+.perfil-label {font-weight: bold;}

@@ -6,5 +6,5 @@ class PisoController extends Controller {
         $bll = new pisoBLL();
         
         echo $bll->getAll();
-    }
+    }   
 }

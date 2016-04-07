@@ -116,7 +116,7 @@ class Usuario {
         return $this->apelido;
     }
 
-    function isAtivo() {
+    function getAtivo() {
         return $this->ativo;
     }
 
@@ -232,11 +232,11 @@ class Usuario {
         $this->visibilidade = $visibilidade;
     }
     
-    function isMostrarEndereco() {
+    function getMostrarEndereco() {
         return $this->mostrarEndereco;
     }
 
-    function isMostrarTelefone() {
+    function getMostrarTelefone() {
         return $this->mostrarTelefone;
     }
 
@@ -254,7 +254,7 @@ class Usuario {
             'cidade' => $this->getCidade()->toJson(),
             'sobrenome' => $this->getSobrenome(),
             'apelido' => $this->getApelido(),
-            'dataNascimento' => $this->getDataNascimento(),
+            'dataNascimento' => date_format($this->getDataNascimento(), 'd/m/Y'),
             'cep' => $this->getCep(),
             'ddd' => $this->getDdd(),
             'endereco' => $this->getEndereco(),
@@ -262,7 +262,11 @@ class Usuario {
             'ativo' => $this->getAtivo(),
             'email' => $this->getEmail(),
             'telefone' => $this->getTelefone(),
-            'senha' => $this->getSenha()           
+            'senha' => $this->getSenha(),
+            'genero' => $this->getGenero()->toJson(),
+            'visibilidade' => $this->getVisibilidade()->toJson(),
+            'mostrarTelefone' => $this->getMostrarTelefone(),
+            'mostrarEndereco' => $this->getMostrarEndereco(),
         );
     } 
 }

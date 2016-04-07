@@ -37,40 +37,69 @@ class UsuarioController extends Controller {
     function salvar() {
         $usuario = new UsuarioBLL();
 
-        echo json_encode($usuario->insert($_POST));    
+        echo json_encode($usuario->insert($_POST));
     }
-    
+
     function alterarSenha() {
-        if(empty($_SESSION['tipo'] or $_SESSION['tipo'] != 'usuario'))
-            $this->AccessDenied ();
+        if (empty($_SESSION['tipo'] or $_SESSION['tipo'] != 'usuario'))
+            $this->AccessDenied();
         else
             $this->View('usuario/alterarsenha');
     }
     
+    function atualizarPerfil() {
+        if (empty($_SESSION['tipo'] or $_SESSION['tipo'] != 'usuario'))
+            $this->AccessDenied();
+        else
+            $this->View('usuario/atualizarperfil');
+    }
+
     function alterarEmail() {
-        if(empty($_SESSION['tipo'] or $_SESSION['tipo'] != 'usuario'))
-            $this->AccessDenied ();
+        if (empty($_SESSION['tipo'] or $_SESSION['tipo'] != 'usuario'))
+            $this->AccessDenied();
         else
             $this->View('usuario/alteraremail');
     }
-    
+
     function atualizarEmail() {
-        if(empty($_SESSION['tipo'] or $_SESSION['tipo'] != 'usuario'))
+        if (empty($_SESSION['tipo'] or $_SESSION['tipo'] != 'usuario'))
             $this->AccessDenied();
         else {
             $bll = new UsuarioBLL();
-                       
+
             echo json_encode($bll->atualizarEmail($_POST));
         }
     }
-    
+
     function atualizarSenha() {
-        if(empty($_SESSION['tipo'] or $_SESSION['tipo'] != 'usuario'))
+        if (empty($_SESSION['tipo'] or $_SESSION['tipo'] != 'usuario'))
             $this->AccessDenied();
         else {
             $bll = new UsuarioBLL();
-                       
+
             echo json_encode($bll->atualizarSenha($_POST));
         }
+    }
+
+    function perfil($id) {
+        if (empty($_SESSION['tipo'] or $_SESSION['tipo'] != 'usuario'))
+            $this->AccessDenied();
+        else {
+
+            $bll = new UsuarioBLL();
+            $usuario = $bll->getById($id);
+            if(!empty($usuario))
+                $this->View('usuario/perfil', $usuario);
+            else
+                $this->View('naoencontrada');
+        }
+    }
+    
+    function buscarUsuario() {
+        $bll = new UsuarioBLL();
+        
+        $usuario = $bll->getById($_SESSION['id']);
+        
+        echo json_encode($usuario->toJson());
     }
 }

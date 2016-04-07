@@ -2,7 +2,7 @@
 
 require_once(DAO . '/UsuarioDAO.php');
 
-require_once(BLL . '/CidadeBLL.php');
+require_once(BLL . '/UsuarioBLL.php');
 require_once(BLL . '/GeneroBLL.php');
 require_once(BLL . '/VisibilidadeBLL.php');
 /*
@@ -117,8 +117,8 @@ class UsuarioBLL {
             if (empty($dados)) {
                 return "!vazio";
             } else {
-                $cidadeBLL = new CidadeBLL();
-                $cidade = $cidadeBLL->getById($dados['cidade']);
+                $usuarioBLL = new UsuarioBLL();
+                $usuario = $usuarioBLL->getById($dados['usuario']);
 
                 $generoBLL = new GeneroBLL();
                 $genero = $generoBLL->getById($dados['genero']);
@@ -132,7 +132,7 @@ class UsuarioBLL {
                 $usuario->setApelido($dados['apelido']);
                 $usuario->setCep($dados['cep']);
                 $usuario->setAtivo(1);
-                $usuario->setCidade($cidade);
+                $usuario->setUsuario($usuario);
                 $usuario->setDataNascimento(new \DateTime($dados['dt_nascimento']));
                 $usuario->setMostrarEndereco($dados['mostrar_endereco']);
                 $usuario->setMostrarTelefone($dados['mostrar_telefone']);
@@ -165,4 +165,11 @@ class UsuarioBLL {
         }
     }
 
+    function getById($id) {
+        $dao = new UsuarioDAO();
+
+        $usuario = $dao->getById($id);
+
+        return $usuario;
+    }
 }

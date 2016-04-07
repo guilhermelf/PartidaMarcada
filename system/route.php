@@ -1,6 +1,5 @@
 <?php
 class Route {
-
     protected function route($url, $explode) {
         $ultimoExplode = array_pop($explode);
         $type = explode(".", $ultimoExplode);
