@@ -40,7 +40,7 @@
     </ul>
 
     <div class="app-bar-element place-right active-container">
-        <span class="dropdown-toggle active-toggle"><span class="mif-cog"></span> <?php echo $usuario;?></span>
+        <span class="dropdown-toggle active-toggle"><span class="mif-cog"></span> <?php echo $usuario; ?></span>
         <div class="app-bar-drop-container padding10 place-right no-margin-top block-shadow fg-dark" data-role="dropdown" data-no-close="true" style="width: 220px; display: block;">
             <h2 class="text-light">Opções</h2>
             <ul class="unstyled-list fg-dark">
@@ -53,3 +53,18 @@
         </div>
     </div>
 </div>
+<script>
+//deslogar usuário
+    $("#btn-usuario-deslogar").on('click', function () {
+
+        $.ajax({
+            type: "get",
+            url: "/partidamarcada/usuario/deslogar",
+            success: function (resposta) {
+                window.location.href = "/partidamarcada";
+            }
+        });
+
+        return false;
+    });
+</script>

@@ -5,6 +5,7 @@
         <group>
             <file>file:/C:/xampp/htdocs/PartidaMarcada/system/controller.php</file>
             <file>file:/C:/xampp/htdocs/PartidaMarcada/app/models/bll/UsuarioBLL.php</file>
+            <file>file:/C:/xampp/htdocs/PartidaMarcada/app/views/usuario/perfilView.php</file>
             <file>file:/C:/xampp/htdocs/PartidaMarcada/app/views/usuario/indexView.php</file>
             <file>file:/C:/xampp/htdocs/PartidaMarcada/app/models/dao/CidadeDAO.php</file>
             <file>file:/C:/xampp/htdocs/PartidaMarcada/app/models/dao/UsuarioDAO.php</file>
@@ -13,7 +14,9 @@
             <file>file:/C:/xampp/htdocs/PartidaMarcada/app/controllers/EstadoController.php</file>
             <file>file:/C:/xampp/htdocs/PartidaMarcada/app/models/vo/Usuario.php</file>
             <file>file:/C:/xampp/htdocs/PartidaMarcada/app/controllers/UsuarioController.php</file>
+            <file>file:/C:/xampp/htdocs/PartidaMarcada/app/views/usuario/atualizarPerfilView.php</file>
             <file>file:/C:/xampp/htdocs/PartidaMarcada/app/models/bll/EstadoBLL.php</file>
+            <file>file:/C:/xampp/htdocs/PartidaMarcada/app/controllers/PisoController.php</file>
             <file>file:/C:/xampp/htdocs/PartidaMarcada/system/define.php</file>
             <file>file:/C:/xampp/htdocs/PartidaMarcada/system/system.php</file>
             <file>file:/C:/xampp/htdocs/PartidaMarcada/app/controllers/VisibilidadeController.php</file>
@@ -25,7 +28,9 @@
             <file>file:/C:/xampp/htdocs/PartidaMarcada/components/css/style.css</file>
             <file>file:/C:/xampp/htdocs/PartidaMarcada/app/controllers/ParqueEsportivoController.php</file>
             <file>file:/C:/xampp/htdocs/PartidaMarcada/app/models/bll/GeneroBLL.php</file>
+            <file>file:/C:/xampp/htdocs/PartidaMarcada/app/views/header/headerQuadra.php</file>
             <file>file:/C:/xampp/htdocs/PartidaMarcada/app/controllers/CidadeController.php</file>
+            <file>file:/C:/xampp/htdocs/PartidaMarcada/app/models/dao/ParqueEsportivoDAO.php</file>
             <file>file:/C:/xampp/htdocs/PartidaMarcada/app/models/bll/CidadeBLL.php</file>
             <file>file:/C:/xampp/htdocs/PartidaMarcada/app/controllers/IndexController.php</file>
             <file>file:/C:/xampp/htdocs/PartidaMarcada/app/views/indexView.php</file>
@@ -34,6 +39,8 @@
             <file>file:/C:/xampp/htdocs/PartidaMarcada/app/views/usuario/alterarEmailView.php</file>
             <file>file:/C:/xampp/htdocs/PartidaMarcada/app/controllers/GeneroController.php</file>
             <file>file:/C:/xampp/htdocs/PartidaMarcada/app/controllers/ValorController.php</file>
+            <file>file:/C:/xampp/htdocs/PartidaMarcada/app/views/quadra/indexView.php</file>
+            <file>file:/C:/xampp/htdocs/PartidaMarcada/app/views/quadra/cadastrarView.php</file>
             <file>file:/C:/xampp/htdocs/PartidaMarcada/app/models/bll/VisibilidadeBLL.php</file>
             <file>file:/C:/xampp/htdocs/PartidaMarcada/system/start.php</file>
             <file>file:/C:/xampp/htdocs/PartidaMarcada/app/util/Retorno.php</file>

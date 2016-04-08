@@ -13,8 +13,8 @@
         <li>
             <a class="dropdown-toggle" href="/partidamarcada/parqueesportivo">Quadras</a>
             <ul class="d-menu" data-role="dropdown">
-                <li><a href="/partidamarcada/parqueesportivo/cadastrar">Entrar no sistema</a></li>
-                <li><a href="/partidamarcada/parqueesportivo/logar">Cadastrar</a></li>
+                <li><a href="/partidamarcada/parqueesportivo/entrar">Entrar no sistema</a></li>
+                <li><a href="/partidamarcada/parqueesportivo/cadastrar">Cadastrar</a></li>
             </ul>
         </li>
         <li><a href="">Sobre</a></li>
@@ -45,3 +45,33 @@
         </div>
     </div>
 </div>
+<script>
+//logar usuário
+    $('#login-usuario').on('click', '.btn-usuario-logar', function () {
+        $.ajax({
+            type: "post",
+            dataType: 'json',
+            url: "/partidamarcada/usuario/logar",
+            data: $("#login-usuario").serialize(),
+            success: function (resposta) {
+
+                if (resposta.status) {
+                    $(".resposta-titulo").html("Sucesso");
+                    $(".resposta-mensagem").html(resposta.mensagem);
+                    $("#resposta").attr('style', 'background-color: #60a917; color: #fff;');
+
+                    window.location.href = "/partidamarcada/usuario";
+                } else {
+                    $(".resposta-titulo").html("Erro");
+                    $(".resposta-mensagem").html(resposta.mensagem);
+                    $("#resposta").attr('style', 'background-color: #ce352c; color: #fff;');
+                }
+
+                $("#resposta").data('dialog').open();
+            }
+        });
+        return false;
+    });
+    
+    
+</script>

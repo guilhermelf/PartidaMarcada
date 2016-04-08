@@ -17,10 +17,20 @@
 
             <p class="resposta-mensagem">aa</p>
         </div>
-        <?php include 'app/views/header/header.php'; ?>
+        <?php include 'app/views/header/headerQuadra.php'; ?>
         <div class="conteudo">
-            
-            <h3>Quadras</h3>
+            <div class="contorno">
+                <div class="accordion large-heading" data-role="accordion">
+                    <div class="frame active">
+                        <div class="heading">Partidas futuras <span class="mif-calendar icon"></span></div>
+                        <div class="content">Frame content</div>
+                    </div>
+                    <div class="frame active ">
+                        <div class="heading">Avaliações pendentes <span class="mif-pencil icon"></div>
+                        <div class="content">Módulo ainda não desenvolvido.</div>
+                    </div>
+                </div>
+            </div>
         </div>
     </body>
 </html>

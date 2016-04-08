@@ -11,13 +11,46 @@
         <script src="/partidamarcada/components/metro-ui-css/build/js/metro.js"></script>
         <title>PartidaMarcada.com</title>
     </head>
+    <script>
+        $(document).ready(function () {
+            //atualizar senha de usuário
+            $("#btn-usuario-alterarsenha").on('click', function () {
+
+                $.ajax({
+                    type: "post",
+                    dataType: 'json',
+                    data: $("#form-usuario-alterarsenha").serialize(),
+                    url: "/partidamarcada/usuario/atualizarSenha",
+                    success: function (resposta) {
+                        if (resposta.status) {
+                            $(".resposta-titulo").html("Sucesso");
+                            $("#resposta").attr('style', 'background-color: #60a917; color: #fff;');
+                            setTimeout(function () {
+                                window.location.href = "/partidamarcada/usuario";
+                            }, 2000);
+                        } else {
+                            $(".resposta-titulo").html("Erro");
+                            $("#resposta").attr('style', 'background-color: #ce352c; color: #fff;');
+                        }
+                        $(".resposta-mensagem").html(resposta.mensagem);
+
+
+                        $("#resposta").data('dialog').open();
+                        console.log(resposta);
+                    }
+                });
+
+                return false;
+            });
+        });
+    </script>
     <body>
         <div data-role="dialog" data-close-button="true" data-overlay="true" id="resposta" class="padding20">
             <h3 class="resposta-titulo">aa</h3>
 
             <p class="resposta-mensagem">aa</p>
         </div>
-        
+
         <?php include 'app/views/header/headerUsuario.php'; ?>
         <div class="conteudo">
 

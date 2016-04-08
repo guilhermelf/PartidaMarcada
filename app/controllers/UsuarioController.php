@@ -80,6 +80,17 @@ class UsuarioController extends Controller {
             echo json_encode($bll->atualizarSenha($_POST));
         }
     }
+    
+    function atualizar() {
+        if (empty($_SESSION['tipo'] or $_SESSION['tipo'] != 'usuario'))
+            $this->AccessDenied();
+        else {
+            $bll = new UsuarioBLL();
+
+            echo json_encode($bll->update($_POST));
+            
+        }
+    }
 
     function perfil($id) {
         if (empty($_SESSION['tipo'] or $_SESSION['tipo'] != 'usuario'))

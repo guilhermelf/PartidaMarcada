@@ -43,4 +43,14 @@ class ParqueEsportivoDAO {
             return false;
         }   
     }
+    
+    function logar($email, $senha) {
+        try {
+            $parqueEsportivo = DataBase::getFactory()->getRepository('ParqueEsportivo')->findOneBy(array('email' => $email, 'senha' => $senha));
+             
+            return (empty($parqueEsportivo) ? false : $parqueEsportivo);
+        } catch (Exception $ex) {
+            return false;
+        }  
+    }
 }

@@ -11,11 +11,6 @@
         <script src="/partidamarcada/components/metro-ui-css/build/js/metro.js"></script>
         <title>PartidaMarcada.com</title>
     </head>
-    <script>
-        buscarEstados();
-        buscarGeneros();
-        buscarVisibilidades();
-    </script>
     <body>
         <div data-role="dialog" data-close-button="true" data-overlay="true" id="resposta" class="padding20">
             <h3 class="resposta-titulo"></h3>
@@ -157,7 +152,7 @@
                                 </div>
                                 <!-- input[type=password] -->
                                 <div class="cell">
-                                    <label>telefone</label>
+                                    <label>Telefone</label>
                                     <div class="input-control cell text full-size">                      
                                         <input type="text" name="telefone">
                                     </div>
@@ -200,5 +195,10 @@
         </div>
     </div>
 </div>
+<script>
+    buscarVisibilidades();
+    buscarEstados();
+    buscarGeneros();
+</script>
 </body>
 </html>

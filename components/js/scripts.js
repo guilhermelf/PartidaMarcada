@@ -11,102 +11,6 @@ $(document).ready(function () {
         return false;
     });
 
-    //logar usuário
-    $('#login-usuario').on('click', '.btn-usuario-logar', function () {
-        $.ajax({
-            type: "post",
-            dataType: 'json',
-            url: "/partidamarcada/usuario/logar",
-            data: $("#login-usuario").serialize(),
-            success: function (resposta) {
-
-                if (resposta.status) {
-                    $(".resposta-titulo").html("Sucesso");
-                    $(".resposta-mensagem").html(resposta.mensagem);
-                    $("#resposta").attr('style', 'background-color: #60a917; color: #fff;');
-
-                    window.location.href = "/partidamarcada/usuario";
-                } else {
-                    $(".resposta-titulo").html("Erro");
-                    $(".resposta-mensagem").html(resposta.mensagem);
-                    $("#resposta").attr('style', 'background-color: #ce352c; color: #fff;');
-                }
-
-                $("#resposta").data('dialog').open();
-            }
-        });
-
-        return false;
-    });
-
-    //deslogar usuário
-    $("#btn-usuario-deslogar").on('click', function () {
-
-        $.ajax({
-            type: "get",
-            url: "/partidamarcada/usuario/deslogar",
-            success: function (resposta) {
-                window.location.href = "/partidamarcada";
-            }
-        });
-
-        return false;
-    });
-
-    //atualizar senha de usuário
-    $("#btn-usuario-alterarsenha").on('click', function () {
-
-        $.ajax({
-            type: "post",
-            dataType: 'json',
-            data: $("#form-usuario-alterarsenha").serialize(),
-            url: "/partidamarcada/usuario/atualizarSenha",
-            success: function (resposta) {
-                if (resposta.status) {
-                    $(".resposta-titulo").html("Sucesso");
-                    $("#resposta").attr('style', 'background-color: #60a917; color: #fff;');
-                } else {
-                    $(".resposta-titulo").html("Erro");
-                    $("#resposta").attr('style', 'background-color: #ce352c; color: #fff;');
-                }
-                $(".resposta-mensagem").html(resposta.mensagem);
-
-
-                $("#resposta").data('dialog').open();
-                console.log(resposta);
-            }
-        });
-
-        return false;
-    });
-
-    //atualizar e-mail de usuário
-    $("#btn-usuario-alteraremail").on('click', function () {
-
-        $.ajax({
-            type: "post",
-            dataType: 'json',
-            data: $("#form-usuario-alteraremail").serialize(),
-            url: "/partidamarcada/usuario/atualizarEmail",
-            success: function (resposta) {
-                if (resposta.status) {
-                    $(".resposta-titulo").html("Sucesso");
-                    $("#resposta").attr('style', 'background-color: #60a917; color: #fff;');
-                } else {
-                    $(".resposta-titulo").html("Erro");
-                    $("#resposta").attr('style', 'background-color: #ce352c; color: #fff;');
-                }
-                $(".resposta-mensagem").html(resposta.mensagem);
-
-
-                $("#resposta").data('dialog').open();
-                console.log(resposta);
-            }
-        });
-
-        return false;
-    });
-
     //cadastrar usuário
     $("#btn-usuario-cadastrar").on('click', function () {
 
@@ -116,6 +20,36 @@ $(document).ready(function () {
             data: $("#form-usuario-cadastrar").serialize(),
             url: "/partidamarcada/usuario/salvar",
             success: function (resposta) {
+                $(".resposta-mensagem").html(resposta.mensagem);
+
+                if (resposta.status) {
+                    $(".resposta-titulo").html("Sucesso");
+                    $("#resposta").data('dialog').open();
+                    setTimeout(function () {
+                        window.location.href = "/partidamarcada"
+                    }, 2000);
+                    $("#resposta").attr('style', 'background-color: #60a917; color: #fff;');
+                } else {
+                    $(".resposta-titulo").html("Erro");
+                    $("#resposta").attr('style', 'background-color: #ce352c; color: #fff;');
+                    $("#resposta").data('dialog').open();
+                }
+                
+
+                console.log(resposta);
+            }
+        });
+    });
+
+    //cadastrar parque esportivo
+    $("#btn-quadra-cadastrar").on('click', function () {
+
+        $.ajax({
+            type: "post",
+            dataType: 'json',
+            data: $("#form-quadra-cadastrar").serialize(),
+            url: "/partidamarcada/parqueesportivo/salvar",
+            success: function (resposta) {
 
                 if (resposta.status) {
                     $(".resposta-titulo").html("Sucesso");
@@ -126,7 +60,6 @@ $(document).ready(function () {
                 }
                 $(".resposta-mensagem").html(resposta.mensagem);
 
-
                 $("#resposta").data('dialog').open();
                 console.log(resposta);
             }
@@ -135,15 +68,16 @@ $(document).ready(function () {
 
     //listar cidades ao alterar estado
     $("#select-estado").on('change', function () {
-        buscarCidades($(this).val());
+        $('#select-cidade').val(""),
+                buscarCidades($(this).val());
     });
 });
 
 //buscar estados
 function buscarEstados() {
+
     $('.estados').remove();
     $.ajax({
-        async: false,
         type: "post",
         url: "/partidamarcada/estado/listar",
         dataType: "json",
@@ -157,9 +91,8 @@ function buscarEstados() {
 
 //buscar cidades
 function buscarCidades(estado) {
-
+    $('.cidades').remove();
     $.ajax({
-        async: false,
         type: "post",
         data: {estado: estado},
         url: "/partidamarcada/cidade/listarPorEstado",
@@ -177,7 +110,6 @@ function buscarCidades(estado) {
 function buscarGeneros() {
     $('.generos').remove();
     $.ajax({
-        async: false,
         type: "post",
         url: "/partidamarcada/genero/listar",
         dataType: "json",
@@ -193,7 +125,6 @@ function buscarGeneros() {
 function buscarVisibilidades() {
     $('.visibilidades').remove();
     $.ajax({
-        async: false,
         type: "post",
         url: "/partidamarcada/visibilidade/listar",
         dataType: "json",
@@ -208,13 +139,12 @@ function buscarVisibilidades() {
 //buscar usuário
 function buscarUsuario() {
     $.ajax({
-        async: false,
         type: "post",
         url: "/partidamarcada/usuario/buscarUsuario",
         dataType: 'json',
         success: function (resposta) {
-            console.log(resposta);
 
+            buscarCidades(resposta.cidade.estado.id);
             $('#nome').val(resposta.nome);
             $('#sobrenome').val(resposta.sobrenome);
             $('#apelido').val(resposta.apelido);
@@ -224,13 +154,13 @@ function buscarUsuario() {
             $('#telefone').val(resposta.telefone);
             $('#dt_nascimento').val(resposta.dataNascimento);
             $('#select-estado').val(resposta.cidade.estado.id);
-            buscarCidades(resposta.cidade.estado.id);
-            $('#select-cidade').val(resposta.cidade.id);
             $('#cep').val(resposta.cep);
             $('#select-visibilidade').val(resposta.visibilidade.id);
             $('#select-genero').val(resposta.genero.id);
-            resposta.mostrarTelefone ? $('#mostrar_telefone').val(1) : $('#mostrar_telefone').val(0) ;
-            resposta.mostrarEndereco ? $('#mostrar_endereco').val(1) : $('#mostrar_endereco').val(0) ;
+            resposta.mostrarTelefone ? $('#mostrar_telefone').val(1) : $('#mostrar_telefone').val(0);
+            resposta.mostrarEndereco ? $('#mostrar_endereco').val(1) : $('#mostrar_endereco').val(0);
+
+            $('#id-cidade').val(resposta.cidade.id);
         }
     });
 }

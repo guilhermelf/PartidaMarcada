@@ -13,80 +13,78 @@
     </head>
     <script>
         $(document).ready(function () {
-            //atualizar e-mail de usuário
-            $("#btn-usuario-alteraremail").on('click', function () {
 
+            //logar quadra
+            $('#btn-quadra-logar').on('click', function () {
                 $.ajax({
                     type: "post",
                     dataType: 'json',
-                    data: $("#form-usuario-alteraremail").serialize(),
-                    url: "/partidamarcada/usuario/atualizarEmail",
+                    url: "/partidamarcada/parqueEsportivo/logar",
+                    data: $("#form-quadra-logar").serialize(),
                     success: function (resposta) {
+                        console.log(resposta);
+
                         if (resposta.status) {
                             $(".resposta-titulo").html("Sucesso");
+                            $(".resposta-mensagem").html(resposta.mensagem);
                             $("#resposta").attr('style', 'background-color: #60a917; color: #fff;');
-                            setTimeout(function () {
-                                window.location.href = "/partidamarcada/usuario";
-                            }, 2000);
+                            $("#resposta").data('dialog').open();
+                            setTimeout(function() {
+                                window.location.href = "/partidamarcada/parqueesportivo";
+                            }, 2000);                           
                         } else {
                             $(".resposta-titulo").html("Erro");
+                            $(".resposta-mensagem").html(resposta.mensagem);
                             $("#resposta").attr('style', 'background-color: #ce352c; color: #fff;');
+
+                            $("#resposta").data('dialog').open();
                         }
-                        $(".resposta-mensagem").html(resposta.mensagem);
-
-
-                        $("#resposta").data('dialog').open();
-                        console.log(resposta);
                     }
                 });
-
                 return false;
             });
         });
     </script>
     <body>
         <div data-role="dialog" data-close-button="true" data-overlay="true" id="resposta" class="padding20">
-            <h3 class="resposta-titulo">aa</h3>
+            <h3 class="resposta-titulo"></h3>
 
-            <p class="resposta-mensagem">aa</p>
-        </div>
+            <p class="resposta-mensagem"></p>
+        </div>       
 
-        <?php include 'app/views/header/headerUsuario.php'; ?>
+        <?php include 'app/views/header/header.php'; ?>
         <div class="conteudo">
 
             <div class="form-cadastro grid">
-                <form id="form-usuario-alteraremail">
-                    <br />
-                    <br />
-                    <h4>Alterar e-mail</h4>
+                <form id="form-quadra-logar">
+                    <h2>Acessar o módulo quadra</h2>
                     <hr />
-
-
-                    <div class="row cells3">
+                    <br />
+                    <h4>Informações de login</h4>
+                    <hr />
+                    <div class="row cells2">
                         <div class="cell">
-                            <label>E-mail atual</label>
+                            <label>E-mail</label>
                             <div class="input-control text full-size">                       
-                                <input type="text" name="email">
-                            </div>
-                        </div>
-                        <div class="cell">
-                            <label>Novo e-mail</label>
-                            <div class="input-control text full-size">                       
-                                <input type="text" name="novo_email">
+                                <input type="text" name="quadra-email">
                             </div>
                         </div>
 
-                        <div class="cell">
-                            <label>Confirmar novo e-mail</label>
-                            <div class="input-control text full-size">                       
-                                <input type="text" name="novo_email2">
+                        <div class="row cells2">
+                            <div class="cell">
+                                <label>Senha</label>
+                                <div class="input-control password full-size">                       
+                                    <input type="password" name="quadra-senha">
+                                </div>
                             </div>
+
                         </div>
                     </div>
                 </form>
-                <input type="button" class="full-size bg-lightBlue" value="Alterar" id="btn-usuario-alteraremail">
+                <input type="button" class="full-size bg-lightBlue" value="Entrar" id="btn-quadra-logar">
             </div>
         </div>
     </div>
+</div>
 </body>
 </html>
