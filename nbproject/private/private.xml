@@ -4,18 +4,42 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/xampp/htdocs/PartidaMarcada/system/controller.php</file>
-            <file>file:/C:/xampp/htdocs/PartidaMarcada/app/models/vo/Cidade.php</file>
-            <file>file:/C:/xampp/htdocs/PartidaMarcada/app/controllers/IndexController.php</file>
+            <file>file:/C:/xampp/htdocs/PartidaMarcada/app/models/vo/Genero.php</file>
+            <file>file:/C:/xampp/htdocs/PartidaMarcada/app/controllers/AmigoController.php</file>
+            <file>file:/C:/xampp/htdocs/PartidaMarcada/app/models/bll/AmigoBLL.php</file>
+            <file>file:/C:/xampp/htdocs/PartidaMarcada/app/models/bll/UsuarioBLL.php</file>
             <file>file:/C:/xampp/htdocs/PartidaMarcada/app/models/dao/EstadoDAO.php</file>
+            <file>file:/C:/xampp/htdocs/PartidaMarcada/app/views/usuario/perfilView.php</file>
+            <file>file:/C:/xampp/htdocs/PartidaMarcada/app/views/usuario/indexView.php</file>
             <file>file:/C:/xampp/htdocs/PartidaMarcada/app/models/vo/Amigo.php</file>
             <file>file:/C:/xampp/htdocs/PartidaMarcada/app/controllers/QuadraController.php</file>
-            <file>file:/C:/xampp/htdocs/PartidaMarcada/public/403.html</file>
-            <file>file:/C:/xampp/htdocs/PartidaMarcada/app/models/dao/AmigoDAO.php</file>
-            <file>file:/C:/xampp/htdocs/PartidaMarcada/app/views/quadra/quadrasView.php</file>
+            <file>file:/C:/xampp/htdocs/PartidaMarcada/app/models/dao/UsuarioDAO.php</file>
+            <file>file:/C:/xampp/htdocs/PartidaMarcada/app/models/vo/ParqueEsportivo.php</file>
+            <file>file:/C:/xampp/htdocs/PartidaMarcada/app/controllers/EsporteController.php</file>
+            <file>file:/C:/xampp/htdocs/PartidaMarcada/app/controllers/EstadoController.php</file>
+            <file>file:/C:/xampp/htdocs/PartidaMarcada/app/controllers/UsuarioController.php</file>
+            <file>file:/C:/xampp/htdocs/PartidaMarcada/app/models/vo/Usuario.php</file>
+            <file>file:/C:/xampp/htdocs/PartidaMarcada/app/views/usuario/atualizarPerfilView.php</file>
+            <file>file:/C:/xampp/htdocs/PartidaMarcada/app/models/bll/PartidaBLL.php</file>
             <file>file:/C:/xampp/htdocs/PartidaMarcada/system/system.php</file>
+            <file>file:/C:/xampp/htdocs/PartidaMarcada/app/models/vo/Valor.php</file>
             <file>file:/C:/xampp/htdocs/PartidaMarcada/app/models/bll/QuadraBLL.php</file>
             <file>file:/C:/xampp/htdocs/PartidaMarcada/app/controllers/VisibilidadeController.php</file>
-            <file>file:/C:/xampp/htdocs/PartidaMarcada/app/controllers/EstadoController.php</file>
+            <file>file:/C:/xampp/htdocs/PartidaMarcada/app/views/header/headerUsuario.php</file>
+            <file>file:/C:/xampp/htdocs/PartidaMarcada/app/models/vo/Cidade.php</file>
+            <file>file:/C:/xampp/htdocs/PartidaMarcada/public/403.html</file>
+            <file>file:/C:/xampp/htdocs/PartidaMarcada/components/css/style.css</file>
+            <file>file:/C:/xampp/htdocs/PartidaMarcada/app/controllers/ParqueEsportivoController.php</file>
+            <file>file:/C:/xampp/htdocs/PartidaMarcada/app/controllers/CidadeController.php</file>
+            <file>file:/C:/xampp/htdocs/PartidaMarcada/app/models/dao/ParqueEsportivoDAO.php</file>
+            <file>file:/C:/xampp/htdocs/PartidaMarcada/app/models/bll/CidadeBLL.php</file>
+            <file>file:/C:/xampp/htdocs/PartidaMarcada/app/controllers/IndexController.php</file>
+            <file>file:/C:/xampp/htdocs/PartidaMarcada/app/views/usuario/amigosView.php</file>
+            <file>file:/C:/xampp/htdocs/PartidaMarcada/app/models/bll/ParqueEsportivoBLL.php</file>
+            <file>file:/C:/xampp/htdocs/PartidaMarcada/app/views/usuario/cadastrarView.php</file>
+            <file>file:/C:/xampp/htdocs/PartidaMarcada/app/models/dao/AmigoDAO.php</file>
+            <file>file:/C:/xampp/htdocs/PartidaMarcada/app/views/quadra/quadrasView.php</file>
+            <file>file:/C:/xampp/htdocs/PartidaMarcada/app/models/bll/EsporteBLL.php</file>
             <file>file:/C:/xampp/htdocs/PartidaMarcada/app/models/dao/QuadraDAO.php</file>
         </group>
     </open-files>

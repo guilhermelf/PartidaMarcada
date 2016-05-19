@@ -85,6 +85,29 @@ class AmigoBLL {
 
         return null;
     }
+    
+    function buscarAmigos() {
+        $bll = new UsuarioBLL;
+        $usuarioLogado = $bll->getById($_SESSION['id']);
+
+        $dao = new AmigoDAO();
+
+        $dados = $dao->getAmigos($usuarioLogado->getId());
+
+        $amizades = [];
+
+        if (empty($dados)) {
+            return 0;
+        } else {
+            foreach ($dados as $value) {
+                $amizades[] = $value->toJson();
+            }
+
+            return json_encode($amizades);
+        }
+
+        return null;
+    }
 
     function insert($dados) {
         try {

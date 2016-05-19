@@ -11,6 +11,14 @@ class UsuarioController extends Controller {
             $this->View('usuario/index');
         }
     }
+    
+    function amigos() {
+        if (empty($_SESSION['tipo']) and $_SESSION['tipo'] != "usuario") {
+            $this->AccessDenied();
+        } else {
+            $this->View('usuario/amigos');
+        }
+    }
 
     function cadastrar() {
         $this->view('./usuario/cadastrar');

@@ -45,6 +45,19 @@ class AmigoDAO {
             return false;
         }  
     }
+    
+    function getAmigos($usuario) {
+        try {
+            $query = DataBase::getFactory()->createQuery("SELECT a FROM Amigo a JOIN a.usuario2 u2 JOIN a.usuario1 u1 WHERE (u1.id = :usuario and a.ativo = '1') OR (u2.id = :usuario and a.ativo = '1')");
+            $query->setParameter('usuario', $usuario);
+            
+            $amizades = $query->getResult();           
+            
+            return (empty($amizades) ? false : $amizades);
+        } catch (Exception $ex) {
+            return false;
+        }  
+    }
 
     static function getById($id) {
         try {

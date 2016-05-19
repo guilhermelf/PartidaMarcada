@@ -47,6 +47,7 @@ body {
     z-index: 1000 !important;
 }
 
-#tabela-amigos-pendentes {
+#tabela-amigos-pendentes,
+#tabela-amigos {
     width: 100%;
 }
