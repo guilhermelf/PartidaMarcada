@@ -8,10 +8,12 @@ and open the template in the editor.
     Author     : Guilherme Longaray
 */
 .conteudo {
+    background-color: #fff;
     width: 70%;
     margin: 0 auto;  
     
-    margin-top: 75px;
+    padding: 70px 30px 0 30px;
+    min-height: 100%;
 }
 
 .form-cadastro {    
@@ -35,3 +37,16 @@ input[type="button"] {color: #fff;}
 }
 
 .perfil-label {font-weight: bold;}
+
+body {
+    background-image: url('../../img/background.jpg');
+}
+
+.app-bar {
+    position: fixed !important;
+    z-index: 1000 !important;
+}
+
+#tabela-amigos-pendentes {
+    width: 100%;
+}

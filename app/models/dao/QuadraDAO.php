@@ -43,4 +43,15 @@ class QuadraDAO {
             return false;
         }   
     }
+    
+    function getByParqueEsportivo($parqueEsportivo) {
+        try {
+            $query = DataBase::getFactory()->createQuery("SELECT q FROM Quadra q WHERE q.parqueEsportivo = " . $parqueEsportivo);
+            $quadras = $query->getResult();
+
+            return (empty($quadras) ? false : $quadras);
+        } catch (Exception $ex) {
+            return false;
+        }
+    }
 }

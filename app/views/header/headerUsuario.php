@@ -1,37 +1,17 @@
 <?php $usuario = $_SESSION['nome']; ?>
 
 <div class="app-bar" id="menu-usuario">
-    <a class="app-bar-element">
-        <span id="toggle-tiles-dropdown" class="mif-apps mif-2x"></span>
-        <div class="app-bar-drop-container"
-             data-role="dropdown"
-             data-toggle-element="#toggle-tiles-dropdown"
-             data-no-close="false" style="width: 324px;">
-            <div class="tile-container bg-white">
-                <div class="tile-small bg-cyan">
-                    <div class="tile-content iconic">
-                        <span class="icon mif-onedrive"></span>
-                    </div>
-                </div>
-                <div class="tile-small bg-yellow">
-                    <div class="tile-content iconic">
-                        <span class="icon mif-google"></span>
-                    </div>
-                </div>
-                <div class="tile-small bg-red">
-                    <div class="tile-content iconic">
-                        <span class="icon mif-facebook"></span>
-                    </div>
-                </div>
-                <div class="tile-small bg-green">
-                    <div class="tile-content iconic">
-                        <span class="icon mif-twitter"></span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </a>
-
+    <span class="app-bar-divider"></span>
+    <ul class="app-bar-menu">
+        <li>
+            <a href="" class="dropdown-toggle"><span class="mif-apps mif-2x"></span> Menu</a>
+            <ul class="d-menu" data-role="dropdown">
+                <li><a href="/partidamarcada/usuario/amigos">Amigos</a></li>
+                
+                <li><a href="/partidamarcada/partida/gerenciar/">Partidas</a></li>
+            </ul>
+        </li>
+    </ul>
     <span class="app-bar-divider"></span>
     <ul class="app-bar-menu">
         <li><a href="/partidamarcada">Partida Marcada</a></li>
@@ -54,7 +34,7 @@
     </div>
 </div>
 <script>
-//deslogar usuário
+    //deslogar usuário
     $("#btn-usuario-deslogar").on('click', function () {
 
         $.ajax({

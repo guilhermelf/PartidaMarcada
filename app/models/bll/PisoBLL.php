@@ -19,4 +19,12 @@ class pisoBLL {
             return json_encode($json);
         }
     }
+    
+    function getById($id) {
+        $dao = new PisoDAO();
+        
+        $piso = $dao->getById($id);
+        
+        return $piso;
+    }
 }

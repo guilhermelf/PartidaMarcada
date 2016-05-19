@@ -19,4 +19,12 @@ class esporteBLL {
             return json_encode($json);
         }
     }
+    
+    function getById($id) {
+        $dao = new EsporteDAO();
+        
+        $esporte = $dao->getById($id);
+        
+        return $esporte;
+    }
 }

@@ -219,7 +219,8 @@ class ParqueEsportivo {
     }
     
     public function toJson() {
-        return array(           
+        return array(        
+            'id' => $this->getId(),
             'nome' => $this->getNome(),
             'cidade' => $this->getCidade()->toJson(),
             'site' => $this->getSite(),

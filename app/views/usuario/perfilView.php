@@ -10,6 +10,61 @@
         <script src="/partidamarcada/components/js/scripts.js"></script>
         <script src="/partidamarcada/components/metro-ui-css/build/js/metro.js"></script>
         <title>PartidaMarcada.com</title>
+        <script>
+            $(document).ready(function () {
+                $('#form-adicionar-amigo').hide();
+                verificarAmizade();
+
+                function verificarAmizade() {
+                    //testar se já existe amizade
+                    $.ajax({
+                        type: "post",
+                        data: $("#form-adicionar-amigo").serialize(),
+                        url: "/partidamarcada/amigo/amizadeExistente",
+                        success: function (resposta) {
+                            console.log(resposta);
+                            if (resposta == 1) {
+                                $('#form-adicionar-amigo').hide();
+                            } else {
+                                $('#form-adicionar-amigo').show();
+                            }
+                        }
+                    });
+                }
+
+                //adicionar amigo
+                $("#btn-adicionar-amigo").on('click', function () {
+                    $.ajax({
+                        type: "post",
+                        dataType: 'json',
+                        data: $("#form-adicionar-amigo").serialize(),
+                        url: "/partidamarcada/amigo/salvar",
+                        success: function (resposta) {
+                            if (resposta.status) {
+                                $(".resposta-titulo").html("Sucesso");
+                                $("#resposta").attr('style', 'background-color: #60a917; color: #fff;');
+                                $(".resposta-mensagem").html(resposta.mensagem);
+
+                                $("#resposta").data('dialog').open();
+                                
+                                setTimeout(function () {
+                                    location.reload()
+                                }, 2000);
+                                
+                            } else {
+                                $(".resposta-titulo").html("Erro");
+                                $("#resposta").attr('style', 'background-color: #ce352c; color: #fff;');
+                                $(".resposta-mensagem").html(resposta.mensagem);
+
+                                $("#resposta").data('dialog').open();
+                            }
+                            console.log(resposta);
+                        }
+                    });
+                })
+            });
+        </script>
+
     </head>
     <body>
         <div data-role="dialog" data-close-button="true" data-overlay="true" id="resposta" class="padding20">
@@ -20,7 +75,6 @@
 
         <?php include 'app/views/header/headerUsuario.php'; ?>
         <div class="conteudo">
-
             <div class="form-usuario-adicionar grid">
 
                 <h3><?php echo $dados->getNome() . " " . $dados->getSobrenome(); ?><?php echo ($dados->getApelido() != "" ? " (" . $dados->getApelido() . ")" : ""); ?></h3>
@@ -31,9 +85,12 @@
                         <span class="perfil-label">Data de nascimento: </span> <?php echo date_format($dados->getDataNascimento(), 'd/m/Y'); ?>
                     </div>
                     <!-- input[type=password] -->
-                    <div class="cell">
-                        <input type="button" class="bg-lightBlue place-right" value="Adicionar aos amigos" id="btn-usuario-adicionar">
-                    </div>
+                    <form id="form-adicionar-amigo">
+                        <div class="cell">
+                            <input type="button" class="bg-lightBlue place-right" value="Adicionar aos amigos" id="btn-adicionar-amigo">
+                            <input type="hidden" name="usuario" value="<?php echo $dados->getId(); ?>">
+                        </div>
+                    </form>
                 </div>
                 <?php if ($dados->getMostrarEndereco()) { ?>
                     <div class="row cells3">
@@ -62,12 +119,12 @@
                 <h4>Estatísticas</h4>
                 <hr />
                 Módulo ainda não terminado. 
-                
+
                 <br />
                 <br />
                 <h4>Avaliações</h4>
                 <hr />
-                
+
                 Informações gráficas levando em conta as avaliações recebidas dos outros usuários. (Próxima Sprint)
             </div>
         </div>

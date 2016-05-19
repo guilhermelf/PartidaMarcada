@@ -6,22 +6,18 @@
             <a href="" class="dropdown-toggle"><span class="mif-apps mif-2x"></span> Menu</a>
             <ul class="d-menu" data-role="dropdown">
                 <li><a href="/partidamarcada/usuario/cadastrar">Cadastrar usuário</a></li>
+                <li><a href="/partidamarcada/parqueesportivo/cadastrar">Cadastrar quadra</a></li>
+                <li><a href="/partidamarcada/parqueesportivo/entrar">Logar como quadra</a></li>               
             </ul>
         </li>
 
         <li><a href="/partidamarcada">Partida Marcada</a></li>
-        <li>
-            <a class="dropdown-toggle" href="/partidamarcada/parqueesportivo">Quadras</a>
-            <ul class="d-menu" data-role="dropdown">
-                <li><a href="/partidamarcada/parqueesportivo/entrar">Entrar no sistema</a></li>
-                <li><a href="/partidamarcada/parqueesportivo/cadastrar">Cadastrar</a></li>
-            </ul>
-        </li>
+        <li><a href="">Quadras</a></li>
         <li><a href="">Sobre</a></li>
     </ul>
 
     <div class="app-bar-element place-right">
-        <a class="dropdown-toggle fg-white"><span class="mif-enter"></span> Entrar no sistema</a>
+        <a class="dropdown-toggle fg-white"><span class="mif-enter"></span> Login de atleta</a>
         <div class="app-bar-drop-container bg-white fg-dark place-right"
              data-role="dropdown" data-no-close="true">
             <div class="padding20">

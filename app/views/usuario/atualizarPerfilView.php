@@ -113,11 +113,10 @@
                     data: $("#form-usuario-atualizar").serialize(),
                     url: "/partidamarcada/usuario/atualizar",
                     success: function (resposta) {
-                        $(".resposta-mensagem").html(resposta.mensagem);
-                        
                         if (resposta.status) {
                             $(".resposta-titulo").html("Sucesso");
                             $("#resposta").attr('style', 'background-color: #60a917; color: #fff;');
+                            $(".resposta-mensagem").html(resposta.mensagem);
 
                             $("#resposta").data('dialog').open();
 
@@ -127,7 +126,8 @@
                         } else {
                             $(".resposta-titulo").html("Erro");
                             $("#resposta").attr('style', 'background-color: #ce352c; color: #fff;');
-                            
+                            $(".resposta-mensagem").html(resposta.mensagem);
+
                             $("#resposta").data('dialog').open();
                         }
                         console.log(resposta);

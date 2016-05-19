@@ -1,4 +1,5 @@
 <?php
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -18,27 +19,31 @@
  * @Table(name="quadra")
  */
 class Quadra {
-    
-     /**
+
+    public function __construct() {
+        $this->esportes = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
      * @Id
      * @Column(type="integer", name="id_quadra")
      * @GeneratedValue(strategy="AUTO")
      */
     private $id;
-    
+
     /**
      * @ManyToOne(targetEntity="ParqueEsportivo", cascade={"persist"})
      * @JoinColumn(name="id_parque_esportivo", referencedColumnName="id_parque_esportivo")
      */
     private $parqueEsportivo;
-    
+
     /**
      * @ManyToOne(targetEntity="Piso", cascade={"persist"})
      * @JoinColumn(name="id_piso", referencedColumnName="id_piso")
      */
     private $piso;
-    
-     /**
+
+    /**
      * @ManyToMany(targetEntity="Esporte")
      * @JoinTable(name="quadra_esporte",
      *      joinColumns={@JoinColumn(name="id_quadra", referencedColumnName="id_quadra")},
@@ -46,7 +51,7 @@ class Quadra {
      *      )
      */
     private $esportes;
-    
+
     /**
      * @ManyToMany(targetEntity="Valor")
      * @JoinTable(name="quadra_valor",
@@ -55,17 +60,30 @@ class Quadra {
      *      )
      */
     private $valores;
-    
+
     /**
      * @Column(type="integer", name="tamanho")
      */
     private $tamanho;
-    
+
+    /**
+     * @Column(type="integer", name="numero")
+     */
+    private $numero;
+
     /**
      * @Column(type="boolean", name="ativo")
      */
     private $ativo;
-    
+
+    function getNumero() {
+        return $this->numero;
+    }
+
+    function setNumero($numero) {
+        $this->numero = $numero;
+    }
+
     function getId() {
         return $this->id;
     }
@@ -113,7 +131,7 @@ class Quadra {
     function setAtivo($ativo) {
         $this->ativo = $ativo;
     }
-    
+
     function getEsportes() {
         return $this->esportes;
     }
@@ -121,25 +139,36 @@ class Quadra {
     function setEsportes($esportes) {
         $this->esportes = $esportes;
     }
-          
+
+    function addEsporte($esporte) {
+        $this->esportes->add($esporte);
+    }
+
     public function toJson() {
         $valores = [];
         foreach ($this->getValores() as $val) {
             $valores[] = $val->toJson();
         }
-        
+
         $esportes = [];
         foreach ($this->getEsportes() as $esp) {
             $esportes[] = $esp->toJson();
         }
         
+        if(empty($esportes))
+            $esportes = null;
+       
+        if(empty($valores))
+            $valores = null;
+
         return array(
             'id' => $this->getId(),
             'tamanho' => $this->getTamanho(),
+            'numero' => $this->getNumero(),
             'piso' => $this->getPiso()->toJson(),
             'parqueEsportivo' => $this->getParqueEsportivo()->toJson(),
             'ativo' => $this->getAtivo(),
-            'valores' => $valores,
+            'valores' => $valores,         
             'esportes' => $esportes
         );
     }
