@@ -98,7 +98,6 @@
                                 "<tr><td>" + resposta.numero + "</td>" +
                                 "<td>" + resposta.tamanho + "</td>" +
                                 "<td>" + resposta.piso.nome + "</td>" +
-                                "<td>" + esportes + "</td>" +
                                 "</tr>"
                                 );
 
