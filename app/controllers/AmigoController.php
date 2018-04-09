@@ -43,5 +43,10 @@ class AmigoController extends Controller {
 
         echo json_encode($bll->excluirAmizade($_POST));
     }
+    
+    function desfazerAmizade() {
+        $bll = new AmigoBLL();
 
+        echo json_encode($bll->desfazerAmizade($_POST));
+    }
 }

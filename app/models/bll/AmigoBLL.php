@@ -46,6 +46,26 @@ class AmigoBLL {
         }
     }
 
+    function desfazerAmizade($amigo) {
+
+        $bll = new AmigoBLL;
+        $amigo = $bll->getById($amigo['id']);
+
+        $dao = new AmigoDAO();
+
+        if ($dao->delete($amigo)) {
+            Retorno::setStatus(1);
+            Retorno::setMensagem("Amizade desfeita!");
+
+            return Retorno::toJson();
+        } else {
+            Retorno::setStatus(0);
+            Retorno::setMensagem("Erro ao cancelar amizade!");
+
+            return Retorno::toJson();
+        }
+    }
+
     function amizadeExiste($dados) {
 
         $UsuarioBLL = new UsuarioBLL();
@@ -85,28 +105,30 @@ class AmigoBLL {
 
         return null;
     }
-    
+
     function buscarAmigos() {
-        $bll = new UsuarioBLL;
-        $usuarioLogado = $bll->getById($_SESSION['id']);
+        try {
+            $bll = new UsuarioBLL;
+            $usuarioLogado = $bll->getById($_SESSION['id']);
 
-        $dao = new AmigoDAO();
+            $dao = new AmigoDAO();
 
-        $dados = $dao->getAmigos($usuarioLogado->getId());
+            $dados = $dao->getAmigos($usuarioLogado->getId());
 
-        $amizades = [];
+            $amizades = [];
 
-        if (empty($dados)) {
-            return 0;
-        } else {
-            foreach ($dados as $value) {
-                $amizades[] = $value->toJson();
+            if (empty($dados)) {
+                return 0;
+            } else {
+                foreach ($dados as $value) {
+                    $amizades[] = $value->toJson();
+                }
+
+                return json_encode($amizades);
             }
-
-            return json_encode($amizades);
+        } catch (Exception $ex) {
+            return 0;
         }
-
-        return null;
     }
 
     function insert($dados) {

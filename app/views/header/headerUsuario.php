@@ -24,7 +24,7 @@
         <div class="app-bar-drop-container padding10 place-right no-margin-top block-shadow fg-dark" data-role="dropdown" data-no-close="true" style="width: 220px; display: block;">
             <h2 class="text-light">Opções</h2>
             <ul class="unstyled-list fg-dark">
-                <li><a href="/partidamarcada/usuario/perfil/<?php echo $_SESSION['id']; ?>" class="fg-white1 fg-hover-yellow">Meu perfil</a></li>
+                <li><a href="/partidamarcada/usuario/perfil/<?php echo $_SESSION['id']; ?>" class="fg-white1 fg-hover-yellow"><span style="display:none;" id="var-id-usuario"><?php echo $_SESSION['id']; ?></span>Meu perfil</a></li>
                 <li><a href="/partidamarcada/usuario/atualizarperfil" class="fg-white2 fg-hover-yellow">Atualizar perfil</a></li>
                 <li><a href="/partidamarcada/usuario/alteraremail" class="fg-white2 fg-hover-yellow">Alterar e-mail</a></li>
                 <li><a href="/partidamarcada/usuario/alterarsenha" class="fg-white2 fg-hover-yellow">Alterar senha</a></li>

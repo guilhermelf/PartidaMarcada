@@ -21,18 +21,27 @@
 
         <div class="conteudo">
             <div class="carousel" data-role="carousel" data-height="284" data-control-next="<span class='mif-chevron-right'></span>" data-control-prev="<span class='mif-chevron-left'></span>" style="width: 100%; height: 200px;">
-                <div class="slide" style="display: block;"><div class="image-container image-format-fill" style="width: 100%; height: 100%;"><div class="frame"><div class="padding30" style="width: 100%; height: 100%; border-radius: 0px; background-image: url('http://localhost/partidamarcada/img/esportes.jpg'); background-size: cover; background-repeat: no-repeat;">
+                <div class="slide" style="display: block;"><div class="image-container image-format-fill" style="width: 100%; height: 100%;"><div class="frame"><div class="padding30" style="width: 100%; height: 100%; border-radius: 0px; background-image: url('http://localhost/partidamarcada/img/futebol.jpg'); background-size: cover; background-repeat: no-repeat;">
                                 <h2>Partida Marcada</h2>
                                 <p>
                                     Bem vindo ao Partida Marcada! Portal para organização de jogos.
-                                </p></div></div></div></div>
-                <div class="slide" style="display: block;"><div class="image-container image-format-fill" style="width: 100%; height: 100%;"><div class="frame"><div class="padding30" style="width: 100%; height: 100%; border-radius: 0px; background-image: url('http://localhost/partidamarcada/img/sintetico.jpg'); background-size: cover; background-repeat: no-repeat;">
+                                </p></div></div>
+                    </div></div>
+                <div class="slide" style="display: block;"><div class="image-container image-format-fill" style="width: 100%; height: 100%;"><div class="frame"><div class="padding30" style="width: 100%; height: 100%; border-radius: 0px; background-image: url('http://localhost/partidamarcada/img/tenis.jpg'); background-size: cover; background-repeat: no-repeat;">
                                 <h2>First slide</h2>
                                 <p>
                                     Carousel :: Metro UI CSS - The front-end framework for developing projects on the web in Windows Metro Style
                                 </p></div></div></div></div>
-                <div class="slide" style="display: block; left: 0px;"><div class="image-container image-format-fill" style="width: 100%; height: 100%;"><div class="frame"><div class="padding30" style="width: 100%; height: 100%; border-radius: 0px; background-image: url(&quot;images/3.jpg&quot;); background-size: cover; background-repeat: no-repeat;"></div></div></div></div>
-                <div class="slide" style="display: block; left: -356px;"><div class="image-container image-format-fill" style="width: 100%; height: 100%;"><div class="frame"><div class="padding30" style="width: 100%; height: 100%; border-radius: 0px; background-image: url(&quot;images/4.jpg&quot;); background-size: cover; background-repeat: no-repeat;"></div></div></div></div>
+               <div class="slide" style="display: block;"><div class="image-container image-format-fill" style="width: 100%; height: 100%;"><div class="frame"><div class="padding30" style="width: 100%; height: 100%; border-radius: 0px; background-image: url('http://localhost/partidamarcada/img/basquete.jpg'); background-size: cover; background-repeat: no-repeat;">
+                                <h2>First slide</h2>
+                                <p>
+                                    Carousel :: Metro UI CSS - The front-end framework for developing projects on the web in Windows Metro Style
+                                </p></div></div></div></div>
+                <div class="slide" style="display: block;"><div class="image-container image-format-fill" style="width: 100%; height: 100%;"><div class="frame"><div class="padding30" style="width: 100%; height: 100%; border-radius: 0px; background-image: url('http://localhost/partidamarcada/img/handebol.jpg'); background-size: cover; background-repeat: no-repeat;">
+                                <h2>First slide</h2>
+                                <p>
+                                    Carousel :: Metro UI CSS - The front-end framework for developing projects on the web in Windows Metro Style
+                                </p></div></div></div></div>
                 <div class="carousel-bullets"><a class="carousel-bullet" href="javascript:void(0)" data-num="0"></a><a class="carousel-bullet" href="javascript:void(0)" data-num="1"></a><a class="carousel-bullet bullet-on" href="javascript:void(0)" data-num="2"></a><a class="carousel-bullet" href="javascript:void(0)" data-num="3"></a></div><span class="carousel-switch-next"><span class="mif-chevron-right"></span></span><span class="carousel-switch-prev"><span class="mif-chevron-left"></span></span></div>
             <br />
             <h1 class="align-center">Bem vindo ao partida marcada</h1>

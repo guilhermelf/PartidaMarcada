@@ -220,4 +220,26 @@ class UsuarioBLL {
 
         return $usuario;
     }
+
+    function pesquisar($dados) {
+        try {
+            $dao = new UsuarioDAO();
+
+            $usuarios = $dao->pesquisar($dados);
+            
+            $json = [];
+            if (empty($usuarios)) {
+                return "vazio!";
+            } else {
+                foreach ($usuarios as $usuario) {
+                    $json[] = $usuario->toJson();
+                }
+
+                return json_encode($json);
+            }
+        } catch (Exception $ex) {
+            return $ex->getMessage();
+        }
+    }
+
 }

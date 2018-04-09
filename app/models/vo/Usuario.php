@@ -249,7 +249,8 @@ class Usuario {
     }
     
     public function toJson() {
-        return array(           
+        return array(        
+            'id' => $this->getId(),
             'nome' => $this->getNome(),
             'cidade' => $this->getCidade()->toJson(),
             'sobrenome' => $this->getSobrenome(),

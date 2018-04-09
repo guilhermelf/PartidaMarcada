@@ -11,7 +11,7 @@ class UsuarioController extends Controller {
             $this->View('usuario/index');
         }
     }
-    
+
     function amigos() {
         if (empty($_SESSION['tipo']) and $_SESSION['tipo'] != "usuario") {
             $this->AccessDenied();
@@ -21,7 +21,7 @@ class UsuarioController extends Controller {
     }
 
     function cadastrar() {
-        $this->view('./usuario/cadastrar');
+        $this->View('./usuario/cadastrar');
     }
 
     function logar() {
@@ -54,7 +54,7 @@ class UsuarioController extends Controller {
         else
             $this->View('usuario/alterarsenha');
     }
-    
+
     function atualizarPerfil() {
         if (empty($_SESSION['tipo']) or $_SESSION['tipo'] != 'usuario')
             $this->AccessDenied();
@@ -88,15 +88,15 @@ class UsuarioController extends Controller {
             echo json_encode($bll->atualizarSenha($_POST));
         }
     }
-    
+
     function atualizar() {
         if (empty($_SESSION['tipo']) or $_SESSION['tipo'] != 'usuario') {
             $this->AccessDenied();
             echo "merda";
         } else {
             $bll = new UsuarioBLL();
-            
-            echo json_encode($bll->update($_POST));         
+
+            echo json_encode($bll->update($_POST));
         }
     }
 
@@ -107,18 +107,28 @@ class UsuarioController extends Controller {
 
             $bll = new UsuarioBLL();
             $usuario = $bll->getById($id);
-            if(!empty($usuario))
+            if (!empty($usuario))
                 $this->View('usuario/perfil', $usuario);
             else
                 $this->View('naoencontrada');
         }
     }
-    
+
     function buscarUsuario() {
         $bll = new UsuarioBLL();
-        
+
         $usuario = $bll->getById($_SESSION['id']);
-        
+
         echo json_encode($usuario->toJson());
+    }
+
+    function pesquisar() {
+        if (empty($_SESSION['tipo']))
+            $this->AccessDenied();
+        else {
+            $bll = new UsuarioBLL();
+
+            echo $bll->pesquisar($_POST);
+        }
     }
 }

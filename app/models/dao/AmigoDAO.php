@@ -55,7 +55,7 @@ class AmigoDAO {
             
             return (empty($amizades) ? false : $amizades);
         } catch (Exception $ex) {
-            return false;
+            return 0;
         }  
     }
 

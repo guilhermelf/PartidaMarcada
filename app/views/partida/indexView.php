@@ -62,7 +62,7 @@
                                 });
                             }
                             $('#tabela-quadras').find('tbody').append(
-                                    "<tr><td>" + v.numero + "</td>" +
+                                    "<tr class='quadras'><td>" + v.numero + "</td>" +
                                     "<td>" + v.tamanho + "</td>" +
                                     "<td>" + v.piso.nome + "</td>" +
                                     "<td>" + esportes + "</td>" +
@@ -149,6 +149,7 @@
                             </tbody>
                         </table>
                     </div>
+                    
                     <div class="cell" id="div-quadra-selecionada" style="display:none;">
                         <br />
                         <label>Quadra</label>
@@ -174,6 +175,7 @@
                             </select>
                         </div>
                     </div>
+                    
                     <input type="hidden" id="cadastrar-quadra" name="quadra" />
                     <input type="button" id="btn-partida-cadastrar"  class="full-size bg-lightBlue" value="Cadastrar partida">
                 </div>
