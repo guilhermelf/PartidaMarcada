@@ -44,4 +44,17 @@ class PartidaDAO {
             return false;
         }
     }
+    
+    function getByUsuario($usuario) {
+        try {
+            $query = DataBase::getFactory()->createQuery("SELECT a FROM Partida a JOIN a.usuario u WHERE u.id = :usuario");
+            $query->setParameter('usuario', $usuario);
+            
+            $partidas = $query->getResult();           
+            
+            return (empty($partidas) ? false : $partidas);
+        } catch (Exception $ex) {
+            return false;
+        }  
+    }
 }

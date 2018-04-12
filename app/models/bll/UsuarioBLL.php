@@ -126,6 +126,8 @@ class UsuarioBLL {
                 $visibilidadeBLL = new VisibilidadeBLL();
                 $visibilidade = $visibilidadeBLL->getById($dados['visibilidade']);
 
+                $data = date('d-m-Y', strtotime($dados['dt_nascimento']));
+                
                 $usuario = new Usuario();
 
                 $usuario->setNome($dados['nome']);
@@ -133,7 +135,7 @@ class UsuarioBLL {
                 $usuario->setCep($dados['cep']);
                 $usuario->setAtivo(1);
                 $usuario->setCidade($cidade);
-                $usuario->setDataNascimento(new \DateTime($dados['dt_nascimento']));
+                $usuario->setDataNascimento(new \DateTime($data));
                 $usuario->setMostrarEndereco($dados['mostrar_endereco']);
                 $usuario->setMostrarTelefone($dados['mostrar_telefone']);
                 $usuario->setDdd($dados['ddd']);

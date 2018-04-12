@@ -1,7 +1,7 @@
 <div class="app-bar">
 
     <span class="app-bar-divider"></span>
-    <ul class="app-bar-menu">
+    <ul class="h-menu">
         <li>
             <a href="" class="dropdown-toggle"><span class="mif-apps mif-2x"></span> Menu</a>
             <ul class="d-menu" data-role="dropdown">

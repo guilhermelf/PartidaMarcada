@@ -27,4 +27,18 @@ class PartidaController extends Controller {
             $this->view('./partida/index');
         }      
     }
+    
+    function getByUsuario() {
+        $bll = new PartidaBLL();
+
+        echo $bll->getByUsuario();
+    }
+    
+    function getById($partidaId) {
+        $bll = new PartidaBLL();
+
+        $quadra = $bll->getById($partidaId);
+    
+        echo json_encode($quadra->toJson());
+    }
 }

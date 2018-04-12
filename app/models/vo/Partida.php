@@ -38,22 +38,22 @@ class Partida {
     private $data;
     
     /**
-     * @Column(type="int", name="inicio")
+     * @Column(type="integer", name="inicio")
      */
     private $inicio;
     
      /**
-     * @Column(type="int", name="final")
+     * @Column(type="integer", name="final")
      */
     private $final;
     
      /**
-     * @Column(type="int", name="numero_jogadores")
+     * @Column(type="integer", name="numero_jogadores")
      */
     private $numeroJogadores;
     
     /**
-     * @Column(type="int", name="publico")
+     * @Column(type="integer", name="publico")
      */
     private $publico;
     

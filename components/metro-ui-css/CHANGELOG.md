@@ -1,157 +1,157 @@
-# Changelog 
+### 4.1.12
++ [x] i18n: add French `fr-FR` locale
 
-## 3.0.14
-* fix tabcontrol frames overflow
-* upd dialog, add utility function showMetroDialog, hideMetroDialog
-* upd dialog, add place option
-* upd dialog, add set content options
-* upd slider, add work with non input target
-* upd slider, add two way binding with target 
-* upd slider, add new Events: onStartChange, onChanged
-* add video player
-* upd slider, add buffer (great for player)
-* fix esc click for full screen video player with mode window
-* add audio player
-* remove large slider
-* redefine slider
-* fix radio-button checked state
-* rewrite colors.less
-* fix pull request #794
-* fix pull request #796
+### 4.1.11
++ [x] Switches: fix shrink for `check` element for `checkbox`, `radio` and `switch`
++ [x] Metro icons font: add loading `ttf` and `svg` font types
 
-## 3.0.13
-* upd treeview for method addLeaf, now method returned li
-* upd bower config
-* init clock plugin
-* fix draggable for preventDefault
-* upd draggable add data-z-index attribute
-* upd f-menu add subclass default-dropdown
-* upd panel remove default padding for panel content
-* add textarea autoresize with max height
-* fix calendar for support const METRO_CURRENT_LOCALE
-* fix tabcontrol frames overflow
-* new font icons (+42)
+### 4.1.10
++ [x] i18n: add `es-MX`, thanks to [rkgarcia](https://github.com/rkgarcia)
++ [x] Inputs: optimize css for `prepend` element
++ [x] Inputs: set height for `input`, `select`, `file` to `36px`
++ [x] App bar: change height to `52px`
 
-## 3.0.12
-* add color schemes for calendar
-* fix bug in calendar after pull-request 785  
+### 4.1.9
++ [x] Typography: fix media for `reduce-*`, `enlarge-*`, `text-align`, `vertical-align`
++ [x] Validator: change rule for `domain` function
++ [x] Validator: fix returned value for `Metro.validator.validate()` 
 
-## 3.0.11
-* add keypad onChange event
-* chg progressBar animation model
-* fix box sizing for FF
-* chg progressBar role to progress and progress method to set
-* chg tabControl role to tabcontrol
-* add option for auto open dialog
-* fix important bug for multi role defining  
-* add draggable plugin
-* upd dialog for creating wizards in
-* upd calendar with pull request [785](https://github.com/olton/Metro-UI-CSS/pull/785)
+### 4.1.8
++ [x] Master: set `overflow: visible` to element
++ [x] Select: add scroll to active option
++ [x] Scheme builder: add style for select active options
++ [x] Panel: fix `icon` place and size
++ [x] Scheme builder: remove `background-color` and `color` from `.table`
++ [x] Buttons: change height to `36px`
++ [x] Master: fix height of pages container when a window is resized
++ [x] Select: change padding and height for internal drop down list items
++ [x] Input file: fix overflow for very long file name
++ [x] Checkbox: fix `line-height` for long caption  
++ [x] Radio: fix `line-height` for long caption
++ [x] Validator: add validation function  `domain`   
 
-## 3.0.10
-* fix modern input initialize with value
-* remove alert for check select2 plugin exists
-* add public methods slideTo, nextSlide, priorSlide for carousel
-* fix carousel method slideToSlide if next index eq current 
-* add rtl support for input controls
-* add input range
-* add new preloaders
-* fix slider value method if target is defined
+### 4.1.7
++ [x] Display: fix order display classes `d-*` 
 
-## 3.0.9
-* add hotkeys binding
-* fix fluent-menu initialize
+### 4.1.6
++ [x] Cube: fix change rules at runtime
++ [x] Cube: add method `toRule(...)` 
++ [x] Lists: add `.custom-list-marker`
++ [x] Lists: return from v3 `.step-list`
++ [x] Typography: add class `.text-underline`
++ [x] Intro: fix docs for meta tags
++ [x] Calendar: fix actions buttons padding
++ [x] Button: change height to `32px`
++ [x] Scheme builder: add `.info-button`, `.image-button`
++ [x] Menu: fix `.t-menu` horizontal dropped down size
++ [x] Color scheme `red-dark`: change secondary background color 
 
-## 3.0.8
-* upd font declaration add sans-serif
-* add responsive for sidebar
-* add tile factor 1.25 for devices with width <= 800px
-* add hint timeout
-* add hint time delay
-* add hotkeys plugin by [John Resig](https://github.com/jeresig)
-* add noConflict support
-* init RTL support (partial)
-* move all media to standalone file metro-responsive
-* add support for [RequireJS](http://forum.metroui.org.ua/viewtopic.php?pid=614#p614)
-* add charm widget
-* add fluent menu 
-* add color schemes module metro-schemes
-* add color schemes for app-bar
-* add color schemes for v-menu
-* add color schemes for d-menu
-* add color schemes for t-menu
-* add color schemes for sidebar
-* fix min width for sidebar2 item
-* add rotate dropdown-toggle marker
-* add onclick event and touch for tile plugin
-* upd touch support for slider
-* upd event binding model for widgets [Event binding](http://metroui.org.ua/events.html)
+### 4.1.5
++ [x] Colors: add `.bd-transparent` class
++ [x] Buttons: add `.info-button` as Github split button
++ [x] Examples: upd github page for `.info-button`
++ [x] App bar: add class `.app-bar-input` for placing inputs
++ [x] Buttons: add class `.hovered` for default button
++ [x] Tabs: all tabs `anchors` now have flex box model 
 
-## 3.0.7
-* add padding for container on mobile devices
-* add handler for fitImage for window resize
-* remove important from app-bar
-* add darcula scheme for app-bar
-* add [Animations](http://metroui.org.ua/animations.html), thx to [Meneses Evandro](https://github.com/MenesesEvandro)
-* add [Metro Icon Font Animations](http://metroui.org.ua/font.html), thx to [Meneses Evandro](https://github.com/MenesesEvandro)
-* add colored bullets for lists
-* add new color classes to set color for before and after
-* add flex-grid
-* add f-menu (flex)
-* add full-size (100%) for odd last cells in grid 
-* add template admin panel with sidebar
-* add offset for cells for grid (default and condensed)
+### 4.1.4
++ [x] Metro icon fonts: update, 34 new icons
 
-## 3.0.6
-* add support user defined onsubmit for validator over data-on-submit attribute
-* add light color for nav-button
-* remove outline for nav-button
-* fix square(round, cycle)-button sizes
-* change calendar min-width to 220px or 13.75rem
-* fix class collapsed for treeview leaf
-* add states for select2
-* upd Metro Icon Fonts (added new 33 icons)
-* fix static rating
-* remove min-width for input
-* add states for table rows
+### 4.1.3
++ [x] Images: change `.img-container` display to `block`
++ [x] Streamer: increase sizes and offsets to 20 intervals
++ [x] App bar: flexible model
++ [x] App bar: fix using `.v-menu` in `.app-bar-container`
++ [x] Examples: Github page 
++ [x] Typography: add class `.no-decor`
++ [x] Less: move default icons data-uri to `include/default-icons`
 
-## 3.0.5
-* fix triggering for input when clear button clicked
-* fix panel heading style bug
-* New widget [Validator](http://metroui.org.ua/validator.html)
-* fix dropdown.js pull-request 768
-* fix full size for modern input
-* carousel: Added duration based timeout to next/prev event 
-* upd tabcontrol docs
-* fix drop shadow for menu for ie9
-* fix appbar dropdown toggle for ie
-* upd treeview for value for check and radio
- 
-## 3.0.4
-* New widget [Keypad](http://metroui.org.ua/keypad.html)
-* fixed float for dataTables
-* return from v2 breadcrumbs type
-* add maxDate for calendar widget
-* fixed set value method for rating
-* upd demo for rating
-* upd calendar, add pre-stored days
-* upd datepicker for pre-stored days
-* add flexible to appbar by [Daniel Milbrandt](http://xiphe.com)
+### 4.1.2
++ [x] Select: add method `val()`
 
-## 3.0.3
-* New widget [Presenter](http://metroui.org.ua/presenter.html)
-* Datepicker - Triggered change event when date is changed. [#761](https://github.com/olton/Metro-UI-CSS/pull/761)
-* upd demo for table
-* upd demo for menus
-* fix small bugs
+### 4.1.1
++ [x] Utils: add method `inObject`
++ [x] Metro.initWidgets: change check rule for defined component
++ [x] Input file: add click on the all elements parts
++ [x] App bar: fix `v-menu` usage
++ [x] Spacing: add `mx-*`, `px-*` classes 
++ [x] Examples: add examples presentation page
++ [x] Examples: add login form example `examples/forms/login.html`
 
-## 3.0.2
-* Optimize important use
-* Alignment version for bower and nuget
+### 4.1.0
++ [x] Side navigation: new component `sidemenu-simple`
++ [x] Button group: new behavior for `one` mode - all unchecked
++ [x] Select: add method `data()` for loading options at `runtime` 
++ [x] Scheme builder: new mixin
++ [x] Schemes: `darcula`, `red-alert`, `red-dark`, `sky-net`
++ [x] Schemes: add documentation.
++ [x] Color: move color classes `bg-*` and `fg-*` to `metro-color.css`
++ [x] Sizing: add classes `.h-vh-*`, `.w-vw-*` (5, 10, 25, 50, 75, 100)
++ [x] Pagination: move to `pagination.less`
++ [x] Breadcrumbs: move to `breadcrumbs.less`
++ [x] Wizard: fix sections height for IE11 and Edge
++ [x] Wizard: add click on complete section to navigate to it
++ [x] Navview: fixed background-color for `.pull-down` and `.holder` for IE11 and Edge 
++ [x] All: fix any minor bugs
++ [x] Examples: Select in runtime `examples/ajax/select.html`
++ [x] Examples: Color module 1 `examples/colors/color-schemes.html`
++ [x] Examples: Color module 2 `examples/colors/color-schemes-2.html`
++ [x] Examples: Color module 3 `examples/colors/color-schemes-3.html`
++ [x] Examples: Cube `examples/cube/cube.html`
++ [x] Examples: Cube custom function `examples/cube/cube-custom-func.html`
++ [x] Examples: Windows `examples/desktop/desktop.html`
++ [x] Examples: Dialogs `examples/dialogs/dialogs.html`
++ [x] Examples: Schemes `examples/schemes/schemes.html`
++ [x] Examples: Tiles `examples/tiles/start.html`
 
-## 3.0.1
-* Create package for Nuget
+### 4.0.10
++ [x] App bar: fix `.app-bar-menu` dropped down for IE11 and Edge
 
-## 3.0.0
-* Stop version 2.x and Start Metro UI CSS v3
-* Register package for Bower
+### 4.0.9
++ [x] Checkbox: refactoring
++ [x] Radio: refactoring
++ [x] Input: fix for IE11 and Edge
++ [x] Ribbon menu: fix for IE11 and Edge
++ [x] ListView: fix for IE11
++ [x] TreeView: fix for IE11 Edge for checkboxes
++ [x] Subsystem: add method `Object.values` special for IE11
+
+### 4.0.8
++ [x] Ribbon menu: fix it for button group
+
+### 4.0.7
++ [x] Button group: fix it
+
+### 4.0.6
++ [x] Dialog: fix method `Metro.dialog.toggle()`
++ [x] Notify: increase `z-index` for default container
++ [x] Window: add observing `data-cls-window` attribute
++ [x] Window: fix observing `data-cls-caption` and `data-cls-content` attribute
++ [x] Window: add method `show()` - this method add class `no-visible` to `window`
++ [x] Window: add method `hide()` - this method remove class `no-visible` from `window`
++ [x] Window: upd documentation
+
+### 4.0.5
++ [x] Tiles: add `.tiles-group` class with sizes subclasses
++ [x] Metro: add methods `reinitPlugin`, `reinitPluginAll`
+
+### 4.0.4
++ [x] Charms: remove `preventDefault` from click event
++ [x] Nuget: change target location for Metro 4
++ [x] Validator: add `radio` and `select` to validation
++ [x] Validator: add function `not`
+
+### 4.0.3
++ [x] Validator: rename event `onValid` to `onValidate`
++ [x] Validator: add events `onErrorForm`, `onValidateForm`
++ [x] Validator: added `checkbox` validation (required function)
+
+### 4.0.2
++ [x] Validator: change rules delimiter to `space` 
+
+### 4.0.1
++ [x] Pickers: fix buttons behavior
+
+### 4.0.0
+Release
+
