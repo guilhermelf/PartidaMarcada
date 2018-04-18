@@ -1,16 +1,16 @@
 # **PartidaMarcada**
 
-**Trabalho de Conclusão do Curso de Análise e Desenvolvimento de Sistemas - Senac RS - 1/2016**
+**Trabalho de Conclusão do Curso de Análise e Desenvolvimento de Sistemas - Senac RS - 1/2018**
 
 **Orientador:** Professor Me. Thiago Motta
 
 **Autor:** Guilherme Longaray de Fraga
 
-####Sobre:
+## Sobre:
 
 Portal para organização de atividades esportivas.
 
-####Tecnologias e ferramentas utilizadas
+## Tecnologias e ferramentas utilizadas
 
 * PHP
 * MySQL
@@ -29,7 +29,7 @@ Portal para organização de atividades esportivas.
 * Google Docs
 * Microsoft Word
 
-####Funcionalidades:
+## Funcionalidades:
 
 * Criar atividades
 * Convidar participantes
