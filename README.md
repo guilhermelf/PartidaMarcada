@@ -6,11 +6,11 @@
 
 **Autor:** Guilherme Longaray de Fraga
 
-######Sobre:
+###### Sobre:
 
 Portal para organização de atividades esportivas.
 
-######Tecnologias e ferramentas utilizadas
+###### Tecnologias e ferramentas utilizadas
 
 * PHP
 * MySQL
@@ -29,7 +29,7 @@ Portal para organização de atividades esportivas.
 * Google Docs
 * Microsoft Word
 
-######Funcionalidades:
+###### Funcionalidades:
 
 * Criar atividades
 * Convidar participantes
