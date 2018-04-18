@@ -51,15 +51,14 @@ class System extends Route {
                     } else {
                         $controller->$action(null);
                     }
-            
                 } else {
                     parent::route($this->_url, $this->_explode);
                 }
             } else {
                 parent::route($this->_url, $this->_explode);
             }
-        } else {
-            parent::route($this->_url, $this->_explode);
+        } else {                            
+            parent::route($this->_url, $this->_explode);           
         }
     }
 }

@@ -1,5 +1,5 @@
 <?php
-require (BLL.'/visibilidadeBLL.php');
+require (BLL.'/VisibilidadeBLL.php');
 
 class VisibilidadeController extends Controller {
        

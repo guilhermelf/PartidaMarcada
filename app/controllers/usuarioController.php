@@ -1,7 +1,6 @@
 <?php
-
-require (BLL . '/UsuarioBLL.php');
-
+    require (BLL . '/UsuarioBLL.php');
+    
 class UsuarioController extends Controller {
 
     function index_action() {
@@ -21,10 +20,11 @@ class UsuarioController extends Controller {
     }
 
     function cadastrar() {
-        $this->View('./usuario/cadastrar');
+        $this->View('usuario/cadastrar');
     }
 
     function logar() {
+        
         if (empty($_POST)) {
             echo "erro";
         } else {

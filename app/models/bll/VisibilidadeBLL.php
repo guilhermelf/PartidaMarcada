@@ -1,5 +1,5 @@
 <?php
-require_once(DAO.'/visibilidadeDAO.php');
+require_once(DAO.'/VisibilidadeDAO.php');
 
 class VisibilidadeBLL {
     function getAll() {

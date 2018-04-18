@@ -1,5 +1,5 @@
 <?php
-require (BLL.'/esporteBLL.php');
+require (BLL.'/EsporteBLL.php');
 
 class esporteController extends Controller {
     function listar() {

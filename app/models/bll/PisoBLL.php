@@ -1,5 +1,5 @@
 <?php
-require_once(DAO.'/pisoDAO.php');
+require_once(DAO.'/PisoDAO.php');
 
 class pisoBLL {
     function getAll() {

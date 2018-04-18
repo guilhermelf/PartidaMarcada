@@ -1,7 +1,6 @@
 <?php
 
 require_once(DAO . '/UsuarioDAO.php');
-
 require_once(BLL . '/CidadeBLL.php');
 require_once(BLL . '/GeneroBLL.php');
 require_once(BLL . '/VisibilidadeBLL.php');

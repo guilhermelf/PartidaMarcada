@@ -1,5 +1,5 @@
 <?php
-require_once(DAO.'/estadoDAO.php');
+require_once(DAO.'/EstadoDAO.php');
 
 class EstadoBLL {
     function getAll() {

@@ -1,5 +1,5 @@
 <?php
-require (BLL.'/estadoBLL.php');
+require (BLL.'/EstadoBLL.php');
 
 class EstadoController extends Controller {
     function listar() {

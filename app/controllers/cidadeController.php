@@ -1,5 +1,5 @@
 <?php
-require (BLL.'/cidadeBLL.php');
+require (BLL.'/CidadeBLL.php');
 
 class CidadeController extends Controller {
     

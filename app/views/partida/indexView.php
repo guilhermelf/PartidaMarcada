@@ -22,6 +22,12 @@
                 $('#div-cadastrar-partida').hide();
                 return false;
             });
+            
+            $('#btn-partida-atualizar-cancelar').on('click', function (){
+                $('#div-partidas').show();
+                $('#div-atualizar-partida').hide();
+                return false;
+            });
 
             //buscar parques esportivos
             $('.parquesEsportivos').remove();
@@ -134,12 +140,12 @@
                                 }                      
 
                                 $('#tabela-quadras').find('tbody').append(
-                                        "<tr class='quadras'><td>" + v.numero + "</td>" +
-                                        "<td>" + v.tamanho + "</td>" +
-                                        "<td>" + v.piso.nome + "</td>" +
-                                        "<td>" + esportes + "</td>" +
-                                        "<td style='text-align:center;'><span title='Selecionar' style='cursor:pointer;' class='btn-selecionar-quadra'>Selecionar</span><span class='id-quadra' style='display:none; cursor:pointer;'>" + v.id + "</span></td>" +
-                                        "</tr>"
+                                    "<tr class='quadras'><td>" + v.numero + "</td>" +
+                                    "<td>" + v.tamanho + "</td>" +
+                                    "<td>" + v.piso.nome + "</td>" +
+                                    "<td>" + esportes + "</td>" +
+                                    "<td style='text-align:center;'><span title='Selecionar' style='cursor:pointer;' class='btn-selecionar-quadra'>Selecionar</span><span class='id-quadra' style='display:none; cursor:pointer;'>" + v.id + "</span></td>" +
+                                    "</tr>"
                                 );
 
                             });
@@ -558,7 +564,7 @@
                         
                         <input type="hidden" id="cadastrar-quadra-atualizar" name="quadra" />  
                         <br />           
-                        <button class="cell-12 button info" id="btn-partida-atualizar">Cadastrar</button>
+                        <button class="cell-12 button info" id="btn-partida-atualizar">Atualizar</button>
                         <br />
                         &nbsp;
 						<button class="cell-12 button success" id="btn-partida-convidar">Convidar jogadores</button>

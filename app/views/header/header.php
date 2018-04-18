@@ -2,21 +2,44 @@
 
     <span class="app-bar-divider"></span>
     <ul class="h-menu">
+        <li><a href="/partidamarcada">Partida Marcada</a></li>
         <li>
-            <a href="" class="dropdown-toggle"><span class="mif-apps mif-2x"></span> Menu</a>
+            <a href="" class="dropdown-toggle">Atleta</a>
             <ul class="d-menu" data-role="dropdown">
-                <li><a href="/partidamarcada/usuario/cadastrar">Cadastrar usuário</a></li>
-                <li><a href="/partidamarcada/parqueesportivo/cadastrar">Cadastrar quadra</a></li>
-                <li><a href="/partidamarcada/parqueesportivo/entrar">Logar como quadra</a></li>               
+                <li id="usuario-mostrar"><a href="#">Entrar</a></li>
+                <li><a href="/partidamarcada/usuario/cadastrar">Cadastrar</a></li>                             
             </ul>
         </li>
-
-        <li><a href="/partidamarcada">Partida Marcada</a></li>
-        <li><a href="">Quadras</a></li>
+        <li>
+            <a href="" class="dropdown-toggle">Quadra</a>
+            <ul class="d-menu" data-role="dropdown">
+                <li><a href="/partidamarcada/parqueesportivo/entrar">Entrar</a></li>
+                <li><a href="/partidamarcada/parqueesportivo/cadastrar">Cadastrar</a></li>         
+            </ul>
+        </li>
         <li><a href="">Sobre</a></li>
     </ul>
 
-    <div class="app-bar-element place-right">
+    <div id="div-usuario-logar" style="display: none">
+        <form id="login-usuario" class="login-form bg-white p-6 mx-auto border bd-default win-shadow">
+            <span class="mif-vpn-lock mif-4x place-right" style="margin-top: -10px;"></span>
+            <h2 class="text-light">Entrar como atleta</h2>
+            <hr class="thin mt-4 mb-4 bg-white">
+            <div class="form-group">
+                <input type="text" data-prepend="<span class='mif-envelop'>" placeholder="Digite seu e-mail..." data-validate="required email" class="usuario-email" name="usuario-email">
+            </div>
+            <div class="form-group">
+                <input type="password" data-prepend="<span class='mif-key'>" placeholder="Digite sua senha..." data-validate="required minlength=6" class="usuario-senha" name="usuario-senha">
+            </div>
+            <div class="form-group mt-10">
+                <button class="button cell-sm-12 bg-blue btn-usuario-logar" id="btn-usuario-logar">Entrar</button>
+                <br />&nbsp;
+                <button class="button cell-sm-12 bg-orange" id="cancelar-usuario-mostrar">Voltar</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- <div class="app-bar-element place-right">
         <a class="dropdown-toggle fg-white"><span class="mif-enter"></span> Login de atleta</a>
         <div class="app-bar-drop-container bg-white fg-dark place-right"
              data-role="dropdown" data-no-close="true">
@@ -39,24 +62,24 @@
                 </form>
             </div>
         </div>
-    </div>
+    </div> -->
 </div>
 <script>
-//logar usuário
+    //logar usuário
     $('#login-usuario').on('click', '.btn-usuario-logar', function () {
         $.ajax({
             type: "post",
             dataType: 'json',
             url: "/partidamarcada/usuario/logar",
-            data: $("#login-usuario").serialize(),
+            data: $("#login-usuario").serialize(),          
             success: function (resposta) {
-
                 if (resposta.status) {
                     $(".resposta-titulo").html("Sucesso");
                     $(".resposta-mensagem").html(resposta.mensagem);
                     $("#resposta").attr('style', 'background-color: #60a917; color: #fff;');
-
-                    window.location.href = "/partidamarcada/usuario";
+                    setTimeout(function(){ 
+                        window.location.href = "/partidamarcada/usuario"; }, 3000
+                    );                
                 } else {
                     $(".resposta-titulo").html("Erro");
                     $(".resposta-mensagem").html(resposta.mensagem);
@@ -68,6 +91,4 @@
         });
         return false;
     });
-    
-    
 </script>

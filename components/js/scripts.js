@@ -4,6 +4,17 @@
  * and open the template in the editor.
  */
 $(document).ready(function () {
+
+    //botao de mostrar login usuario
+    $('#usuario-mostrar').on('click', function() {
+        $('#div-usuario-logar').show();
+        $('.conteudo').css('opacity', '0.3');
+    });
+    $('#cancelar-usuario-mostrar').on('click', function() {
+        $('#div-usuario-logar').hide();
+        $('.conteudo').css('opacity', '1');
+    });
+
     //botao cancelar
     $('#btn-cancelar').on('click', function () {
         $(".app-bar-drop-container").hide();
@@ -103,7 +114,6 @@ $(document).ready(function () {
 
 //buscar estados
 function buscarEstados() {
-
     $('.estados').remove();
     $.ajax({
         type: "post",

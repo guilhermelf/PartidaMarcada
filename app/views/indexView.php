@@ -1,26 +1,23 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <link rel="stylesheet" href="/partidamarcada/components/metro-ui-css/css/metro.css" />
-        <link href="/partidamarcada/components/metro-ui-css/build/css/metro-icons.css" rel="stylesheet" />
-        <link href="/partidamarcada/components/metro-ui-css/build/css/metro-schemes.css" rel="stylesheet">
-        <link href="/partidamarcada/components/metro-ui-css/build/css/metro-responsive.css" rel="stylesheet">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        <link rel="stylesheet" href="/partidamarcada/components/metro-ui-css/css/metro-all.css" />
         <link href="/partidamarcada/components/css/style.css" rel="stylesheet">
         <script src="/partidamarcada/components/jquery/jquery.min.js"></script>
         <script src="/partidamarcada/components/js/scripts.js"></script>
         <script src="/partidamarcada/components/metro-ui-css/js/metro.js"></script>
-        <title>PartidaMarcada.com</title>
-        <script src="/partidamarcada/components/js/scripts.js" charset="UTF-8"></script>
+        <title>Partida Marcada</title>
     </head>
     <body> 
         <div data-role="dialog" data-close-button="true" data-overlay="true" id="resposta" class="padding20">
-            <h3 class="resposta-titulo"></h3>
-
-            <p class="resposta-mensagem"></p>
+            <div class="dialog-title resposta-titulo"></div>
+            <div class="dialog-content resposta-mensagem"></div>
         </div>
         <?php include 'app/views/header/header.php'; ?>
 
-        <div class="conteudo">
+        <div class="conteudo container">
+            
             <div class="carousel" data-role="carousel" data-height="284" data-control-next="<span class='mif-chevron-right'></span>" data-control-prev="<span class='mif-chevron-left'></span>" style="width: 100%; height: 200px;">
                 <div class="slide" style="display: block;"><div class="image-container image-format-fill" style="width: 100%; height: 100%;"><div class="frame"><div class="padding30" style="width: 100%; height: 100%; border-radius: 0px; background-image: url('http://localhost/partidamarcada/img/futebol.jpg'); background-size: cover; background-repeat: no-repeat;">
                                 <h2>Partida Marcada</h2>

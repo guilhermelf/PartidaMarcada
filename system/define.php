@@ -1,5 +1,5 @@
 <?php
-define('APP', dirname(__FILE__)."/../app/");
+define('APP', dirname(dirname(__FILE__))."/app/");
 
 define('CONTROLLERS', APP."controllers/");
 

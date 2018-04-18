@@ -1,5 +1,5 @@
 <?php
-require_once(DAO.'/esporteDAO.php');
+require_once(DAO.'/EsporteDAO.php');
 
 class esporteBLL {
     function getAll() {

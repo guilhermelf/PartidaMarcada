@@ -1,5 +1,5 @@
 <?php
-require_once(DAO.'/partidaDAO.php');
+require_once(DAO.'/PartidaDAO.php');
 require_once(BLL . '/QuadraBLL.php');
 require_once(BLL . '/EsporteBLL.php');
 require_once(BLL . '/VisibilidadeBLL.php');

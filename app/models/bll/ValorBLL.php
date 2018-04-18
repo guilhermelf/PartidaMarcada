@@ -1,5 +1,5 @@
 <?php
-require_once(DAO.'/valorDAO.php');
+require_once(DAO.'/ValorDAO.php');
 
 class valorBLL {
     function getAll() {

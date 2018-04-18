@@ -14,11 +14,17 @@ container {width: 100%;}
     .container {
         max-width: 540px;
     }
+    .conteudo {    
+        width: 100%;
+    }
 }
 
 @media (min-width: 768px) {
     .container {
         max-width: 720px;
+    }
+    .conteudo {    
+        width: 100%;
     }
 }
 
@@ -26,11 +32,17 @@ container {width: 100%;}
     .container {
         max-width: 960px;
     }
+    .conteudo {    
+        width: 80%;
+    }
 }
 
 @media (min-width: 1200px) {
     .container {
         max-width: 1140px;
+    }
+    .conteudo {    
+        width: 80%;
     }
 }
 
@@ -38,11 +50,14 @@ container {width: 100%;}
     .container {
         max-width: 1360px;
     }
+    .conteudo {    
+        width: 80%;
+    }
 }
 
 .conteudo {
     background-color: #fff;
-    width: 70%;
+    width: 100%;
     margin: 0 auto;  
     
     padding: 70px 30px 0 30px;
@@ -72,7 +87,7 @@ input[type="button"] {color: #fff;}
 .perfil-label {font-weight: bold;}
 
 body {
-    background-image: url('../../img/background.jpg');
+    /*background-image: url('../../img/background.jpg'); */
 }
 
 .app-bar {
@@ -83,4 +98,23 @@ body {
 #tabela-amigos-pendentes,
 #tabela-amigos {
     width: 100%;
+}
+
+.login-form {
+    position: static;
+    width: 350px;
+    height: auto;
+    top: 50%;
+}
+
+#div-usuario-logar {
+    top: 200px;
+    z-index: 1040;
+    width: 100%;
+    position: absolute;
+    margin: 0 auto;  
+}
+
+.button{
+    width: 100% !important;
 }

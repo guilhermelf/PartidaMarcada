@@ -1,6 +1,6 @@
 <?php
 
-require (BLL . '/partidaBLL.php');
+require (BLL . '/PartidaBLL.php');
 
 class PartidaController extends Controller {
 

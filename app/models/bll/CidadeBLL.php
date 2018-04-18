@@ -1,6 +1,6 @@
 <?php
-require_once(DAO.'/cidadeDAO.php');
-require_once(BLL.'/estadoBLL.php');
+require_once(DAO.'/CidadeDAO.php');
+require_once(BLL.'/EstadoBLL.php');
 
 class CidadeBLL {
     function getAll() {

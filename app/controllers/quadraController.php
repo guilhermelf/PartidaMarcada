@@ -1,6 +1,6 @@
 <?php
 
-require (BLL . '/quadraBLL.php');
+require (BLL . '/QuadraBLL.php');
 
 class quadraController extends Controller {
 

@@ -1,5 +1,5 @@
 <?php
-require (BLL.'/generoBLL.php');
+require (BLL.'/GeneroBLL.php');
 
 class generoController extends Controller {
     function listar() {

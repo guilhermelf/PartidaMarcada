@@ -1,6 +1,6 @@
 <?php
 
-require_once(DAO . '/generoDAO.php');
+require_once(DAO . '/GeneroDAO.php');
 
 class generoBLL {
 

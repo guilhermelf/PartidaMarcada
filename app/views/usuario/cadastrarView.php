@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
         <link rel="stylesheet" href="/partidamarcada/components/metro-ui-css/css/metro-all.css" />
         <link href="/partidamarcada/components/css/style.css" rel="stylesheet">
         <script src="/partidamarcada/components/jquery/jquery.min.js"></script>
@@ -15,7 +16,6 @@
             <div class="dialog-content resposta-mensagem"></div>
         </div>       
         <div class="conteudo container">
-            <div class="grid">
                 <form id="form-usuario-cadastrar">
                     <h2>Cadastro de usuário</h2>
                     <hr />
@@ -132,10 +132,11 @@
                             </select>
                         </div>
                     </div>
+                    <br />
+                    <input type="button" class="cell-sm-12 button bg-lightBlue" value="Cadastrar" id="btn-usuario-cadastrar">
+                    <br />&nbsp;
                 </div>
-                </form>
-                <input type="button" class="full-size bg-lightBlue" value="Cadastrar" id="btn-usuario-cadastrar">
-            </div>
+            </form>               
         </div>
         </div>
     </div>
