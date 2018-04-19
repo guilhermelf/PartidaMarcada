@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
         <link rel="stylesheet" href="/partidamarcada/components/metro-ui-css/css/metro-all.css" />
         <link href="/partidamarcada/components/css/style.css" rel="stylesheet">
         <script src="/partidamarcada/components/jquery/jquery.min.js"></script>
         <script src="/partidamarcada/components/js/scripts.js"></script>
         <script src="/partidamarcada/components/metro-ui-css/js/metro.js"></script>
-        <title>PartidaMarcada.com</title>
+        <title>Partida Marcada</title>
     </head>
     <script>
         $(document).ready(function () {
@@ -56,17 +57,31 @@
                 }
             });
 
-            //buscar partidas cadastradas pelo usuário
+            //buscar partidas novas cadastradas pelo usuário
             $('.minhasPartidas').remove();
             $.ajax({
                 async: false,
                 type: "post",
-                url: "/partidamarcada/partida/getByUsuario",
+                url: "/partidamarcada/partida/listarMinhasNovasPartidas",
                 dataType: "json",
                 success: function (resposta) {
                     $.each(resposta, function (k, v) {
                         console.log(resposta);
                         $("#minhas-partidas").find(".content").find(".p-2").append("<a class='partida-editar minhas-partidas' href='#'><span style='display:none;' class=id-editar>" + v.id + "</span>" + v.data + ", das " + v.inicio + "h às " + v.final + "h na quadra " + v.quadra.numero + " da(o) " + v.quadra.parqueEsportivo.nome + "</a><br />");
+                    });
+                }
+            });
+
+            //buscar partidas antigas cadastradas pelo usuário
+            $('.minhasPartidas').remove();
+            $.ajax({
+                async: false,
+                type: "post",
+                url: "/partidamarcada/partida/listarMinhasAntigasPartidas",
+                dataType: "json",
+                success: function (resposta) {
+                    $.each(resposta, function (k, v) {
+                        $("#minhas-partidas-passadas").find(".content").find(".p-2").append("<a class='partida-passada-ver minhas-partidas-passadas' href='#'><span style='display:none;' class=id-ver>" + v.id + "</span>" + v.data + ", das " + v.inicio + "h às " + v.final + "h na quadra " + v.quadra.numero + " da(o) " + v.quadra.parqueEsportivo.nome + "</a><br />");
                     });
                 }
             });
@@ -78,18 +93,44 @@
                     async: false,
                     type: "post",
                     //data: {idPartida: partida},
-                    url: "/partidamarcada/partida/getById/" + $(this).parent().find('.id-editar').text(),
+                    url: "/partidamarcada/partida/getById/" + partida,
                     dataType: 'json',
                     success: function (resposta) {
+                        $('#id-partida-atualizar').val(resposta.id);
                         $('#data-atualizar').val(resposta.data);
-                        $('#select-parqueEsportivo-atualizar').val(resposta.quadra.parqueEsportivo.id);
+                        $('#select-inicio-atualizar').val(resposta.inicio);
+                        $('#select-final-atualizar').val(resposta.final);
+                        $('#jogadores-atualizar').val(resposta.numeroJogadores);
+                        $('#select-publico-atualizar').val(resposta.publico);
+                        $('#descricao-atualizar').val(resposta.descricao);
 
-                        //atualizarQuadras(resposta.quadra.parqueEsportivo.id);
+                        $('#select-parqueEsportivo-atualizar').val(resposta.quadra.parqueEsportivo.id);
+                        
                         $('#cadastrar-quadra-atualizar').val(resposta.quadra.id);
-                        //$('#select-quadra-atualizar').val(resposta.quadra.id);
+
+                        $('#tabela-quadras-selecionada-atualizar').find('tbody').append(
+                            "<tr class='dados-quadra-atualizar'><td>" + resposta.quadra.numero + "</td>" +
+                            "<td>" + resposta.quadra.tamanho + "</td>" +
+                            "<td>" + resposta.quadra.piso.nome + "</td>" +
+                            "</tr>"
+                        );
+
+                        var esportes = "";
+                        
+                        if (resposta.quadra.esportes != null) {
+                            $.each(resposta.quadra.esportes, function (key, value) {                               
+                                $("#select-esporte-atualizar").append("<option class='esportes-atualizar' value='" + value.id + "'>" + value.nome + "</option>");                               
+                            });
+                        }
+
+                        $('#div-esporte-atualizar').show();
+                        $('#div-quadra-selecionada-atualizar').show();
+
+                        $('#select-esporte-atualizar').val(resposta.esporte.id);
 
                         $('#div-partidas').hide();
                         $('#div-atualizar-partida').show();
+
                         return false;
                     }
                 });
@@ -160,6 +201,9 @@
             $('#select-parqueEsportivo-atualizar').on('change', function () {         
                 var parqueEsportivoAtualizar = $(this).val();
                 $('.quadras-atualizar').remove();
+
+                $('#div-esporte-atualizar').hide();
+                $('#div-quadra-selecionada-atualizar').hide();
                 if(parqueEsportivoAtualizar != 0) {
                     $('#div-quadra-atualizar').show();
                     $.ajax({
@@ -239,6 +283,7 @@
                 $('#div-esporte-atualizar').show();
                 $('#cadastrar-quadra-atualizar').val($(this).parent().find('.id-quadra-atualizar').text());
 
+                $('.dados-quadra-atualizar').remove();
                 $.ajax({
                     async: false,
                     type: "post",
@@ -254,7 +299,7 @@
                             });
                         }
                         $('#tabela-quadras-selecionada-atualizar').find('tbody').append(
-                                "<tr><td>" + resposta.numero + "</td>" +
+                                "<tr class='dados-quadra-atualizar'>><td>" + resposta.numero + "</td>" +
                                 "<td>" + resposta.tamanho + "</td>" +
                                 "<td>" + resposta.piso.nome + "</td>" +
                                 "</tr>"
@@ -286,16 +331,16 @@
         <div class="conteudo container">
             <div id="div-partidas" style="display: block;">
                 <div data-role="accordion" data-one-frame="true" data-show-active="true" data-active-heading-class="bg-cyan fg-white">
-                    <div class="frame active" id="minhas-partidas">
-                        <div class="heading">Minhas partidas</div>
+                    <div class="frame active" id="minhas-partidas" class="bg-cyan fg-white">
+                        <div class="heading accor">Minhas partidas</div>
                         <div class="content">
                             <div class="p-2"></div>
                         </div>
                     </div>
-                    <div class="frame active">
-                        <div class="heading">Partidas passadas</div>
+                    <div class="frame active" id="minhas-partidas-passadas">
+                        <div class="heading bg-cyan fg-white accor">Partidas passadas</div>
                         <div class="content">
-                            <div class="p-2">Bitter turkey can be made tasty by brushing with...</div>
+                            <div class="p-2"></div>
                         </div>
                     </div>
                 </div>
@@ -308,10 +353,10 @@
                 <br />
                 <form id="form-partida-cadastrar">
                     <div class="row">
-                        <div class="cell-2">            
+                        <div class="cell-sm-2">            
                             <input type="text" name="data" placeholder="Data">
                         </div>
-                        <div class="cell-2">
+                        <div class="cell-sm-2">
                             <select name="inicio" id="select-inicio">
                                 <option value="-1">Início</option>
                                 <option value="0">00</option>
@@ -340,7 +385,7 @@
                                 <option value="23">23</option>
                             </select>
 						</div>
-                        <div class="cell-2"> 
+                        <div class="cell-sm-2"> 
 							<select name="final" id="select-final">
                                 <option value="-1">Final</option>
                                 <option value="0">00</option>
@@ -369,10 +414,10 @@
                                 <option value="23">23</option>
                             </select>
 						</div>
-                        <div class="cell-3"> 
+                        <div class="cell-sm-3"> 
                             <input type="text" name="jogadores" placeholder="Quantos atletas?">
                         </div>
-                        <div class="cell-3">
+                        <div class="cell-sm-3">
                             <select name="publico" id="select-publico">
                                 <option value="0">Jogo privado</option>
                                 <option value="1">Jogo aberto ao público</option>
@@ -380,17 +425,17 @@
                         </div>
 					</div>
                     <br />
-                    <textarea class="cell-12" data-role="textarea" data-auto-size="false" name="descricao" placeholder="Descrição (opcional)"></textarea>
+                    <textarea data-role="textarea" name="descricao" placeholder="Descrição (opcional)"></textarea>
                     <br />
                     <div class="row">
-                        <div class="cell">             
+                        <div class="cell-sm-12">             
                             <select name="parqueEsportivo" id="select-parqueEsportivo">
                                 <option value="0">Parque Esportivo</option>
                             </select>
                         </div>
 					</div>
                     <div class="row">
-                        <div id="div-quadra" class="cell" style="display:none;">
+                        <div id="div-quadra" class="cell-sm-12" style="display:none;">
                             <table id='tabela-quadras' class="table striped hovered">
                                 <thead>
                                 <th>Número da quadra</th>
@@ -406,7 +451,7 @@
                         </div>
                     </div>
                     <div class="row">    
-                        <div class="cell" id="div-quadra-selecionada" style="display:none;">
+                        <div class="cell-sm-12" id="div-quadra-selecionada" style="display:none;">
                             <br />
                             <table id='tabela-quadras-selecionada' class="table striped hovered">
                                 <thead>
@@ -421,7 +466,7 @@
                         </div>
                     </div>
 					<div class="row">
-                        <div class="cell" id="div-esporte" style="display:none;">
+                        <div class="cell-sm-12" id="div-esporte" style="display:none;">
                             <select name="esporte" id="select-esporte">
                                 <option value="0">Esporte</option>
                             </select>
@@ -433,7 +478,7 @@
                         <button class="cell-12 button info" id="btn-partida-cadastrar">Cadastrar</button>
                         <br />
                         &nbsp;
-                        <button class="cell-12 button warning" id="btn-partida-nova-cancelar">Cancelar</button>
+                        <button class="cell-12 button warning" id="btn-partida-nova-cancelar">Voltar</button>
                         <br />
                     </form>
                 </div>
@@ -442,10 +487,10 @@
                 <br />
                 <form id="form-partida-atualizar">
                     <div class="row">
-                        <div class="cell-2">            
+                        <div class="cell-sm-2">            
                             <input type="text" id="data-atualizar" name="data" placeholder="Data">
                         </div>
-                        <div class="cell-2">
+                        <div class="cell-sm-2">
                             <select name="inicio" id="select-inicio-atualizar">
                                 <option value="-1">Início</option>
                                 <option value="0">00</option>
@@ -474,7 +519,7 @@
                                 <option value="23">23</option>
                             </select>
 						</div>
-                        <div class="cell-2"> 
+                        <div class="cell-sm-2"> 
 							<select name="final" id="select-final-atualizar">
                                 <option value="-1">Final</option>
                                 <option value="0">00</option>
@@ -503,10 +548,10 @@
                                 <option value="23">23</option>
                             </select>
 						</div>
-                        <div class="cell-3"> 
+                        <div class="cell-sm-3"> 
                             <input type="text" name="jogadores" id="jogadores-atualizar" placeholder="Quantos atletas?">
                         </div>
-                        <div class="cell-3">
+                        <div class="cell-sm-3">
                             <select name="publico" id="select-publico-atualizar">
                                 <option value="0">Jogo privado</option>
                                 <option value="1">Jogo aberto ao público</option>
@@ -514,10 +559,10 @@
                         </div>
 					</div>
                     <br />
-                    <textarea class="cell-12" data-role="textarea" data-auto-size="false" id="descricao-atualizar" name="descricao" placeholder="Descrição (opcional)"></textarea>
+                    <textarea id="descricao-atualizar" data-role="textarea" data-auto-size="false" id="descricao-atualizar" name="descricao" placeholder="Descrição (opcional)"></textarea>
                     <br />
                     <div class="row">
-                        <div class="cell">             
+                        <div class="cell-sm-12">             
                             <select name="parqueEsportivo" id="select-parqueEsportivo-atualizar">
                                 <option value="0">Parque Esportivo</option>
                             </select>
@@ -540,7 +585,7 @@
                         </div>
                     </div>
                     <div class="row">    
-                        <div class="cell" id="div-quadra-selecionada-atualizar" style="display:none;">
+                        <div class="cell-sm-12" id="div-quadra-selecionada-atualizar" style="display:none;">
                             <br />
                             <table id='tabela-quadras-selecionada-atualizar' class="table striped hovered">
                                 <thead>
@@ -555,13 +600,13 @@
                         </div>
                     </div>
 					<div class="row">
-                        <div class="cell" id="div-esporte-atualizar" style="display:none;">
+                        <div class="cell-sm-12" id="div-esporte-atualizar" style="display:none;">
                             <select name="esporte" id="select-esporte-atualizar">
                                 <option value="0">Esporte</option>
                             </select>
                         </div>
 					</div>
-                        
+                        <input type="hidden" id="id-partida-atualizar" name="id" />  
                         <input type="hidden" id="cadastrar-quadra-atualizar" name="quadra" />  
                         <br />           
                         <button class="cell-12 button info" id="btn-partida-atualizar">Atualizar</button>
@@ -570,7 +615,7 @@
 						<button class="cell-12 button success" id="btn-partida-convidar">Convidar jogadores</button>
                         <br />
                         &nbsp;
-                        <button class="cell-12 button warning" id="btn-partida-atualizar-cancelar">Cancelar</button>
+                        <button class="cell-12 button warning" id="btn-partida-atualizar-cancelar">Voltar</button>
                         <br />
                     </form>
                 </div>

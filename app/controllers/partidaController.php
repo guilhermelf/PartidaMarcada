@@ -9,6 +9,18 @@ class PartidaController extends Controller {
 
         echo $bll->getAll();
     }
+    
+    function listarMinhasNovasPartidas() {
+        $bll = new PartidaBLL();
+
+        echo $bll->getNew();
+    }
+    
+    function listarMinhasAntigasPartidas() {
+        $bll = new PartidaBLL();
+
+        echo $bll->getPast();
+    }
 
     function salvar() {
         if (empty($_SESSION))

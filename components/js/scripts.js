@@ -74,7 +74,9 @@ $(document).ready(function () {
                 $(".resposta-mensagem").html(resposta.mensagem);
 
                 $("#resposta").data('dialog').open();
-                console.log(resposta);
+                setTimeout(function () {
+                    window.location.href = "/partidamarcada"
+                }, 3000);
             }
         });
     })
@@ -88,22 +90,49 @@ $(document).ready(function () {
             url: "/partidamarcada/partida/salvar",
             success: function (resposta) {              
                 if (resposta.status) {
-                    alert(resposta.status);
+
                     $(".resposta-titulo").html("Sucesso");
-                    $(".resposta-mensagem").html(resposta.mensagem);
-                    $("#resposta").attr('style', 'background-color: #60a917; color: #fff;');
-                    $("#resposta").data('dialog').open();              
+                    $("#resposta").attr('style', 'background-color: #60a917; color: #fff;');        
                 } else {
-                    $(".resposta-titulo").html("Erro");
-                    $(".resposta-mensagem").html(resposta.mensagem);
+                    $(".resposta-titulo").html("Erro");                   
                     $("#resposta").attr('style', 'background-color: #ce352c; color: #fff;');
-                    $("#resposta").data('dialog').open();
-                }              
+                }          
+                $("#resposta").data('dialog').open();  
+                $(".resposta-mensagem").html(resposta.mensagem);  
+                
+                setTimeout(function () {    
+                    window.location.href = "/partidamarcada/"
+                }, 3000);
             }
         });
-        return false;
     });
 
+    //atualizar dados partida
+    $("#btn-partida-atualizar").on('click', function () {
+        alert($("#form-partida-atualizar").serialize());
+        $.ajax({
+            type: "post",
+            dataType: 'json',
+            data: $("#form-partida-atualizar").serialize(),
+            url: "/partidamarcada/partida/salvar",
+            success: function (resposta) {              
+                if (resposta.status) {
+                    $(".resposta-titulo").html("Sucesso");
+                    $("#resposta").attr('style', 'background-color: #60a917; color: #fff;');                                  
+                } else {
+                    $(".resposta-titulo").html("Erro");
+                    $("#resposta").attr('style', 'background-color: #ce352c; color: #fff;');                   
+                }      
+                
+                $(".resposta-mensagem").html(resposta.mensagem); 
+                $("#resposta").data('dialog').open();
+                
+                setTimeout(function () {    
+                    window.location.href = "/partidamarcada/partida/gerenciar"
+                }, 3000);
+            }
+        });
+    });
 
     //listar cidades ao alterar estado
     $("#select-estado").on('change', function () {

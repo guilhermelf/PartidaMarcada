@@ -32,6 +32,32 @@ class PartidaDAO {
             return false;
         }
     }
+    
+    function getPast($usuario) {
+        try {
+            $query = DataBase::getFactory()->createQuery("SELECT p FROM Partida p JOIN p.usuario u WHERE u.id = :usuario AND p.data < CURRENT_DATE()");
+            $query->setParameter('usuario', $usuario);
+            
+            $partidas = $query->getResult(); 
+            
+            return (empty($partidas) ? false : $partidas);
+        } catch (Exception $ex) {
+            return false;
+        }
+    }
+    
+    function getNew($usuario) {
+        try {
+            $query = DataBase::getFactory()->createQuery("SELECT p FROM Partida p JOIN p.usuario u WHERE u.id = :usuario AND p.data > CURRENT_DATE()");
+            $query->setParameter('usuario', $usuario);
+            
+            $partidas = $query->getResult(); 
+            
+            return (empty($partidas) ? false : $partidas);
+        } catch (Exception $ex) {
+            return false;
+        }
+    }
 
     function delete($partida) {
         try {

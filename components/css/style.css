@@ -118,3 +118,8 @@ body {
 .button{
     width: 100% !important;
 }
+
+.accor {
+    background-color: #1ba1e2 !important;
+    color: #f8f8f8;
+}

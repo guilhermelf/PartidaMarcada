@@ -120,11 +120,11 @@
             <div class="contorno">
                 <div class="accordion large-heading" data-role="accordion">
                     <div class="frame active">
-                        <div class="heading">Partidas futuras <span class="mif-calendar icon"></span></div>
-                        <div class="content">Frame content</div>
+                        <div class="accor heading">Partidas futuras <span class="mif-calendar icon"></span></div>
+                        <div class="content"></div>
                     </div>
                     <div class="frame active">
-                        <div class="heading">Solicitações de amizades pendentes <span class="mif-users icon"></span></div>
+                        <div class="accor heading">Solicitações de amizades pendentes <span class="mif-users icon"></span></div>
                         <div class="content" id="div-amigos-pendentes">
                             <form id="form-amizades-pendentes">
                                 <table id="tabela-amigos-pendentes">
