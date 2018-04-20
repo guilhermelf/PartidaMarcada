@@ -7,7 +7,7 @@ class IndexController extends Controller {
             if ($_SESSION['tipo'] == "usuario") {
                 $this->View('usuario/index');
             } else {
-                $this->View('parqueEsportivo');
+                $this->View('quadra/index');
             }
         }
     }

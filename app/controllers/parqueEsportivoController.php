@@ -5,7 +5,11 @@ require (BLL . '/ParqueEsportivoBLL.php');
 class ParqueEsportivoController extends Controller {
 
     function index_action() {
-        $this->View('./quadra/index');
+        if (empty($_SESSION['tipo']) or $_SESSION['tipo'] != "quadra") {
+            $this->AccessDenied();
+        } else {
+            $this->View('quadra/index');
+        }     
     }
 
     function listar() {
@@ -19,7 +23,7 @@ class ParqueEsportivoController extends Controller {
     }
 
     function cadastrar() {
-        $this->view('./quadra/cadastrar');
+        $this->view('quadra/cadastrar');
     }
 
     function salvar() {
@@ -34,7 +38,7 @@ class ParqueEsportivoController extends Controller {
     }
 
     function entrar() {
-        $this->view('./quadra/logar');
+        $this->view('quadra/logar');
     }
 
     function logar() {

@@ -166,7 +166,8 @@
                         $('#select-parqueEsportivo-atualizar').val(resposta.quadra.parqueEsportivo.id);
                         
                         $('#cadastrar-quadra-atualizar').val(resposta.quadra.id);
-
+                        
+                        $('.dados-quadra-atualizar').remove();
                         $('#tabela-quadras-selecionada-atualizar').find('tbody').append(
                             "<tr class='dados-quadra-atualizar'><td>" + resposta.quadra.numero + "</td>" +
                             "<td>" + resposta.quadra.tamanho + "</td>" +
@@ -349,9 +350,10 @@
                     url: "/partidamarcada/quadra/buscarQuadra/" + $(this).parent().find('.id-quadra-atualizar').text(),
                     dataType: 'json',
                     success: function (resposta) {
-                        console.log(resposta);
+
                         var esportes = "";
                         
+                        $('.dados-quadra-atualizar').remove();
                         if (resposta.esportes != null) {
                             $.each(resposta.esportes, function (key, value) {                               
                                 $("#select-esporte-atualizar").append("<option class='esportes-atualizar' value='" + value.id + "'>" + value.nome + "</option>");                               

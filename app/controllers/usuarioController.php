@@ -2,20 +2,28 @@
     require (BLL . '/UsuarioBLL.php');
     
 class UsuarioController extends Controller {
-
+    
     function index_action() {
-        if (empty($_SESSION['tipo']) and $_SESSION['tipo'] != "usuario") {
-            $this->AccessDenied();
+        if(isset($_SESSION['tipo'])) {
+            if (empty($_SESSION['tipo']) or $_SESSION['tipo'] != "usuario") {
+                $this->AccessDenied();
+            } else {
+                $this->View('usuario/index');
+            }
         } else {
-            $this->View('usuario/index');
+            $this->AccessDenied();
         }
     }
 
     function amigos() {
-        if (empty($_SESSION['tipo']) and $_SESSION['tipo'] != "usuario") {
-            $this->AccessDenied();
+        if(isset($_SESSION['tipo'])) {
+            if (empty($_SESSION['tipo']) and $_SESSION['tipo'] != "usuario") {
+                $this->AccessDenied();
+            } else {
+                $this->View('usuario/amigos');
+            }
         } else {
-            $this->View('usuario/amigos');
+            $this->AccessDenied();
         }
     }
 
@@ -49,54 +57,77 @@ class UsuarioController extends Controller {
     }
 
     function alterarSenha() {
-        if (empty($_SESSION['tipo']) or $_SESSION['tipo'] != 'usuario')
+        if(isset($_SESSION['tipo'])) {
+            if (empty($_SESSION['tipo']) or $_SESSION['tipo'] != 'usuario')
+                $this->AccessDenied();
+            else
+                $this->View('usuario/alterarsenha');
+        } else {
             $this->AccessDenied();
-        else
-            $this->View('usuario/alterarsenha');
+        }            
     }
 
     function atualizarPerfil() {
-        if (empty($_SESSION['tipo']) or $_SESSION['tipo'] != 'usuario')
+        if(isset($_SESSION['tipo'])) {
+            if (empty($_SESSION['tipo']) or $_SESSION['tipo'] != 'usuario')
+                $this->AccessDenied();
+            else
+                $this->View('usuario/atualizarperfil');
+        } else {
             $this->AccessDenied();
-        else
-            $this->View('usuario/atualizarperfil');
+        }
     }
 
     function alterarEmail() {
-        if (empty($_SESSION['tipo']) or $_SESSION['tipo'] != 'usuario')
+        if(isset($_SESSION['tipo'])) {
+            if (empty($_SESSION['tipo']) or $_SESSION['tipo'] != 'usuario')
+                $this->AccessDenied();
+            else
+                $this->View('usuario/alteraremail');
+        } else {
             $this->AccessDenied();
-        else
-            $this->View('usuario/alteraremail');
+        }
     }
 
     function atualizarEmail() {
-        if (empty($_SESSION['tipo']) or $_SESSION['tipo'] != 'usuario')
-            $this->AccessDenied();
-        else {
-            $bll = new UsuarioBLL();
+        if(isset($_SESSION['tipo'])) {
+            if (empty($_SESSION['tipo']) or $_SESSION['tipo'] != 'usuario')
+                $this->AccessDenied();
+            else {
+                $bll = new UsuarioBLL();
 
-            echo json_encode($bll->atualizarEmail($_POST));
+                echo json_encode($bll->atualizarEmail($_POST));
+            }
+        } else {
+            $this->AccessDenied();
         }
     }
 
     function atualizarSenha() {
-        if (empty($_SESSION['tipo']) or $_SESSION['tipo'] != 'usuario')
-            $this->AccessDenied();
-        else {
-            $bll = new UsuarioBLL();
+        if(isset($_SESSION['tipo'])) {
+            if (empty($_SESSION['tipo']) or $_SESSION['tipo'] != 'usuario')
+                $this->AccessDenied();
+            else {
+                $bll = new UsuarioBLL();
 
-            echo json_encode($bll->atualizarSenha($_POST));
+                echo json_encode($bll->atualizarSenha($_POST));
+            }
+        } else {
+            $this->AccessDenied();
         }
     }
 
     function atualizar() {
-        if (empty($_SESSION['tipo']) or $_SESSION['tipo'] != 'usuario') {
-            $this->AccessDenied();
-            echo "merda";
-        } else {
-            $bll = new UsuarioBLL();
+        if(isset($_SESSION['tipo'])) {
+            if (empty($_SESSION['tipo']) or $_SESSION['tipo'] != 'usuario') {
+                $this->AccessDenied();
+            } else {
+                $bll = new UsuarioBLL();
 
-            echo json_encode($bll->update($_POST));
+                echo json_encode($bll->update($_POST));
+            }
+        } else {
+            $this->AccessDenied();
         }
     }
 

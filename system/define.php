@@ -7,7 +7,7 @@ define('MODELS', APP."models/");
 define('BLL', MODELS.'bll/');
 define('DAO', MODELS.'dao/');
 
-define('UTIL', APP."util/");
+define('UTIL', APP.'util/');
 
-define('VIEWS', APP."views/");
-define('PUBLIC_HTML', dirname(__FILE__)."/../public/");
+define('VIEWS', APP.'views/');
+define('PUBLIC_HTML', dirname(__FILE__).'/../public/');
