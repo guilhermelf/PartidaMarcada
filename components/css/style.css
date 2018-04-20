@@ -107,7 +107,7 @@ body {
     top: 50%;
 }
 
-#div-usuario-logar {
+#div-quadra-logar, #div-usuario-logar {
     top: 200px;
     z-index: 1040;
     width: 100%;
@@ -122,4 +122,9 @@ body {
 .accor {
     background-color: #1ba1e2 !important;
     color: #f8f8f8;
+}
+
+.opcoes-partida {
+    float: right;
+    cursor: pointer;
 }

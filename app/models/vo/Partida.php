@@ -61,6 +61,11 @@ class Partida {
      * @Column(type="string", name="descricao")
      */
     private $descricao;
+    
+    /**
+     * @Column(type="integer", name="status")
+     */
+    private $status;
        
     function getId() {
         return $this->id;
@@ -141,7 +146,15 @@ class Partida {
     function setDescricao($descricao) {
         $this->descricao = $descricao;
     }
+    
+    function getStatus() {
+        return $this->status;
+    }
 
+    function setStatus($status) {
+        $this->status = $status;
+    }
+    
     public function toJson() {
         return array(           
             'id' => $this->getId(),
@@ -153,7 +166,8 @@ class Partida {
             'numeroJogadores' => $this->getNumeroJogadores(),
             'descricao' => $this->getDescricao(),
             'quadra' => $this->getQuadra()->toJson(),
-            'usuario' => $this->getUsuario()->toJson()           
+            'usuario' => $this->getUsuario()->toJson(), 
+            'status' => $this->getStatus()
         );
     } 
 }

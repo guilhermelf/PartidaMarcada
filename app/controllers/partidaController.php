@@ -53,4 +53,10 @@ class PartidaController extends Controller {
     
         echo json_encode($quadra->toJson());
     }
+    
+    function cancelarPartida($partidaId) {
+        $bll = new PartidaBLL();
+    
+        echo json_encode($bll->cancel($partidaId));
+    }
 }

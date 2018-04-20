@@ -15,6 +15,16 @@ $(document).ready(function () {
         $('.conteudo').css('opacity', '1');
     });
 
+    //botao de mostrar login quadra
+    $('#quadra-mostrar').on('click', function() {
+        $('#div-quadra-logar').show();
+        $('.conteudo').css('opacity', '0.3');
+    });
+    $('#cancelar-quadra-mostrar').on('click', function() {
+        $('#div-quadra-logar').hide();
+        $('.conteudo').css('opacity', '1');
+    });
+
     //botao cancelar
     $('#btn-cancelar').on('click', function () {
         $(".app-bar-drop-container").hide();
@@ -109,7 +119,6 @@ $(document).ready(function () {
 
     //atualizar dados partida
     $("#btn-partida-atualizar").on('click', function () {
-        alert($("#form-partida-atualizar").serialize());
         $.ajax({
             type: "post",
             dataType: 'json',

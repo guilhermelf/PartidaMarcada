@@ -66,8 +66,20 @@
                 dataType: "json",
                 success: function (resposta) {
                     $.each(resposta, function (k, v) {
-                        console.log(resposta);
-                        $("#minhas-partidas").find(".content").find(".p-2").append("<a class='partida-editar minhas-partidas' href='#'><span style='display:none;' class=id-editar>" + v.id + "</span>" + v.data + ", das " + v.inicio + "h às " + v.final + "h na quadra " + v.quadra.numero + " da(o) " + v.quadra.parqueEsportivo.nome + "</a><br />");
+                        $("#minhas-partidas").find(".content").find(".p-2").append(
+                            "<a class='minhas-partidas'>" + 
+                                v.data + ", das " + v.inicio + "h às " + v.final + "h na quadra " + v.quadra.numero + " da(o) " + v.quadra.parqueEsportivo.nome + 
+                            "</a><br />"
+                        );
+                        $("#minhas-partidas").find(".content").find(".p-2").find(".opcoes-partida").html(
+                            "<span class='partida-editar mif-pencil mif-2x fg-orange' title='Editar informações da partida'>" + 
+                                "<span style='display:none;' class=id-editar>" + v.id + "</span>" + 
+                            "</span>" + 
+                            "&nbsp;&nbsp;&nbsp;" +
+                            "<span class='partida-cancelar mif-cross mif-2x fg-red' title='Cancelar partida'>" + 
+                                "<span style='display:none;' class=id-cancelar>" + v.id + "</span>" + 
+                            "</span>"
+                        );
                     });
                 }
             });
@@ -84,6 +96,53 @@
                         $("#minhas-partidas-passadas").find(".content").find(".p-2").append("<a class='partida-passada-ver minhas-partidas-passadas' href='#'><span style='display:none;' class=id-ver>" + v.id + "</span>" + v.data + ", das " + v.inicio + "h às " + v.final + "h na quadra " + v.quadra.numero + " da(o) " + v.quadra.parqueEsportivo.nome + "</a><br />");
                     });
                 }
+            });
+
+            //buscar partida para cancelar pelo id
+            $(".partida-cancelar").on('click', function(){
+                var partida = $(this).find('.id-cancelar').text();
+                Metro.dialog.create({
+                    title: "Cancelar partida",
+                    content: "<div>Você tem certeza que deseja cancelar a partida?<br />A partida não poderá ser reativada após o cancelamento!</div>",
+                    actions: [
+                        {
+                            caption: "Tenho certeza",
+                            cls: "js-dialog-close alert",
+                            onclick: function(){
+                                $.ajax({
+                                    async: false,
+                                    type: "post",
+                                    //data: {idPartida: partida},
+                                    url: "/partidamarcada/partida/cancelarPartida/" + partida,
+                                    dataType: 'json',
+                                    success: function (resposta) {
+                                        if (resposta.status) {
+                                            $(".resposta-titulo").html("Sucesso");
+                                            $("#resposta").attr('style', 'background-color: #60a917; color: #fff;');                                  
+                                        } else {
+                                            $(".resposta-titulo").html("Erro");
+                                            $("#resposta").attr('style', 'background-color: #ce352c; color: #fff;');                   
+                                        }      
+                                        
+                                        $(".resposta-mensagem").html(resposta.mensagem); 
+                                        $("#resposta").data('dialog').open();
+                                        
+                                        setTimeout(function () {    
+                                            window.location.href = "/partidamarcada/partida/gerenciar"
+                                        }, 3000);
+                                    }
+                                });
+                            }
+                        },
+                        {
+                            caption: "Não quero cancelar",
+                            cls: "js-dialog-close",
+                            onclick: function(){
+                                return false;
+                            }
+                        }
+                    ]
+                });
             });
 
             //buscar partidas cadastradas pelo id
@@ -334,7 +393,7 @@
                     <div class="frame active" id="minhas-partidas" class="bg-cyan fg-white">
                         <div class="heading accor">Minhas partidas</div>
                         <div class="content">
-                            <div class="p-2"></div>
+                            <div class="p-2"><span class="opcoes-partida"></span></div>
                         </div>
                     </div>
                     <div class="frame active" id="minhas-partidas-passadas">

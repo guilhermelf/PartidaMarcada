@@ -48,7 +48,7 @@ class PartidaDAO {
     
     function getNew($usuario) {
         try {
-            $query = DataBase::getFactory()->createQuery("SELECT p FROM Partida p JOIN p.usuario u WHERE u.id = :usuario AND p.data > CURRENT_DATE()");
+            $query = DataBase::getFactory()->createQuery("SELECT p FROM Partida p JOIN p.usuario u WHERE u.id = :usuario AND p.data > CURRENT_DATE() AND p.status = 1");
             $query->setParameter('usuario', $usuario);
             
             $partidas = $query->getResult(); 

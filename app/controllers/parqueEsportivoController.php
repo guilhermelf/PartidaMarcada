@@ -5,7 +5,7 @@ require (BLL . '/ParqueEsportivoBLL.php');
 class ParqueEsportivoController extends Controller {
 
     function index_action() {
-        $this->View('quadra/index');
+        $this->View('./quadra/index');
     }
 
     function listar() {

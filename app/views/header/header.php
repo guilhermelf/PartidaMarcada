@@ -13,7 +13,7 @@
         <li>
             <a href="" class="dropdown-toggle">Quadra</a>
             <ul class="d-menu" data-role="dropdown">
-                <li><a href="/partidamarcada/parqueesportivo/entrar">Entrar</a></li>
+                <li id="quadra-mostrar"><a href="#">Entrar</a></li>
                 <li><a href="/partidamarcada/parqueesportivo/cadastrar">Cadastrar</a></li>         
             </ul>
         </li>
@@ -35,6 +35,25 @@
                 <button class="button cell-sm-12 bg-blue btn-usuario-logar" id="btn-usuario-logar">Entrar</button>
                 <br />&nbsp;
                 <button class="button cell-sm-12 bg-orange" id="cancelar-usuario-mostrar">Voltar</button>
+            </div>
+        </form>
+    </div>
+
+    <div id="div-quadra-logar" style="display: none">
+        <form id="login-quadra" class="login-form bg-white p-6 mx-auto border bd-default win-shadow">
+            <span class="mif-vpn-lock mif-4x place-right" style="margin-top: -10px;"></span>
+            <h2 class="text-light">Entrar como administrador de quadra</h2>
+            <hr class="thin mt-4 mb-4 bg-white">
+            <div class="form-group">
+                <input type="text" data-prepend="<span class='mif-envelop'>" placeholder="Digite seu e-mail..." data-validate="required email" class="quadra-email" name="quadra-email">
+            </div>
+            <div class="form-group">
+                <input type="password" data-prepend="<span class='mif-key'>" placeholder="Digite sua senha..." data-validate="required minlength=6" class="quadra-senha" name="quadra-senha">
+            </div>
+            <div class="form-group mt-10">
+                <button class="button cell-sm-12 bg-blue btn-quadra-logar" id="btn-quadra-logar">Entrar</button>
+                <br />&nbsp;
+                <button class="button cell-sm-12 bg-orange" id="cancelar-quadra-mostrar">Voltar</button>
             </div>
         </form>
     </div>
@@ -79,6 +98,33 @@
                     $("#resposta").attr('style', 'background-color: #60a917; color: #fff;');
                     setTimeout(function(){ 
                         window.location.href = "/partidamarcada/usuario"; }, 3000
+                    );                
+                } else {
+                    $(".resposta-titulo").html("Erro");
+                    $(".resposta-mensagem").html(resposta.mensagem);
+                    $("#resposta").attr('style', 'background-color: #ce352c; color: #fff;');
+                }
+
+                $("#resposta").data('dialog').open();
+            }
+        });
+        return false;
+    });
+
+     //logar quadra
+     $('#login-quadra').on('click', '.btn-quadra-logar', function () {
+        $.ajax({
+            type: "post",
+            dataType: 'json',
+            url: "/partidamarcada/parqueEsportivo/logar",
+            data: $("#login-quadra").serialize(),          
+            success: function (resposta) {
+                if (resposta.status) {
+                    $(".resposta-titulo").html("Sucesso");
+                    $(".resposta-mensagem").html(resposta.mensagem);
+                    $("#resposta").attr('style', 'background-color: #60a917; color: #fff;');
+                    setTimeout(function(){ 
+                        window.location.href = "/partidamarcada/"; }, 3000
                     );                
                 } else {
                     $(".resposta-titulo").html("Erro");

@@ -5,7 +5,25 @@ require_once(BLL . '/EsporteBLL.php');
 require_once(BLL . '/VisibilidadeBLL.php');
 require_once(BLL . '/UsuarioBLL.php');
 
-class partidaBLL {
+class PartidaBLL {
+    public function cancel($id) {
+        $partida = $this->getById($id);
+        $partida->setStatus(0);
+        
+        $dao = new PartidaDAO;
+        
+        if ($dao->persist($partida)) {
+            Retorno::setStatus(1);
+            Retorno::setMensagem("Partida cancelada com sucesso!");
+            
+            return Retorno::toJson();
+        } else {
+            Retorno::setStatus(0);
+            Retorno::setMensagem("Erro ao cancelar partida no sistema!");
+
+            return Retorno::toJson();
+        }
+    }
 
     public function insert($dados) {
         try {
