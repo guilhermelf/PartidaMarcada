@@ -43,48 +43,30 @@
         });
     </script>
     <body>
+        <?php include 'app/views/header/headerQuadra.php'; ?>
         <div data-role="dialog" data-close-button="true" data-overlay="true" id="resposta" class="padding20">
-            <h3 class="resposta-titulo">aa</h3>
-
-            <p class="resposta-mensagem">aa</p>
-        </div>
-
-        <?php include 'app/views/header/headerUsuario.php'; ?>
-        <div class="conteudo">
-
-            <div class="form-cadastro grid">
-                <form id="form-quadra-alterarsenha">
-                    <br />
-                    <br />
-                    <h4>Alterar senha</h4>
-                    <hr />
-
-
-                    <div class="row cells3">
-                        <div class="cell">
-                            <label>Senha atual</label>
-                            <div class="input-control password full-size">                       
-                                <input type="password" name="senha">
-                            </div>
-                        </div>
-                        <div class="cell">
-                            <label>Nova senha</label>
-                            <div class="input-control password full-size">                       
-                                <input type="password" name="nova_senha">
-                            </div>
-                        </div>
-                        <!-- input[type=password] -->
-                        <div class="cell">
-                            <label>Confirmar nova senha</label>
-                            <div class="input-control password full-size">                       
-                                <input type="password" name="nova_senha2">
-                            </div>
-                        </div>
+            <div class="dialog-title resposta-titulo"></div>
+            <div class="dialog-content resposta-mensagem"></div>
+        </div>       
+        <div class="conteudo container">
+            <form id="form-quadra-alterarsenha">
+                <h2>Alterar senha</h2>
+                <hr />            
+                <div class="row">
+                    <div class="cell-sm-4">                    
+                        <input type="password" name="senha" placeholder="Senha atual">
                     </div>
-                </form>
-                <input type="button" class="full-size bg-lightBlue" value="Alterar" id="btn-quadra-alterarsenha">
-            </div>
+                    <div class="cell-sm-4">                    
+                        <input type="password" name="nova_senha" placeholder="Novo senha">
+                    </div>   
+                    <div class="cell-sm-4">                    
+                        <input type="password" name="nova_senha2" placeholder="Confirmar nova senha">
+                    </div>               
+                </div>
+                <br />
+                <input type="button" class="cell-sm-12 button bg-lightBlue" value="Alterar" id="btn-quadra-alterarsenha">
+                <br />&nbsp;
+            </form>           
         </div>
-    </div>
-</body>
+    </body>
 </html>

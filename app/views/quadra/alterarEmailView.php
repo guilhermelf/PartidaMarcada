@@ -43,48 +43,30 @@
         });
     </script>
     <body>
-        <div data-role="dialog" data-close-button="true" data-overlay="true" id="resposta" class="padding20">
-            <h3 class="resposta-titulo"></h3>
-
-            <p class="resposta-mensagem"></p>
-        </div>
-
         <?php include 'app/views/header/headerQuadra.php'; ?>
-        <div class="conteudo">
-
-            <div class="form-cadastro grid">
-                <form id="form-quadra-alteraremail">
-                    <br />
-                    <br />
-                    <h4>Alterar e-mail</h4>
-                    <hr />
-
-
-                    <div class="row cells3">
-                        <div class="cell">
-                            <label>E-mail atual</label>
-                            <div class="input-control text full-size">                       
-                                <input type="text" name="email">
-                            </div>
-                        </div>
-                        <div class="cell">
-                            <label>Novo e-mail</label>
-                            <div class="input-control text full-size">                       
-                                <input type="text" name="novo_email">
-                            </div>
-                        </div>
-
-                        <div class="cell">
-                            <label>Confirmar novo e-mail</label>
-                            <div class="input-control text full-size">                       
-                                <input type="text" name="novo_email2">
-                            </div>
-                        </div>
+        <div data-role="dialog" data-close-button="true" data-overlay="true" id="resposta" class="padding20">
+            <div class="dialog-title resposta-titulo"></div>
+            <div class="dialog-content resposta-mensagem"></div>
+        </div>       
+        <div class="conteudo container">
+            <form id="form-quadra-alteraremail">
+                <h2>Atualizar e-mail da quadra</h2>
+                <hr />            
+                <div class="row">
+                    <div class="cell-sm-4">                    
+                        <input type="text" name="email" placeholder="E-mail atual">
                     </div>
-                </form>
-                <input type="button" class="full-size bg-lightBlue" value="Alterar" id="btn-quadra-alteraremail">
-            </div>
+                    <div class="cell-sm-4">                    
+                        <input type="text" name="novo_email" placeholder="Novo e-mail">
+                    </div>   
+                    <div class="cell-sm-4">                    
+                        <input type="text" name="novo_email2" placeholder="Confirmar novo e-mail">
+                    </div>               
+                </div>
+                <br />
+                <input type="button" class="cell-sm-12 button bg-lightBlue" value="Alterar" id="btn-quadra-alteraremail">
+                <br />&nbsp;
+            </form>           
         </div>
-    </div>
-</body>
+    </body>
 </html>

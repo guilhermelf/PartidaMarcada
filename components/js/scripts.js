@@ -13,6 +13,7 @@ $(document).ready(function () {
     $('#cancelar-usuario-mostrar').on('click', function() {
         $('#div-usuario-logar').hide();
         $('.conteudo').css('opacity', '1');
+        return false;
     });
 
     //botao de mostrar login quadra
@@ -23,6 +24,7 @@ $(document).ready(function () {
     $('#cancelar-quadra-mostrar').on('click', function() {
         $('#div-quadra-logar').hide();
         $('.conteudo').css('opacity', '1');
+        return false;
     });
 
     //botao cancelar

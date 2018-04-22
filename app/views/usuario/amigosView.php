@@ -150,33 +150,52 @@
                 $('#tabela-amigos').on('click', '.btn-amizade-excluir', function () {
                     var id = $(this).parent().find(".id-excluir-amizade").text();
 
-                    $.ajax({
-                        type: "post",
-                        dataType: 'json',
-                        data: {id: id},
-                        url: "/partidamarcada/amigo/desfazerAmizade",
-                        success: function (resposta) {
-                            console.log(resposta);
-                            if (resposta.status) {
-                                $(".resposta-titulo").html("Sucesso");
-                                $("#resposta").attr('style', 'background-color: #60a917; color: #fff;');
-                                $(".resposta-mensagem").html(resposta.mensagem);
+                    Metro.dialog.create({
+                        title: "Excluir amigo",
+                        content: "<div>Você tem certeza que deseja excluir essa amizade?</div>",
+                        actions: [
+                        {
+                            caption: "Tenho certeza",
+                            cls: "js-dialog-close alert",
+                            onclick: function(){
+                                $.ajax({
+                                    type: "post",
+                                    dataType: 'json',
+                                    data: {id: id},
+                                    url: "/partidamarcada/amigo/desfazerAmizade",
+                                    success: function (resposta) {
+                                        console.log(resposta);
+                                        if (resposta.status) {
+                                            $(".resposta-titulo").html("Sucesso");
+                                            $("#resposta").attr('style', 'background-color: #60a917; color: #fff;');
+                                            $(".resposta-mensagem").html(resposta.mensagem);
 
-                                $("#resposta").data('dialog').open();
+                                            $("#resposta").data('dialog').open();
 
-                                setTimeout(function () {
-                                    window.location.href = "/partidamarcada/usuario/amigos"
-                                }, 2000);
-                            } else {
-                                $(".resposta-titulo").html("Erro");
-                                $("#resposta").attr('style', 'background-color: #ce352c; color: #fff;');
-                                $(".resposta-mensagem").html(resposta.mensagem);
+                                            setTimeout(function () {
+                                                window.location.href = "/partidamarcada/usuario/amigos"
+                                            }, 2000);
+                                        } else {
+                                            $(".resposta-titulo").html("Erro");
+                                            $("#resposta").attr('style', 'background-color: #ce352c; color: #fff;');
+                                            $(".resposta-mensagem").html(resposta.mensagem);
 
-                                $("#resposta").data('dialog').open();
+                                            $("#resposta").data('dialog').open();
+                                        }
+                                    }
+                                });
+                            }
+                        },
+                        {
+                            caption: "Não quero excluir",
+                            cls: "js-dialog-close",
+                            onclick: function(){
+                                return false;
                             }
                         }
-                    });
+                    ]
                 });
+            });
 
                 //buscar amigo
                 $('#btn-usuario-buscar').on('click', function () {
@@ -205,18 +224,17 @@
         </script>
     </head>
     <body>
-        <div data-role="dialog" data-close-button="true" data-overlay="true" id="resposta" class="padding20">
-            <h3 class="resposta-titulo">aa</h3>
-
-            <p class="resposta-mensagem">aa</p>
-        </div>
         <?php include 'app/views/header/headerUsuario.php'; ?>
-        <div class="conteudo">
-            <div class="contorno">
-                <div class="accordion large-heading" data-role="accordion">
-                    <div class="frame active">
-                        <div class="heading" id="div-amigos">Lista de amigos <span class="mif-users icon"></span></div>
-                        <div class="content" id="div-amigos">
+        <div data-role="dialog" data-close-button="true" data-overlay="true" id="resposta" class="padding20">
+            <div class="dialog-title resposta-titulo"></div>
+            <div class="dialog-content resposta-mensagem"></div>
+        </div>       
+        <div class="conteudo container">
+            <div id="div-partidas" style="display: block;">
+                <div data-role="accordion" data-one-frame="true" data-show-active="true" data-active-heading-class="bg-cyan fg-white">
+                    <div class="frame active" id="div-amigos" class="bg-cyan fg-white">
+                        <div class="heading accor" id="div-amigos">Meus amigos</div>
+                        <div class="content">
                             <form id="form-amizades">
                                 <table id="tabela-amigos">
                                     <tbody>
@@ -226,52 +244,49 @@
                             </form>
                         </div>
                     </div>
-                    <div class="frame active">
-                        <div class="heading">Solicitações de amizades pendentes <span class="mif-user-check icon"></span></div>
-                        <div class="content" id="div-amigos-pendentes">
+                    <div class="frame">
+                        <div class="heading bg-cyan fg-white accor">Solicitações de amizade pendentes</div>
+                        <div class="content">
                             <form id="form-amizades-pendentes">
                                 <table id="tabela-amigos-pendentes">
                                     <tbody>
 
                                     </tbody>
                                 </table>
-                            </form>
+                            </form> 
                         </div>
                     </div>
-                    <div class="frame active ">
-                        <div class="heading" id="div-amigos-adicionar">Adicionar amigo <span class="mif-user-plus icon"></div>
-                        <div class="content grid" id="div-amigos-adicionar">
-                            <form id="form-amizades-adicionar">
-                                <div class="row cells3">
-                                    <div class="cell">
-                                        <label>Nome</label>
-                                        <div class="input-control text full-size">                       
-                                            <input type="text" name="nome">
+                    <div class="frame active">
+                        <div class="heading bg-cyan fg-white accor">Buscar amigo</div>
+                            <div class="content">
+                                <form id="form-amizades-adicionar">
+                                    <br />
+                                    <div class="row">
+                                        <div class="cell-sm-4">                 
+                                            <input type="text" name="nome" placeholder="Nome">
+                                        </div>
+                                        <div class="cell-sm-4">                 
+                                            <input type="text" name="sobrenome" placeholder="Sobrenome">
+                                        </div>
+                                        <div class="cell-sm-4">                 
+                                            <input type="text" name="apelido" placeholder="Apelido">
                                         </div>
                                     </div>
-                                    <div class="cell">
-                                        <label>Sobrenome</label>
-                                        <div class="input-control cell text full-size">                      
-                                            <input type="text" name="sobrenome">
-                                        </div>
-                                    </div>
-                                    <div class="cell">
-                                        <label>Apelido</label>
-                                        <div class="input-control cell text full-size">                      
-                                            <input type="text" name="apelido">
-                                        </div>
-                                    </div>
-                                    <input type="button" class="full-size bg-lightBlue" value="Buscar" id="btn-usuario-buscar">
-                                    <div class="content" id="div-amigos-busca">
-                                        <hr />
+                                    <br />
+                                    <input type="button" class="cell-sm-12 button bg-lightBlue" value="Buscar" id="btn-usuario-buscar">
+                                    <br />
+                                    <div id="div-amigos-busca">
                                         <table id="tabela-amigos-busca">
+                                            <thead>
+                                                <th>Atletas localizados</th>
+                                            </thead>
                                             <tbody>
 
                                             </tbody>
                                         </table>
                                     </div>
-                            </form>
-                        </div>
+                                </form>
+                            </div>
                     </div>
                 </div>
             </div>

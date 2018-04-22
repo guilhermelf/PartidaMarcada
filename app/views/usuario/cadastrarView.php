@@ -17,7 +17,7 @@
         </div>       
         <div class="conteudo container">
                 <form id="form-usuario-cadastrar">
-                    <h2>Cadastro de usuário</h2>
+                    <h2>Cadastro de atleta</h2>
                     <hr />
                     <h4>Informações de login</h4>
                     <hr />

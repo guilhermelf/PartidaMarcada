@@ -386,8 +386,7 @@
         <?php include 'app/views/header/headerUsuario.php'; ?>
         <div data-role="dialog" data-close-button="true" data-overlay="true" id="resposta" class="padding20">
             <div class="dialog-title resposta-titulo"></div>
-            <div class="dialog-content resposta-mensagem">
-        </div>
+            <div class="dialog-content resposta-mensagem"></div>
         </div>       
         <div class="conteudo container">
             <div id="div-partidas" style="display: block;">
@@ -670,13 +669,13 @@
                         <input type="hidden" id="id-partida-atualizar" name="id" />  
                         <input type="hidden" id="cadastrar-quadra-atualizar" name="quadra" />  
                         <br />           
-                        <button class="cell-12 button info" id="btn-partida-atualizar">Atualizar</button>
+                        <button class="cell-sm-12 button info" id="btn-partida-atualizar">Atualizar</button>
                         <br />
                         &nbsp;
-						<button class="cell-12 button success" id="btn-partida-convidar">Convidar jogadores</button>
+						<button class="cell-sm-12 button success" id="btn-partida-convidar">Convidar jogadores</button>
                         <br />
                         &nbsp;
-                        <button class="cell-12 button warning" id="btn-partida-atualizar-cancelar">Voltar</button>
+                        <button class="cell-sm-12 button warning" id="btn-partida-atualizar-cancelar">Voltar</button>
                         <br />
                     </form>
                 </div>
