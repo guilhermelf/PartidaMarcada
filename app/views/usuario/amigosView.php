@@ -233,7 +233,7 @@
             <div id="div-partidas" style="display: block;">
                 <div data-role="accordion" data-one-frame="true" data-show-active="true" data-active-heading-class="bg-cyan fg-white">
                     <div class="frame active" id="div-amigos" class="bg-cyan fg-white">
-                        <div class="heading accor" id="div-amigos">Meus amigos</div>
+                        <div class="heading accor text-right" id="div-amigos">Meus amigos <span class="mif-users icon"></span></div>
                         <div class="content">
                             <form id="form-amizades">
                                 <table id="tabela-amigos">
@@ -245,7 +245,7 @@
                         </div>
                     </div>
                     <div class="frame">
-                        <div class="heading bg-cyan fg-white accor">Solicitações de amizade pendentes</div>
+                        <div class="heading bg-cyan fg-white accor text-right">Solicitações de amizade pendentes <span class="mif-users icon"></span></div>
                         <div class="content">
                             <form id="form-amizades-pendentes">
                                 <table id="tabela-amigos-pendentes">
@@ -257,7 +257,7 @@
                         </div>
                     </div>
                     <div class="frame active">
-                        <div class="heading bg-cyan fg-white accor">Buscar amigo</div>
+                        <div class="heading bg-cyan fg-white accor text-right">Buscar amigo <span class="mif-user-plus icon"></span></div>
                             <div class="content">
                                 <form id="form-amizades-adicionar">
                                     <br />

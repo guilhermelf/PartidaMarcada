@@ -1,9 +1,26 @@
 <?php
-
 require (BLL . '/PartidaBLL.php');
 
 class PartidaController extends Controller {
 
+    function partida($id) {
+        if (empty($_SESSION['tipo']))
+            $this->AccessDenied();
+        else {              
+            $bll = new PartidaBLL();
+            
+            if($bll->permitirAcesso($id)) {
+                $partida = $bll->getById($id);
+                if (!empty($partida))
+                    $this->View('partida/partida', $partida);
+                else
+                    $this->View('naoencontrada');
+            } else {
+                $this->AccessDenied();
+            }                    
+        }
+    }
+    
     function listar() {
         $bll = new PartidaBLL();
 

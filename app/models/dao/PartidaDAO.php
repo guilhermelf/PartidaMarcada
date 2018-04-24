@@ -9,7 +9,7 @@ class PartidaDAO {
             
             return true;
         } catch (Exception $ex) {
-            return false;
+            return $ex->getMessage();
         }
     }
 

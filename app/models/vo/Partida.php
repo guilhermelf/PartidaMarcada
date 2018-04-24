@@ -6,6 +6,10 @@
  * @Table(name="partida")
  */
 class Partida {
+    
+    public function __construct() {
+        $this->participantes = new \Doctrine\Common\Collections\ArrayCollection();
+    }
    
     /**
      * @Id
@@ -13,6 +17,11 @@ class Partida {
      * @GeneratedValue(strategy="AUTO")
      */
     private $id;    
+    
+    /**
+     * @OneToMany(targetEntity="Participante", mappedBy="partida")
+     */
+    private $participantes;
     
     /**
      * @ManyToOne(targetEntity="Quadra", cascade={"persist"})
@@ -66,7 +75,7 @@ class Partida {
      * @Column(type="integer", name="status")
      */
     private $status;
-       
+    
     function getId() {
         return $this->id;
     }
@@ -150,12 +159,30 @@ class Partida {
     function getStatus() {
         return $this->status;
     }
+    
 
     function setStatus($status) {
         $this->status = $status;
     }
     
-    public function toJson() {
+    function getParticipantes() {
+        return $this->participantes;
+    }
+    
+    function setParticipantes($participantes) {
+        $this->participantes = $participantes;
+    }
+    
+    function addParticipante($usuario) {
+        $this->participantes->add($usuario);
+    }
+    
+    public function toJson() {     
+        $participantes = null;
+        foreach ($this->getParticipantes() as $part) {
+            $participantes[] = $part->toJson();
+        }
+        
         return array(           
             'id' => $this->getId(),
             'data' => date_format($this->getData(), 'd/m/Y'),
@@ -167,7 +194,8 @@ class Partida {
             'descricao' => $this->getDescricao(),
             'quadra' => $this->getQuadra()->toJson(),
             'usuario' => $this->getUsuario()->toJson(), 
-            'status' => $this->getStatus()
+            'status' => $this->getStatus(),
+            'participantes' => $participantes
         );
     } 
 }

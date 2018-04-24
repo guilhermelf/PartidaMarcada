@@ -78,13 +78,15 @@ class QuadraBLL {
 
                 $pisoBLL = new PisoBLL();
                 $piso = $pisoBLL->getById($dados['piso']);
+                
+                $quadra->removeEsportes(); 
 
                 foreach ($dados['esportes'] as $esp) {
                     $esporteBLL = new esporteBLL();
 
                     $quadra->addEsporte($esporteBLL->getById($esp));
                 }
-
+                
                 $quadra->setAtivo(1);
                 $quadra->setPiso($piso);
                 $quadra->setTamanho($dados['tamanho']);

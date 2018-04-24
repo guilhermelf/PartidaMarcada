@@ -1,11 +1,27 @@
 <?php
-require_once(DAO.'/PartidaDAO.php');
+require_once(DAO . '/PartidaDAO.php');
 require_once(BLL . '/QuadraBLL.php');
 require_once(BLL . '/EsporteBLL.php');
 require_once(BLL . '/VisibilidadeBLL.php');
 require_once(BLL . '/UsuarioBLL.php');
+require_once(BLL . '/ParticipanteBLL.php');
 
 class PartidaBLL {
+    public function permitirAcesso($id) {
+        $partida = $this->getById($id);
+        $bll = new ParticipanteBLL();
+        
+        if($partida->getPublico()) {
+            return true;
+        } else {
+            if($bll->participanteExiste($_SESSION['id'], $id)) {
+                return true;
+            } else {
+                return false;
+            }
+        }      
+    }
+    
     public function cancel($id) {
         $partida = $this->getById($id);
         $partida->setStatus(0);
@@ -48,6 +64,7 @@ class PartidaBLL {
                 } else {
                     $partida = new Partida(); 
                     $novo = 1;
+                    $partida->setStatus(1);
                 }              
     
                 $data = Retorno::invertDate($dados['data']);              
@@ -61,16 +78,27 @@ class PartidaBLL {
                 $partida->setPublico($dados['publico']);
                 $partida->setQuadra($quadra);
                 $partida->setUsuario($usuario);
+                
   
                 $dao = new PartidaDAO();
-                
+
                 if ($dao->persist($partida)) {
-                    Retorno::setStatus(1);
-                    if($novo)
-                        Retorno::setMensagem("Partida cadastrada com sucesso!");
-                    else
-                        Retorno::setMensagem("Informações da partida atualizadas!");
+
+                    if($novo) {
                         
+                        $participanteBll = new ParticipanteBLL();
+                        $participante = new Participante();
+                        
+                        $participante->setPartida($partida);
+                        $participante->setUsuario($partida->getUsuario());
+                        $participante->setStatus(1);
+                        
+                        $participanteBll->insert($participante);
+                        
+                        Retorno::setMensagem("Partida cadastrada com sucesso!");
+                    } else {
+                        Retorno::setMensagem("Informações da partida atualizadas!");
+                    }    
                     return Retorno::toJson();
                 } else {
                     Retorno::setStatus(0);
@@ -90,7 +118,6 @@ class PartidaBLL {
             return Retorno::toJson();
         }
     }
-
 
     function getAll() {
         $dao = new PartidaDAO();

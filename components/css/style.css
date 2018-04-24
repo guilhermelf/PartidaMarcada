@@ -10,7 +10,7 @@ and open the template in the editor.
 
 .container {
     width: 100%;
-    height:100vh;
+    min-height:100vh;
 }
 
 @media (min-width: 576px) {
@@ -90,10 +90,12 @@ input[type="button"] {color: #fff;}
     padding: 3px;
 }
 
-.perfil-label {font-weight: bold;}
+.perfil-label {
+    font-weight: bold;
+}
 
 body {
-    background-image: url('../../img/background.jpg'); 
+    /*background-image: url('../../img/background.jpg'); */
 }
 
 .app-bar {
@@ -128,6 +130,12 @@ body {
 .accor {
     background-color: #1ba1e2 !important;
     color: #f8f8f8;
+    padding-right: 10px !important;
+    padding-left: 10px !important;
+}
+
+.frame .content {
+    padding-left: 10px !important;
 }
 
 .opcoes-partida {
@@ -137,8 +145,7 @@ body {
 
 .inicial-1 {
     height: 120px;
-    background: #000;
-    background-image: url('../../img/inicial-1.png');
+    /* background-image: url('../../img/inicial-1.png'); */
     background-attachment: relative;
     /* e agora a regra de ouro que fará a imagem ocupar todo o viewport */
     margin: 0 auto;  
@@ -146,8 +153,7 @@ body {
 
 .inicial-2 {
     height: 250px;
-    background: #000;
-    background-image: url('../../img/inicial-2.png');
+    /* background-image: url('../../img/inicial-2.png'); */
     background-repeat: no-repeat;
     background-attachment: relative;
     /* e agora a regra de ouro que fará a imagem ocupar todo o viewport */
@@ -158,7 +164,6 @@ body {
 
 .inicial-3 {
     height: 250px;
-    background: #000;
 
     background-repeat: no-repeat;
     background-attachment: relative;
@@ -170,7 +175,6 @@ body {
 
 .inicial-4 {
     height: 250px;
-    background: #000;
 
     background-repeat: no-repeat;
     background-attachment: relative;
@@ -194,4 +198,8 @@ body {
 
     color: #fff;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.align-center {
+    text-align: center;
 }

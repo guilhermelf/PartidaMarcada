@@ -143,6 +143,10 @@ class Quadra {
     function addEsporte($esporte) {
         $this->esportes->add($esporte);
     }
+    
+    public function removeEsportes() {
+        $this->esportes->clear();
+    }  
 
     public function toJson() {
         $valores = [];

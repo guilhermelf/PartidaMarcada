@@ -27,6 +27,7 @@
             $('#btn-partida-atualizar-cancelar').on('click', function (){
                 $('#div-partidas').show();
                 $('#div-atualizar-partida').hide();
+                $('.esportes-atualizar').remove();
                 return false;
             });
 
@@ -69,17 +70,17 @@
                         $("#minhas-partidas").find(".content").find(".p-2").append(
                             "<a class='minhas-partidas'>" + 
                                 v.data + ", das " + v.inicio + "h às " + v.final + "h na quadra " + v.quadra.numero + " da(o) " + v.quadra.parqueEsportivo.nome + 
-                            "</a><br />"
-                        );
-                        $("#minhas-partidas").find(".content").find(".p-2").find(".opcoes-partida").html(
-                            "<span class='partida-editar mif-pencil mif-2x fg-orange' title='Editar informações da partida'>" + 
-                                "<span style='display:none;' class=id-editar>" + v.id + "</span>" + 
-                            "</span>" + 
-                            "&nbsp;&nbsp;&nbsp;" +
-                            "<span class='partida-cancelar mif-cross mif-2x fg-red' title='Cancelar partida'>" + 
-                                "<span style='display:none;' class=id-cancelar>" + v.id + "</span>" + 
-                            "</span>"
-                        );
+                            "</a>" + 
+                                "<span class='opcoes-partida'>" + 
+                                    "<span class='partida-editar mif-pencil fg-orange' title='Editar informações da partida'>" + 
+                                        "<span style='display:none;' class='id-editar'>" + v.id + "</span>" + 
+                                    "</span>" +
+                                    "&nbsp;&nbsp;&nbsp;" +
+                                    "<span class='partida-cancelar mif-cross fg-red' title='Cancelar partida'>" + 
+                                        "<span style='display:none;' class='id-cancelar'>" + v.id + "</span>" + 
+                                    "</span>" +
+                                "</span><br />"                           
+                        );               
                     });
                 }
             });
@@ -392,9 +393,9 @@
             <div id="div-partidas" style="display: block;">
                 <div data-role="accordion" data-one-frame="true" data-show-active="true" data-active-heading-class="bg-cyan fg-white">
                     <div class="frame active" id="minhas-partidas" class="bg-cyan fg-white">
-                        <div class="heading accor">Minhas partidas</div>
+                        <div class="heading accor">Minhas partidas  <span class="mif-calendar icon"></div>
                         <div class="content">
-                            <div class="p-2"><span class="opcoes-partida"></span></div>
+                            <div class="p-2"></div>
                         </div>
                     </div>
                     <div class="frame active" id="minhas-partidas-passadas">

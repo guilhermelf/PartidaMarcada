@@ -10,6 +10,25 @@
         <title>Partida Marcada</title>
         <script>
             $(document).ready(function () {
+
+                //buscar partidas novas cadastradas pelo usuário
+                $('.minhasPartidas').remove();
+                $.ajax({
+                    async: false,
+                    type: "post",
+                    url: "/partidamarcada/partida/listarMinhasNovasPartidas",
+                    dataType: "json",
+                    success: function (resposta) {
+                        $.each(resposta, function (k, v) {
+                            $("#minhas-partidas").find(".content").find(".p-2").append(
+                                "<a class='minhas-partidas'>" + 
+                                    v.data + ", das " + v.inicio + "h às " + v.final + "h na quadra " + v.quadra.numero + " da(o) " + v.quadra.parqueEsportivo.nome + 
+                                "</a><br />"
+                            );
+                        });
+                    }
+                });
+
                 $('#tabela-amigos-pendentes').hide();
                 $('.amigos').remove();
 
@@ -110,21 +129,22 @@
         </script>
     </head>
     <body>
-        <div data-role="dialog" data-close-button="true" data-overlay="true" id="resposta" class="padding20">
-            <h3 class="resposta-titulo">aa</h3>
-
-            <p class="resposta-mensagem">aa</p>
-        </div>
         <?php include 'app/views/header/headerUsuario.php'; ?>
-        <div class="conteudo">
-            <div class="contorno">
-                <div class="accordion large-heading" data-role="accordion">
-                    <div class="frame active">
-                        <div class="accor heading">Partidas futuras <span class="mif-calendar icon"></span></div>
-                        <div class="content"></div>
+        <div data-role="dialog" data-close-button="true" data-overlay="true" id="resposta" class="padding20">
+            <div class="dialog-title resposta-titulo"></div>
+            <div class="dialog-content resposta-mensagem"></div>
+        </div>       
+        <div class="conteudo container">
+            <div id="div-partidas" style="display: block;">
+                <div data-role="accordion" data-one-frame="true" data-show-active="true" data-active-heading-class="bg-cyan fg-white">
+                    <div class="frame active" id="minhas-partidas" class="bg-cyan fg-white">
+                        <div class="heading accor">Minhas partidas  <span class="mif-calendar icon"></div>
+                        <div class="content">
+                            <div class="p-2"><span class="opcoes-partida"></span></div>
+                        </div>
                     </div>
-                    <div class="frame active">
-                        <div class="accor heading">Solicitações de amizades pendentes <span class="mif-users icon"></span></div>
+                    <div class="frame">
+                        <div class="heading bg-cyan fg-white accor text-right">Solicitações de amizade pendentes <span class="mif-users icon"></span></div>
                         <div class="content" id="div-amigos-pendentes">
                             <form id="form-amizades-pendentes">
                                 <table id="tabela-amigos-pendentes">
@@ -135,9 +155,11 @@
                             </form>
                         </div>
                     </div>
-                    <div class="frame active ">
-                        <div class="heading">Avaliações pendentes <span class="mif-pencil icon"></div>
-                        <div class="content">Módulo ainda não desenvolvido.</div>
+                    <div class="frame active">
+                        <div class="heading bg-cyan fg-white accor text-right">Avaliaçãos pendentes <span class="mif-user-plus icon"></span></div>
+                        <div class="content">
+                            <div class="content">Módulo ainda não desenvolvido.</div>
+                        </div>
                     </div>
                 </div>
             </div>

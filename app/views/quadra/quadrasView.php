@@ -50,16 +50,27 @@
                         var esportes = "";
                         if (v.esportes != null) {
                             $.each(v.esportes, function (key, value) {
-                                esportes += value.nome + "  ";
+                                if(esportes == "") {
+                                    esportes += value.nome;
+                                } else {
+                                    esportes += " - " + value.nome;
+                                }                            
                             });
                         }
                         $('#tabela-quadras').find('tbody').append(
-                                "<tr><td>" + v.numero + "</td>" +
-                                "<td>" + v.tamanho + "</td>" +
-                                "<td>" + v.piso.nome + "</td>" +
-                                "<td>" + esportes + "</td>" +
-                                "<td><span style='cursor:pointer' class='mif-pencil btn-editar-quadra'></span><span class='id-quadra' style='display:none; cursor:pointer;'>" + v.id + "</span></td>" +
-                                "<td style='text-align: center;'><span style='cursor:pointer;' class='mif-calendar'></span></td></tr>"
+                                "<tr>" + 
+                                    "<td>" + v.numero + "</td>" +
+                                    "<td>" + v.tamanho + "</td>" +
+                                    "<td>" + v.piso.nome + "</td>" +
+                                    "<td>" + esportes + "</td>" +
+                                    "<td>" + 
+                                        "<span style='cursor:pointer' class='mif-pencil btn-editar-quadra'></span>" +
+                                        "<span class='id-quadra' style='display:none; cursor:pointer;'>" + v.id + "</span>" +
+                                    "</td>" +
+                                    "<td>" + 
+                                        "<span style='cursor:pointer;' class='mif-calendar'></span>" + 
+                                    "</td>" + 
+                                "</tr>"
                                 );
 
                     });
@@ -189,13 +200,12 @@
         });
     </script>
     <body>
-        <div data-role="dialog" data-close-button="true" data-overlay="true" id="resposta" class="padding20">
-            <h3 class="resposta-titulo">aa</h3>
-
-            <p class="resposta-mensagem">aa</p>
-        </div>
         <?php include 'app/views/header/headerQuadra.php'; ?>
-        <div class="conteudo">
+        <div data-role="dialog" data-close-button="true" data-overlay="true" id="resposta" class="padding20">
+            <div class="dialog-title resposta-titulo"></div>
+            <div class="dialog-content resposta-mensagem"></div>
+        </div>       
+        <div class="conteudo container">
             <h4 class="align-center">Relação de quadras</h4>
             <div id="gerenciar-quadras">
                 <table id='tabela-quadras' class="table striped hovered">
@@ -211,52 +221,46 @@
 
                     </tbody>
                 </table>
-                <input type="button" id="btn-quadras-cadastrar-mostrar"  class="full-size bg-lightBlue" value="Cadastrar quadra">
+                <input type="button" id="btn-quadras-cadastrar-mostrar" class="button cell-sm-12 bg-lightBlue" value="Cadastrar quadra">
             </div>
 
             <div id="div-atualizar-quadras" style="display:none;">
-                <div class="form-cadastro grid">
-                    <center><h4>Atualizar quadra</h4></center>
-                    <hr />
-                    <form id="form-quadras-atualizar">
-                        <input type="hidden" id="editar-id" name="id">
+                <center><h4>Atualizar quadra</h4></center>
+                <hr />
+                <form id="form-quadras-atualizar">
+                    <input type="hidden" id="editar-id" name="id">
 
-                        <div class="row cells3">
-                            <div class="cell">
-                                <label>Número da quadra</label>
-                                <div class="input-control cell text full-size">                      
-                                    <input type="text" name="numero" id="atnumero">
-                                </div>
-                            </div>
-                            <div class="cell">
-                                <label>Piso</label>
-                                <div class="input-control select full-size">
-                                    <select name="piso" id="select-atpiso">
-                                        <option>Selecione</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="cell">
-                                <label>Número de jogadores</label>
-                                <div class="input-control cell text full-size">                      
-                                    <input type="text" name="tamanho" id="attamanho">
-                                </div>
-                            </div>
+                    <div class="row">
+                        <div class="cell-sm-2">
+                            <label>Número da quadra</label>
                         </div>
-                        <h5>Esportes</h5>
-                        <div id='check-atesportes' class="row cells5">
-
+                            <div class="cell-sm-2">                      
+                            <input type="text" name="numero" id="atnumero">
                         </div>
-                        <div class="row cells2">
-                            <div class="cell">
-                                <input type="button" id="btn-quadras-atualizar"  class="full-size bg-lightBlue" value="Atualizar">
-                            </div>
-                            <div class="cell">
-                                <input type="button" id="btn-quadras-atualizar-voltar"  class="full-size bg-lightBlue" value="Voltar">
-                            </div>
+                        <div class="cell-sm-1">
+                            <label>Piso</label>
                         </div>
-                    </form>
-                </div>
+                        <div class="cell-sm-2">                      
+                            <select name="piso" id="select-atpiso">
+                                <option>Selecione</option>
+                            </select>
+                        </div>
+                        <div class="cell-sm-3">
+                            <label>Número de jogadores</label>
+                        </div>
+                        <div class="cell-sm-1">                      
+                            <input type="text" name="tamanho" id="attamanho">
+                        </div>
+                    </div>
+                    <br />
+                    <h3>Esportes</h3>
+                    <br />
+                    <div id='check-atesportes' class="row"></div>
+                    <br />
+                    <input type="button" id="btn-quadras-atualizar"  class="button cell-sm-12 bg-lightBlue" value="Atualizar">
+                    <br />&nbsp;
+                    <input type="button" id="btn-quadras-atualizar-voltar"  class="button cell-sm-12 full-size bg-orange" value="Voltar">
+                </form>
             </div>
 
             <div id="div-cadastrar-quadras" style="display:none;">

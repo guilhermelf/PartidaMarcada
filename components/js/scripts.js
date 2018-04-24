@@ -39,12 +39,11 @@ $(document).ready(function () {
 
         $.ajax({
             type: "post",
-            //dataType: 'json',
+            dataType: 'json',
             data: $("#form-usuario-cadastrar").serialize(),
             url: "/partidamarcada/usuario/salvar",
             success: function (resposta) {
                 $(".resposta-mensagem").html(resposta.mensagem);
-
                 if (resposta.status) {
                     $(".resposta-titulo").html("Sucesso");
                     $("#resposta").data('dialog').open();
@@ -97,14 +96,17 @@ $(document).ready(function () {
     $("#btn-partida-cadastrar").on('click', function () {
         $.ajax({
             type: "post",
-            dataType: 'json',
+            //dataType: 'json',
             data: $("#form-partida-cadastrar").serialize(),
             url: "/partidamarcada/partida/salvar",
-            success: function (resposta) {              
+            success: function (resposta) {  
+                alert(resposta);         
                 if (resposta.status) {
-
                     $(".resposta-titulo").html("Sucesso");
-                    $("#resposta").attr('style', 'background-color: #60a917; color: #fff;');        
+                    $("#resposta").attr('style', 'background-color: #60a917; color: #fff;');  
+                    setTimeout(function () {    
+                        window.location.href = "/partidamarcada/"
+                    }, 3000);      
                 } else {
                     $(".resposta-titulo").html("Erro");                   
                     $("#resposta").attr('style', 'background-color: #ce352c; color: #fff;');

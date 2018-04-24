@@ -65,68 +65,51 @@
 
     </head>
     <body>
-        <div data-role="dialog" data-close-button="true" data-overlay="true" id="resposta" class="padding20">
-            <h3 class="resposta-titulo">aa</h3>
-
-            <p class="resposta-mensagem">aa</p>
-        </div>
-
         <?php include 'app/views/header/headerUsuario.php'; ?>
-        <div class="conteudo">
-            <div class="form-usuario-adicionar grid">
-
-                <h3><?php echo $dados->getNome() . " " . $dados->getSobrenome(); ?><?php echo ($dados->getApelido() != "" ? " (" . $dados->getApelido() . ")" : ""); ?></h3>
-                <hr />
-                <br />
-                <div class="row cells2">
-                    <div class="cell">
-                        <span class="perfil-label">Data de nascimento: </span> <?php echo date_format($dados->getDataNascimento(), 'd/m/Y'); ?>
-                    </div>
-                    <!-- input[type=password] -->
-                    <form id="form-adicionar-amigo">
-                        <div class="cell">
-                            <input type="button" class="bg-lightBlue place-right" value="Adicionar aos amigos" id="btn-adicionar-amigo">
-                            <input type="hidden" name="usuario" value="<?php echo $dados->getId(); ?>">
-                        </div>
-                    </form>
+        <div data-role="dialog" data-close-button="true" data-overlay="true" id="resposta" class="padding20">
+            <div class="dialog-title resposta-titulo"></div>
+            <div class="dialog-content resposta-mensagem"></div>
+        </div>       
+        <div class="conteudo container">
+            <h3><?php echo $dados->getNome() . " " . $dados->getSobrenome(); ?><?php echo ($dados->getApelido() != "" ? " (" . $dados->getApelido() . ")" : ""); ?></h3>
+            <hr />
+            <br />
+            <div class="row">
+                <div class="cell-sm-12">
+                    <span class="perfil-label">Data de nascimento: </span> <?php echo date_format($dados->getDataNascimento(), 'd/m/Y'); ?>
                 </div>
-                <?php if ($dados->getMostrarEndereco()) { ?>
-                    <div class="row cells3">
-                        <div class="cell">
-                            <span class="perfil-label">Endereço: </span> <?php echo $dados->getEndereco() . ", " . $dados->getNumero(); ?>
-                        </div>
-                        <div class="cell">
-                            <span class="perfil-label">Estado: </span> <?php echo $dados->getCidade()->getEstado()->getNome(); ?>
-                        </div>
-                        <div class="cell">
-                            <span class="perfil-label">Cidade: </span> <?php echo $dados->getCidade()->getNome(); ?>
-                        </div>
-                    </div>
-                <?php } ?>
-                <?php if ($dados->getMostrarTelefone()) { ?>
-                    <div class="row cells3">
-                        <div class="cell">
-                            <span class="perfil-label">Telefone: </span> <?php echo "(" . $dados->getDDD() . ") " . $dados->getNumero(); ?>
-                        </div>                     
-                        <div class="cell">
-                            <span class="perfil-label">E-mail: </span> <?php echo $dados->getEmail(); ?>
-                        </div>
-                    </div>
-                <?php } ?>      
-                <br />
-                <h4>Estatísticas</h4>
-                <hr />
-                Módulo ainda não terminado. 
+            </div>
+            <div class="row">
+                <div class="cell-sm-6">
+                    <span class="perfil-label">Estado: </span> <?php echo $dados->getCidade()->getEstado()->getNome(); ?>
+                </div>
+                <div class="cell-sm-6">
+                    <span class="perfil-label">Cidade: </span> <?php echo $dados->getCidade()->getNome(); ?>
+                </div>      
+            </div>
+            <br />
+            <h4>Estatísticas</h4>
+            <hr />
+            Módulo ainda não terminado. 
 
-                <br />
-                <br />
-                <h4>Avaliações</h4>
-                <hr />
+            <br />
+            <br />
+            <h4>Avaliações</h4>
+            <hr />
 
                 Informações gráficas levando em conta as avaliações recebidas dos outros usuários. (Próxima Sprint)
+
+                <form id="form-adicionar-amigo">
+                <br />
+                <div class="row">
+                    <div class="cell-sm-12">
+                        <input type="button" class="button bg-lightBlue place-right" value="Adicionar aos amigos" id="btn-adicionar-amigo">
+                        <input type="hidden" name="usuario" value="<?php echo $dados->getId(); ?>">
+                    </div>
+                </div>
+                <br />&nbsp;
+                </form>
             </div>
         </div>
-    </div>
-</div>
-</body>
+    </body>
 </html>
