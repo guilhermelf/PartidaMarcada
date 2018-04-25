@@ -138,4 +138,14 @@ class ParqueEsportivoController extends Controller {
         else
             $this->View('quadra/quadras');
     }
+    
+    function pesquisar() {
+        if (empty($_SESSION['tipo']))
+            $this->AccessDenied();
+        else {
+            $bll = new ParqueEsportivoBLL();
+
+            echo $bll->pesquisar($_POST);
+        }
+    }
 }

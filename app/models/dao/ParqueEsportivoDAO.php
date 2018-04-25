@@ -53,4 +53,36 @@ class ParqueEsportivoDAO {
             return false;
         }  
     }
+    
+    function pesquisar($dados) {
+        try {
+            $sql = "SELECT p FROM ParqueEsportivo p JOIN p.cidade c WHERE 1 = 1";
+
+            if ($dados['nome'] != "")
+                $sql .= " AND p.nome LIKE :nome";
+
+            if ($dados['cidade'] != "")
+                $sql .= " AND c.cidade LIKE :cidade";
+
+            if ($dados['endereco'] != "")
+                $sql .= " AND p.endereco LIKE :endereco";
+
+            $query = DataBase::getFactory()->createQuery($sql);
+            
+            if ($dados['nome'] != "")
+                $query->setParameter('nome', '%' . $dados['nome'] . '%');
+            
+            if ($dados['cidade'] != "")
+                $query->setParameter('cidade', '%' . $dados['cidade'] . '%');
+            
+            if ($dados['endereco'] != "")
+                $query->setParameter('endereco', '%' . $dados['endereco'] . '%');
+
+            $usuarios = $query->getResult();
+
+            return (empty($usuarios) ? false : $usuarios);
+        } catch (Exception $ex) {
+            return $ex->getMessage();
+        }
+    }
 }

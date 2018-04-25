@@ -96,7 +96,7 @@ $(document).ready(function () {
     $("#btn-partida-cadastrar").on('click', function () {
         $.ajax({
             type: "post",
-            //dataType: 'json',
+            dataType: 'json',
             data: $("#form-partida-cadastrar").serialize(),
             url: "/partidamarcada/partida/salvar",
             success: function (resposta) {  

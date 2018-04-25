@@ -212,4 +212,23 @@ class ParqueEsportivoBLL {
         }
     }
 
+    function pesquisar($dados) {
+        try {
+            $dao = new ParqueEsportivoDAO();
+
+            $parquesEsportivos = $dao->pesquisar($dados);
+            
+            $json = [];
+            if (empty($parquesEsportivos)) {
+                return json_encode(false);
+            } else {
+                foreach ($parquesEsportivos as $parque) {
+                    $json[] = $parque->toJson();
+                }
+                return json_encode($json);
+            }
+        } catch (Exception $ex) {
+            return $ex->getMessage();
+        }
+    }
 }

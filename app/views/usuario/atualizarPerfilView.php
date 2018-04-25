@@ -135,14 +135,14 @@
         });
     </script>
     <body>
-        <?php include 'app/views/header/header.php'; ?>
+        <?php include 'app/views/header/headerUsuario.php'; ?>
         <div data-role="dialog" data-close-button="true" data-overlay="true" id="resposta" class="padding20">
             <div class="dialog-title resposta-titulo"></div>
             <div class="dialog-content resposta-mensagem"></div>
         </div>       
         <div class="conteudo container">
             <form id="form-usuario-atualizar">
-                <h2>Cadastro de atleta</h2>
+                <h2>Atualização de dados de atleta</h2>
                 <hr />
                 <h4>Informações pessoais</h4>
                 <hr />

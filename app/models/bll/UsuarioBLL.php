@@ -242,5 +242,4 @@ class UsuarioBLL {
             return $ex->getMessage();
         }
     }
-
 }

@@ -11,6 +11,49 @@
     </head>
     <script>
         $(document).ready(function () {
+            $('#btn-selecionar-parqueesportivo-cadastrar').on('click', function() {
+                $('#div-selecionar-parqueesportivo').show();
+                $('#div-resultado-buscar').find("p").text("");
+                $('#div-resultado-buscar').hide();
+
+                $('.conteudo').css('opacity', '0.2');
+
+                return false;
+            });
+
+            $('#btn-selecionar-parqueesportivo-buscar').on('click', function() {                
+                $.ajax({
+                    data: $('#buscar-parqueesportivo').serialize(),
+                    async: false,
+                    type: "post",
+                    url: "/partidamarcada/parqueesportivo/pesquisar",
+                    dataType: "json",
+                    success: function (resposta) {
+                        if(!resposta) {
+                            $('#div-resultado-buscar').find("p").text("Nenhuma quadra encontrada!");
+                            
+                            $('#div-resultado-buscar').show();
+                        } else {
+                            $.each(resposta, function (k, v) {
+                                $('#div-resultado-buscar').find("p").append("<a class='selecionar-parque'>" + v.nome + "</a>");
+
+                                $('#div-resultado-buscar').show();
+                            });
+                        }
+                        console.log(resposta);
+                    }
+                });
+                return false;
+            });
+
+            $('#btn-selecionar-parqueesportivo-cancelar').on('click', function() {
+                $('#div-selecionar-parqueesportivo').hide();
+                $('.conteudo').css('opacity', '1');
+
+
+                return false;
+            });
+
 
             $('#btn-partida-nova').on('click', function (){
                 $('#div-partidas').hide();
@@ -68,7 +111,7 @@
                 success: function (resposta) {
                     $.each(resposta, function (k, v) {
                         $("#minhas-partidas").find(".content").find(".p-2").append(
-                            "<a class='minhas-partidas'>" + 
+                            "<a class='minhas-partidas' href='/partidamarcada/partida/partida/" + v.id + "'>" + 
                                 v.data + ", das " + v.inicio + "h às " + v.final + "h na quadra " + v.quadra.numero + " da(o) " + v.quadra.parqueEsportivo.nome + 
                             "</a>" + 
                                 "<span class='opcoes-partida'>" + 
@@ -384,18 +427,50 @@
         });
     </script>
     <body>
+        <div id="div-selecionar-parqueesportivo" class="modal" style="display: none;">
+            <div class="modal-content">
+                <form id="buscar-parqueesportivo">
+                    <h2 class="text-light align-center">Buscar quadra</h2>
+                    <hr>
+                    <br />
+                    <div class="row">
+                        <div class="cell-sm-3">   
+                            <input type="text" name="nome" placeholder="Nome">
+                        </div>
+                        <div class="cell-sm-3">   
+                            <input type="text" name="endereco" placeholder="Endereço">
+                        </div>
+                        <div class="cell-sm-3">   
+                            <input type="text" name="cidade" placeholder="Cidade">
+                        </div>
+                        <div class="cell-sm-3"> 
+                            <button class="button success" id="btn-selecionar-parqueesportivo-buscar">Buscar</button>
+                        </div>
+                    </div>
+                    <div id="div-resultado-buscar" style="display: none">
+                        <hr>
+                        <p></p>
+                    </div>
+                    <br />&nbsp;
+                    <button class="cell-sm-12 button success fg-white bg-red" id="btn-selecionar-parqueesportivo-cancelar">Cancelar</button>
+                </form>
+            </div>
+        </div>
         <?php include 'app/views/header/headerUsuario.php'; ?>
-        <div data-role="dialog" data-close-button="true" data-overlay="true" id="resposta" class="padding20">
+        <div data-role="dialog" data-close-button="false" data-overlay="true" id="resposta" class="padding20">
             <div class="dialog-title resposta-titulo"></div>
             <div class="dialog-content resposta-mensagem"></div>
-        </div>       
-        <div class="conteudo container">
+        </div>  
+        
+
+
+        <div class="conteudo container">         
             <div id="div-partidas" style="display: block;">
                 <div data-role="accordion" data-one-frame="true" data-show-active="true" data-active-heading-class="bg-cyan fg-white">
                     <div class="frame active" id="minhas-partidas" class="bg-cyan fg-white">
                         <div class="heading accor">Minhas partidas  <span class="mif-calendar icon"></div>
                         <div class="content">
-                            <div class="p-2"></div>
+                            <div class="p-2 resultados-quadra"></div>
                         </div>
                     </div>
                     <div class="frame active" id="minhas-partidas-passadas">
@@ -488,13 +563,17 @@
                     <br />
                     <textarea data-role="textarea" name="descricao" placeholder="Descrição (opcional)"></textarea>
                     <br />
-                    <div class="row">
+                    <!--<div class="row">
                         <div class="cell-sm-12">             
                             <select name="parqueEsportivo" id="select-parqueEsportivo">
                                 <option value="0">Parque Esportivo</option>
                             </select>
                         </div>
-					</div>
+					</div>-->
+                    <div class="cell-sm-2 div-parqueesportivo-cadastrar" style="display: none">            
+                        <input type="text" name="parqueEsportivo" readonly="readonly">
+                    </div>
+                    <button class="cell-sm-12 button success" id="btn-selecionar-parqueesportivo-cadastrar">Buscar quadra</button>
                     <div class="row">
                         <div id="div-quadra" class="cell-sm-12" style="display:none;">
                             <table id='tabela-quadras' class="table striped hovered">
