@@ -25,6 +25,16 @@ class AmigoController extends Controller {
             echo $bll->buscarAmigos();
         }
     }
+    
+    function buscarAmigosConvidar() {
+        if (empty($_SESSION['tipo']) and $_SESSION['tipo'] != "usuario") {
+            $this->AccessDenied();
+        } else {
+            $bll = new AmigoBLL();
+
+            echo $bll->buscarUsuarioConvidar($_POST);
+        }
+    }
 
     function amizadesPendentes() {
         $bll = new AmigoBLL();

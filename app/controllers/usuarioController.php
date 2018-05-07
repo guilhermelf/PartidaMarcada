@@ -61,7 +61,7 @@ class UsuarioController extends Controller {
             if (empty($_SESSION['tipo']) or $_SESSION['tipo'] != 'usuario')
                 $this->AccessDenied();
             else
-                $this->View('usuario/alterarsenha');
+                $this->View('usuario/alterarSenha');
         } else {
             $this->AccessDenied();
         }            
@@ -72,7 +72,7 @@ class UsuarioController extends Controller {
             if (empty($_SESSION['tipo']) or $_SESSION['tipo'] != 'usuario')
                 $this->AccessDenied();
             else
-                $this->View('usuario/atualizarperfil');
+                $this->View('usuario/atualizarPerfil');
         } else {
             $this->AccessDenied();
         }
@@ -83,7 +83,7 @@ class UsuarioController extends Controller {
             if (empty($_SESSION['tipo']) or $_SESSION['tipo'] != 'usuario')
                 $this->AccessDenied();
             else
-                $this->View('usuario/alteraremail');
+                $this->View('usuario/alterarEmail');
         } else {
             $this->AccessDenied();
         }

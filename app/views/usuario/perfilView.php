@@ -80,12 +80,14 @@
                 </div>
             </div>
             <div class="row">
-                <div class="cell-sm-6">
-                    <span class="perfil-label">Estado: </span> <?php echo $dados->getCidade()->getEstado()->getNome(); ?>
-                </div>
-                <div class="cell-sm-6">
+                <div class="cell-sm-12">
                     <span class="perfil-label">Cidade: </span> <?php echo $dados->getCidade()->getNome(); ?>
-                </div>      
+                </div>  
+            </div>
+            <div class="row">
+                <div class="cell-sm-12">
+                    <span class="perfil-label">Estado: </span> <?php echo $dados->getCidade()->getEstado()->getNome(); ?>
+                </div>    
             </div>
             <br />
             <h4>Estatísticas</h4>

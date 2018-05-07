@@ -225,3 +225,7 @@ body {
 #div-resultado-buscar p {
     padding-left: 10px;
 }
+
+.selecionar-parque {
+    cursor: pointer;
+}

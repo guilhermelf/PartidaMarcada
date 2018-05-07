@@ -62,7 +62,7 @@ class ParqueEsportivoDAO {
                 $sql .= " AND p.nome LIKE :nome";
 
             if ($dados['cidade'] != "")
-                $sql .= " AND c.cidade LIKE :cidade";
+                $sql .= " AND c.nome LIKE :cidade";
 
             if ($dados['endereco'] != "")
                 $sql .= " AND p.endereco LIKE :endereco";

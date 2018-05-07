@@ -1,5 +1,7 @@
 <?php
-class AmigoDAO {
+use Doctrine\ORM\Query\ResultSetMapping;
+
+class AmigoDAO { 
     function persist($amigo) {
         try {
             DataBase::getFactory()->persist($amigo);   
@@ -48,7 +50,7 @@ class AmigoDAO {
     
     function getAmigos($usuario) {
         try {
-            $query = DataBase::getFactory()->createQuery("SELECT a FROM Amigo a JOIN a.usuario2 u2 JOIN a.usuario1 u1 WHERE (u1.id = :usuario and a.ativo = '1') OR (u2.id = :usuario and a.ativo = '1')");
+            $query = DataBase::getFactory()->createQuery("SELECT a FROM Amigo a JOIN a.usuario1 u1 JOIN a.usuario2 u2 WHERE (u1.id = :usuario and a.ativo = '1') OR (u2.id = :usuario and a.ativo = '1')");
             $query->setParameter('usuario', $usuario);
             
             $amizades = $query->getResult();           
@@ -90,5 +92,56 @@ class AmigoDAO {
         } catch (Exception $ex) {
             return false;
         }   
+    }
+    
+    function getUsuarioConvidar($usuario, $partida) {
+        try {
+            
+            $rsm = new ResultSetMapping();
+            $rsm->addEntityResult('Usuario', 'u');
+            $rsm->addFieldResult('u', 'id', 'id');
+            $rsm->addFieldResult('u', 'nome', 'nome');
+            $rsm->addFieldResult('u', 'sobrenome', 'sobrenome');
+            $rsm->addFieldResult('u', 'apelido', 'apelido');
+            
+            $query = DataBase::getFactory()->createNativeQuery("SELECT DISTINCT
+                                                                        u2.id_usuario AS id,
+                                                                        u2.nome AS nome,
+                                                                        u2.sobrenome AS sobrenome,
+                                                                        u2.apelido AS apelido
+
+                                                                    FROM partidamarcada.usuario u 
+
+                                                                    INNER JOIN amigo a ON u.id_usuario = a.id_usuario1
+                                                                    INNER JOIN usuario u2 ON u2.id_usuario = a.id_usuario2
+                                                                    INNER JOIN participante p ON u2.id_usuario = p.id_usuario
+                                                                    WHERE 
+                                                                            u.id_usuario = :usuario AND p.id_partida <> :partida
+
+                                                                UNION
+
+                                                                SELECT DISTINCT
+                                                                        u1.id_usuario AS id,
+                                                                        u1.nome AS nome,
+                                                                        u1.sobrenome AS sobrenome,
+                                                                        u1.apelido AS apelido
+
+                                                                    FROM partidamarcada.usuario u 
+
+                                                                    INNER JOIN amigo a ON u.id_usuario = a.id_usuario2
+                                                                    INNER JOIN usuario u1 ON u1.id_usuario = a.id_usuario1
+                                                                    INNER JOIN participante p ON u1.id_usuario = p.id_usuario
+                                                                    WHERE 
+                                                                            u.id_usuario = :usuario AND p.id_partida <> :partida
+                                                                ", $rsm);
+            $query->setParameter('partida', $partida);
+            $query->setParameter('usuario', $usuario);
+            
+            $amigos = $query->getResult();           
+            
+            return (empty($amigos) ? false : $amigos);
+        } catch (Exception $ex) {
+            return 0;
+        }  
     }
 }

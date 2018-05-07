@@ -116,18 +116,49 @@ class AmigoBLL {
             $dados = $dao->getAmigos($usuarioLogado->getId());
 
             $amizades = [];
-
             if (empty($dados)) {
                 return 0;
             } else {
                 foreach ($dados as $value) {
                     $amizades[] = $value->toJson();
                 }
-
+                
                 return json_encode($amizades);
             }
         } catch (Exception $ex) {
-            return 0;
+            return $ex->getMessage();
+        }
+    }
+     
+    function buscarUsuarioConvidar($dados) {
+        try {
+            $bll = new UsuarioBLL;
+            $usuarioLogado = $bll->getById($_SESSION['id']);
+
+            $dao = new AmigoDAO();
+
+            $partida = $dados['partida'];
+            
+            $dados = $dao->getUsuarioConvidar($usuarioLogado->getId(), $partida);
+
+            $amizades = [];
+            if (empty($dados)) {
+                return 0;
+            } else {
+                foreach ($dados as $value) {
+                    $amigo = [];
+                    $amigo['id'] = $value->getId();
+                    $amigo['nome'] = $value->getNome();
+                    $amigo['sobrenome'] = $value->getSobrenome();
+                    $amigo['apelido'] = $value->getApelido();
+                    
+                    $amizades[] = $amigo;
+                }
+                
+                return json_encode($amizades);
+            }
+        } catch (Exception $ex) {
+            return $ex->getMessage();
         }
     }
 

@@ -23,30 +23,30 @@
                     success: function (resposta) {
                         if (resposta) {
                             $.each(resposta, function (k, v) {
-                                if ($('#var-id-usuario').text() == v.usuario1.id) {
+                                if ($('#var-id-usuario').text() == v.usuario1id) {
                                     $('#tabela-amigos').find('tbody').append(
                                             "<tr class='amigos'>" +
-                                            "<td><a href='/partidamarcada/usuario/perfil/" + v.usuario2.id + "'>" + v.usuario2.nome + " " + v.usuario2.sobrenome + " (" + v.usuario2.apelido + ")</a>" + "</td>" +
-                                            "<td width='50px;'>" +
-                                            "<span style='cursor:pointer; float:right;' class='mif-cross fg-red btn-amizade-excluir' title='Excluir'></span>" +
-                                            "<span class='id-excluir-amizade' style='display:none; cursor:pointer;'>" + v.id + "</span>" +
-                                            "</td>" +
+                                                "<td><a href='/partidamarcada/usuario/perfil/" + v.usuario2id + "'>" + v.usuario2nome + "</a>" + "</td>" +
+                                                "<td width='50px;'>" +
+                                                    "<span style='cursor:pointer; float:right;' class='mif-cross fg-red btn-amizade-excluir' title='Excluir'></span>" +
+                                                    "<span class='id-excluir-amizade' style='display:none; cursor:pointer;'>" + v.id + "</span>" +
+                                                "</td>" +
                                             "</tr>");
-                                } else if ($('#var-id-usuario').text() == v.usuario2.id) {
+                                } else if ($('#var-id-usuario').text() == v.usuario2id) {
                                     $('#tabela-amigos').find('tbody').append(
                                             "<tr class='amigos'>" +
-                                            "<td><a href='/partidamarcada/usuario/perfil/" + v.usuario1.id + "'>" + v.usuario1.nome + " " + v.usuario1.sobrenome + " (" + v.usuario1.apelido + ")</a>" + "</td>" +
-                                            "<td width='50px;'>" +
-                                            "<span style='cursor:pointer; float:right;' class='mif-cross fg-red btn-amizade-excluir' title='Excluir'></span>" +
-                                            "<span class='id-excluir-amizade' style='display:none; cursor:pointer;'>" + v.id + "</span>" +
-                                            "</td>" +
+                                                "<td><a href='/partidamarcada/usuario/perfil/" + v.usuario1id + "'>" + v.usuario1nome + "</a>" + "</td>" +
+                                                "<td width='50px;'>" +
+                                                    "<span style='cursor:pointer; float:right;' class='mif-cross fg-red btn-amizade-excluir' title='Excluir'></span>" +
+                                                    "<span class='id-excluir-amizade' style='display:none; cursor:pointer;'>" + v.id + "</span>" +
+                                                "</td>" +
                                             "</tr>");
                                 }
                             });
                         } else {
                             $('#tabela-amigos').find('tbody').append(
                                     "<tr class='amigos'>" +
-                                    "<td colspan='2'>Nenhum amigo adicionado.</td>" +
+                                        "<td colspan='2'>Nenhum amigo adicionado.</td>" +
                                     "</tr>");
                         }
 
@@ -134,7 +134,7 @@
 
                                 setTimeout(function () {
                                     window.location.href = "/partidamarcada/usuario/amigos"
-                                }, 2000);
+                                }, 3000);
                             } else {
                                 $(".resposta-titulo").html("Erro");
                                 $("#resposta").attr('style', 'background-color: #ce352c; color: #fff;');
@@ -174,7 +174,7 @@
 
                                             setTimeout(function () {
                                                 window.location.href = "/partidamarcada/usuario/amigos"
-                                            }, 2000);
+                                            }, 3000);
                                         } else {
                                             $(".resposta-titulo").html("Erro");
                                             $("#resposta").attr('style', 'background-color: #ce352c; color: #fff;');

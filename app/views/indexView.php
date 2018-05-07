@@ -10,7 +10,7 @@
         <title>Partida Marcada</title>
     </head>
     <body> 
-        <div data-role="dialog" data-close-button="true" data-overlay="true" id="resposta" class="padding20">
+        <div data-role="dialog" data-close-button="false" data-overlay="true" id="resposta" class="padding20">
             <div class="dialog-title resposta-titulo"></div>
             <div class="dialog-content resposta-mensagem"></div>
         </div>    

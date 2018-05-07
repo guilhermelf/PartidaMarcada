@@ -21,12 +21,13 @@
                 return false;
             });
 
-            $('#btn-selecionar-parqueesportivo-buscar').on('click', function() {                
+            $('#btn-selecionar-parqueesportivo-buscar').on('click', function() { 
+
                 $.ajax({
                     data: $('#buscar-parqueesportivo').serialize(),
                     async: false,
                     type: "post",
-                    url: "/partidamarcada/parqueesportivo/pesquisar",
+                    url: "/partidamarcada/parqueEsportivo/pesquisar",
                     dataType: "json",
                     success: function (resposta) {
                         if(!resposta) {
@@ -34,16 +35,29 @@
                             
                             $('#div-resultado-buscar').show();
                         } else {
+                            $('#div-resultado-buscar').find("p").text("");
                             $.each(resposta, function (k, v) {
-                                $('#div-resultado-buscar').find("p").append("<a class='selecionar-parque'>" + v.nome + "</a>");
+                                $('#div-resultado-buscar').find("p").append("<a class='selecionar-parque'><span class='parque-id' style='display: none;'>" + v.id + "</span><span class='parque-nome'>" + v.nome + "</span></a>");
 
                                 $('#div-resultado-buscar').show();
                             });
                         }
-                        console.log(resposta);
                     }
                 });
                 return false;
+            });
+
+            $('#div-resultado-buscar').on('click', '.selecionar-parque', function() {
+                $('.id-parqueEsportivo').val($(this).find('.parque-id').text());
+                
+                $('.parque-nome').val($(this).find('.parque-nome').text());
+
+
+                $('#div-selecionar-parqueesportivo').hide();
+                
+                buscarQuadras($('.id-parqueEsportivo').val());
+               
+                $('.conteudo').css('opacity', '1');
             });
 
             $('#btn-selecionar-parqueesportivo-cancelar').on('click', function() {
@@ -79,7 +93,7 @@
             $.ajax({
                 async: false,
                 type: "post",
-                url: "/partidamarcada/parqueesportivo/listar",
+                url: "/partidamarcada/parqueEsportivo/listar",
                 dataType: "json",
                 success: function (resposta) {
                     $.each(resposta, function (k, v) {
@@ -207,7 +221,7 @@
                         $('#select-publico-atualizar').val(resposta.publico);
                         $('#descricao-atualizar').val(resposta.descricao);
 
-                        $('#select-parqueEsportivo-atualizar').val(resposta.quadra.parqueEsportivo.id);
+                        $('#parqueEsportivo').val(resposta.quadra.parqueEsportivo.nome);
                         
                         $('#cadastrar-quadra-atualizar').val(resposta.quadra.id);
                         
@@ -258,8 +272,8 @@
             */
 
             //buscar quadras
-            $('#select-parqueEsportivo').on('change', function () {               
-                var parqueEsportivo = $(this).val();
+            function buscarQuadras(parque) {       
+                var parqueEsportivo = parque;
 
                 $('.quadras').remove();
                 if(parqueEsportivo != 0) {
@@ -299,7 +313,7 @@
                 } else {
                     $('#div-quadra').hide();
                 }
-            });
+            }
 
             //buscar quadras atualizar
             $('#select-parqueEsportivo-atualizar').on('change', function () {         
@@ -349,6 +363,7 @@
 
             //selecionar quadra ao cadastrar
             $('#tabela-quadras').on('click', '.btn-selecionar-quadra', function () {
+                $('.quadras-selecionadas').remove();
                 $('#div-quadra').hide();
                 $('#div-quadra-selecionada').show();
                 $('#div-esporte').show();
@@ -369,7 +384,7 @@
                             });
                         }
                         $('#tabela-quadras-selecionada').find('tbody').append(
-                                "<tr><td>" + resposta.numero + "</td>" +
+                                "<tr class='quadras-selecionadas'><td>" + resposta.numero + "</td>" +
                                 "<td>" + resposta.tamanho + "</td>" +
                                 "<td>" + resposta.piso.nome + "</td>" +
                                 "</tr>"
@@ -443,8 +458,11 @@
                         <div class="cell-sm-3">   
                             <input type="text" name="cidade" placeholder="Cidade">
                         </div>
-                        <div class="cell-sm-3"> 
+                        <div class="cell-sm-2"> 
                             <button class="button success" id="btn-selecionar-parqueesportivo-buscar">Buscar</button>
+                        </div>
+                        <div class="cell-sm-1"> 
+                            <button class="cell-sm-12 button success fg-white bg-red" id="btn-selecionar-parqueesportivo-cancelar">Cancelar</button>
                         </div>
                     </div>
                     <div id="div-resultado-buscar" style="display: none">
@@ -452,7 +470,7 @@
                         <p></p>
                     </div>
                     <br />&nbsp;
-                    <button class="cell-sm-12 button success fg-white bg-red" id="btn-selecionar-parqueesportivo-cancelar">Cancelar</button>
+                    
                 </form>
             </div>
         </div>
@@ -569,11 +587,16 @@
                                 <option value="0">Parque Esportivo</option>
                             </select>
                         </div>
-					</div>-->
-                    <div class="cell-sm-2 div-parqueesportivo-cadastrar" style="display: none">            
-                        <input type="text" name="parqueEsportivo" readonly="readonly">
+                    </div>-->
+                    <div class="row div-parqueesportivo">
+                        <div class="cell-sm-8">            
+                            <input type="text" class="parque-nome" readonly="readonly" placeholder="Local do jogo...">
+                        </div>
+                        <div class="cell-sm-4">
+                            <button class="button success" id="btn-selecionar-parqueesportivo-cadastrar">Buscar quadra</button>
+                        </div>
                     </div>
-                    <button class="cell-sm-12 button success" id="btn-selecionar-parqueesportivo-cadastrar">Buscar quadra</button>
+                    <br />                
                     <div class="row">
                         <div id="div-quadra" class="cell-sm-12" style="display:none;">
                             <table id='tabela-quadras' class="table striped hovered">
@@ -592,7 +615,6 @@
                     </div>
                     <div class="row">    
                         <div class="cell-sm-12" id="div-quadra-selecionada" style="display:none;">
-                            <br />
                             <table id='tabela-quadras-selecionada' class="table striped hovered">
                                 <thead>
                                 <th style="width: 10%">Número da quadra</th>
@@ -612,7 +634,7 @@
                             </select>
                         </div>
 					</div>
-                        
+                        <input type="hidden" class="id-parqueEsportivo" name="id_parque" />
                         <input type="hidden" id="cadastrar-quadra" name="quadra" />  
                         <br />           
                         <button class="cell-12 button info" id="btn-partida-cadastrar">Cadastrar</button>
@@ -702,26 +724,8 @@
                     <textarea id="descricao-atualizar" data-role="textarea" data-auto-size="false" id="descricao-atualizar" name="descricao" placeholder="Descrição (opcional)"></textarea>
                     <br />
                     <div class="row">
-                        <div class="cell-sm-12">             
-                            <select name="parqueEsportivo" id="select-parqueEsportivo-atualizar">
-                                <option value="0">Parque Esportivo</option>
-                            </select>
-                        </div>
-					</div>
-                    <div class="row">
-                        <div id="div-quadra-atualizar" class="cell" style="display:none;">
-                            <table id='tabela-quadras-atualizar' class="table striped hovered">
-                                <thead>
-                                <th>Número da quadra</th>
-                                <th>Tamanho</th>
-                                <th>Piso</th>
-                                <th>Esportes</th>
-                                <th style="width: 10%"></th>
-                                </thead>
-                                <tbody>
-
-                                </tbody>
-                            </table>
+                        <div class="cell-sm-12">            
+                            <input type="text" id="parqueEsportivo" class="parque-nome" readonly="readonly">
                         </div>
                     </div>
                     <div class="row">    
@@ -745,7 +749,8 @@
                                 <option value="0">Esporte</option>
                             </select>
                         </div>
-					</div>
+                    </div>
+                        <input type="hidden" class="id-parqueEsportivo" name="id_parque" />
                         <input type="hidden" id="id-partida-atualizar" name="id" />  
                         <input type="hidden" id="cadastrar-quadra-atualizar" name="quadra" />  
                         <br />           

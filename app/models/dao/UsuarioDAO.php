@@ -87,5 +87,4 @@ class UsuarioDAO {
             return $ex->getMessage();
         }
     }
-
 }

@@ -78,8 +78,10 @@ class Amigo {
     public function toJson() {
         return array(
             'id' => $this->getId(),
-            'usuario1' => $this->getUsuario1()->toJson(),
-            'usuario2' => $this->getUsuario2()->toJson(),
+            'usuario1id' => $this->getUsuario1()->getId(),
+            'usuario1nome' => $this->getUsuario1()->getNome()." ".$this->getUsuario1()->getSobrenome(). " (".$this->getUsuario1()->getApelido().")",
+            'usuario2id' => $this->getUsuario2()->getId(),
+            'usuario2nome' => $this->getUsuario2()->getNome()." ".$this->getUsuario2()->getSobrenome(). " (".$this->getUsuario2()->getApelido().")",
             'ativo' => $this->getAtivo()
         );
     }
