@@ -33,4 +33,13 @@ class participanteController extends Controller {
         
         echo $bll->getByPartida($partida);
     }
+    
+    function convidar() {
+        $partida = $_POST["partida"];
+        $participantes = $_POST["participantes"];
+        
+        $bll = new ParticipanteBLL();       
+        
+        echo json_encode($bll->convidar($participantes, $partida));
+    }
 }

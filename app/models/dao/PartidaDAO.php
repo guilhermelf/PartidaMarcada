@@ -1,4 +1,5 @@
 <?php
+use Doctrine\ORM\Query\ResultSetMappingBuilder;
 
 class PartidaDAO {
 
@@ -48,7 +49,32 @@ class PartidaDAO {
     
     function getNew($usuario) {
         try {
-            $query = DataBase::getFactory()->createQuery("SELECT p FROM Partida p JOIN p.usuario u WHERE u.id = :usuario AND p.data > CURRENT_DATE() AND p.status = 1");
+            $rsm = new ResultSetMappingBuilder(DataBase::getFactory());
+            $rsm->addRootEntityFromClassMetadata('Partida', 'p');
+            //$rsm->addJoinedEntityFromClassMetadata('Usuario', 'u', 'p', 'usuario', array('id' => 'id_usuario'));
+            //$rsm->addEntityResult('Partida', 'p');
+            //$rsm->addFieldResult('p', 'id_partida', 'id');
+            
+            $query = DataBase::getFactory()->createNativeQuery("SELECT DISTINCT
+                                                                    p.id_partida,
+                                                                    p.id_quadra,
+                                                                    p.id_esporte,
+                                                                    p.inicio,
+                                                                    p.final,
+                                                                    p.publico,
+                                                                    p.numero_jogadores,
+                                                                    p.descricao,
+                                                                    p.id_usuario,
+                                                                    p.data,
+                                                                    p.status
+                                                                FROM 
+                                                                    partidamarcada.partida p 
+                                                                INNER JOIN participante par
+                                                                    ON p.id_partida = par.id_partida
+                                                                INNER JOIN usuario u
+                                                                    ON u.id_usuario = par.id_usuario
+                                                                WHERE
+                                                                    par.id_usuario = :usuario AND p.data > CURRENT_DATE() AND p.status = 1", $rsm);
             $query->setParameter('usuario', $usuario);
             
             $partidas = $query->getResult(); 

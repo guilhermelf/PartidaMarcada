@@ -138,13 +138,13 @@
             <div id="div-partidas" style="display: block;">
                 <div data-role="accordion" data-one-frame="true" data-show-active="true" data-active-heading-class="bg-cyan fg-white">
                     <div class="frame active" id="minhas-partidas" class="bg-cyan fg-white">
-                        <div class="heading accor">Minhas partidas  <span class="mif-calendar icon"></div>
+                        <div class="heading accor"><span class="mif-calendar icon"></span> Próximas partidas</div>
                         <div class="content">
                             <div class="p-2"><span class="opcoes-partida"></span></div>
                         </div>
                     </div>
                     <div class="frame">
-                        <div class="heading bg-cyan fg-white accor text-right">Solicitações de amizade pendentes <span class="mif-users icon"></span></div>
+                        <div class="heading bg-cyan fg-white accor"><span class="mif-users icon"></span> Solicitações de amizade pendentes</div>
                         <div class="content" id="div-amigos-pendentes">
                             <form id="form-amizades-pendentes">
                                 <table id="tabela-amigos-pendentes">
@@ -156,7 +156,7 @@
                         </div>
                     </div>
                     <div class="frame active">
-                        <div class="heading bg-cyan fg-white accor text-right">Avaliaçãos pendentes <span class="mif-user-plus icon"></span></div>
+                        <div class="heading bg-cyan fg-white accor"><span class="mif-user-plus icon"></span> Avaliaçãos pendentes</div>
                         <div class="content">
                             <div class="content">Módulo ainda não desenvolvido.</div>
                         </div>

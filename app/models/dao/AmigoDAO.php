@@ -110,29 +110,37 @@ class AmigoDAO {
                                                                         u2.sobrenome AS sobrenome,
                                                                         u2.apelido AS apelido
 
-                                                                    FROM partidamarcada.usuario u 
+                                                                        FROM 
+                                                                                partidamarcada.usuario u 
 
-                                                                    INNER JOIN amigo a ON u.id_usuario = a.id_usuario1
-                                                                    INNER JOIN usuario u2 ON u2.id_usuario = a.id_usuario2
-                                                                    INNER JOIN participante p ON u2.id_usuario = p.id_usuario
-                                                                    WHERE 
-                                                                            u.id_usuario = :usuario AND p.id_partida <> :partida
+                                                                        INNER JOIN amigo a 
+                                                                                ON u.id_usuario = a.id_usuario1
+                                                                        INNER JOIN usuario u2 
+                                                                                ON u2.id_usuario = a.id_usuario2
+                                                                        LEFT JOIN participante p 
+                                                                                ON u2.id_usuario = p.id_usuario AND p.id_partida = :partida
+                                                                        WHERE
+                                                                                u.id_usuario = :usuario AND p.id_usuario IS NULL
 
-                                                                UNION
+                                                                UNION    
 
                                                                 SELECT DISTINCT
-                                                                        u1.id_usuario AS id,
-                                                                        u1.nome AS nome,
-                                                                        u1.sobrenome AS sobrenome,
-                                                                        u1.apelido AS apelido
+                                                                        u2.id_usuario AS id,
+                                                                        u2.nome AS nome,
+                                                                        u2.sobrenome AS sobrenome,
+                                                                        u2.apelido AS apelido
 
-                                                                    FROM partidamarcada.usuario u 
+                                                                        FROM 
+                                                                                partidamarcada.usuario u 
 
-                                                                    INNER JOIN amigo a ON u.id_usuario = a.id_usuario2
-                                                                    INNER JOIN usuario u1 ON u1.id_usuario = a.id_usuario1
-                                                                    INNER JOIN participante p ON u1.id_usuario = p.id_usuario
-                                                                    WHERE 
-                                                                            u.id_usuario = :usuario AND p.id_partida <> :partida
+                                                                        INNER JOIN amigo a 
+                                                                                ON u.id_usuario = a.id_usuario2
+                                                                        INNER JOIN usuario u2 
+                                                                                ON u2.id_usuario = a.id_usuario1
+                                                                        LEFT JOIN participante p 
+                                                                                ON u2.id_usuario = p.id_usuario AND p.id_partida = :partida
+                                                                        WHERE
+                                                                                u.id_usuario = :usuario AND p.id_usuario IS NULL
                                                                 ", $rsm);
             $query->setParameter('partida', $partida);
             $query->setParameter('usuario', $usuario);

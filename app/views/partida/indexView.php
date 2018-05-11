@@ -123,21 +123,31 @@
                 url: "/partidamarcada/partida/listarMinhasNovasPartidas",
                 dataType: "json",
                 success: function (resposta) {
+                    console.log(resposta);
                     $.each(resposta, function (k, v) {
-                        $("#minhas-partidas").find(".content").find(".p-2").append(
-                            "<a class='minhas-partidas' href='/partidamarcada/partida/partida/" + v.id + "'>" + 
-                                v.data + ", das " + v.inicio + "h às " + v.final + "h na quadra " + v.quadra.numero + " da(o) " + v.quadra.parqueEsportivo.nome + 
-                            "</a>" + 
-                                "<span class='opcoes-partida'>" + 
-                                    "<span class='partida-editar mif-pencil fg-orange' title='Editar informações da partida'>" + 
-                                        "<span style='display:none;' class='id-editar'>" + v.id + "</span>" + 
-                                    "</span>" +
-                                    "&nbsp;&nbsp;&nbsp;" +
-                                    "<span class='partida-cancelar mif-cross fg-red' title='Cancelar partida'>" + 
-                                        "<span style='display:none;' class='id-cancelar'>" + v.id + "</span>" + 
-                                    "</span>" +
-                                "</span><br />"                           
-                        );               
+                        
+                        if(v.usuario.id == $('#usuario').val()) {
+                            $("#minhas-partidas").find(".content").find(".p-2").append(
+                                "<a class='minhas-partidas' href='/partidamarcada/partida/partida/" + v.id + "'>" + 
+                                    v.data + ", das " + v.inicio + "h às " + v.final + "h na quadra " + v.quadra.numero + " da(o) " + v.quadra.parqueEsportivo.nome + 
+                                "</a>" + 
+                                    "<span class='opcoes-partida'>" + 
+                                        "<span class='partida-editar mif-pencil fg-orange' title='Editar informações da partida'>" + 
+                                            "<span style='display:none;' class='id-editar'>" + v.id + "</span>" + 
+                                        "</span>" +
+                                        "&nbsp;&nbsp;&nbsp;" +
+                                        "<span class='partida-cancelar mif-cross fg-red' title='Cancelar partida'>" + 
+                                            "<span style='display:none;' class='id-cancelar'>" + v.id + "</span>" + 
+                                        "</span>" +
+                                    "</span><br />"                           
+                            );
+                        } else {
+                            $("#minhas-partidas").find(".content").find(".p-2").append(
+                                "<a class='minhas-partidas' href='/partidamarcada/partida/partida/" + v.id + "'>" + 
+                                    v.data + ", das " + v.inicio + "h às " + v.final + "h na quadra " + v.quadra.numero + " da(o) " + v.quadra.parqueEsportivo.nome + 
+                                "</a><br />"                           
+                            );
+                        }               
                     });
                 }
             });
@@ -480,19 +490,19 @@
             <div class="dialog-content resposta-mensagem"></div>
         </div>  
         
-
+        <input type="hidden" id="usuario" value="<?php echo $_SESSION['id']; ?>" />
 
         <div class="conteudo container">         
             <div id="div-partidas" style="display: block;">
                 <div data-role="accordion" data-one-frame="true" data-show-active="true" data-active-heading-class="bg-cyan fg-white">
                     <div class="frame active" id="minhas-partidas" class="bg-cyan fg-white">
-                        <div class="heading accor">Minhas partidas  <span class="mif-calendar icon"></div>
+                        <div class="heading accor"><span class="mif-calendar icon"></span> Próximas partidas</div>
                         <div class="content">
                             <div class="p-2 resultados-quadra"></div>
                         </div>
                     </div>
-                    <div class="frame active" id="minhas-partidas-passadas">
-                        <div class="heading bg-cyan fg-white accor">Partidas passadas</div>
+                    <div class="frame" id="minhas-partidas-passadas">
+                        <div class="heading bg-cyan fg-white accor"><span class="mif-calendar icon"></span> Partidas passadas</div>
                         <div class="content">
                             <div class="p-2"></div>
                         </div>

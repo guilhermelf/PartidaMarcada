@@ -143,18 +143,18 @@ class PartidaBLL {
         $bll = new UsuarioBLL;
         $usuario = $bll->getById($_SESSION['id']);
         
-        $partidas = $dao->getNew($usuario);
-       
+        $partidas = $dao->getNew($usuario->getId());
+
         $json = [];
 
         if(empty($partidas)) {
-            echo "vazio!";
+            return 0;
         } else {
-            foreach ($partidas as $partida) {                         
-                $json[] = $partida->toJson();
-            }
-            
-            return json_encode($json);
+            foreach ($partidas as $partida) {    
+                $json[] = $partida->toJson();          
+            }     
+
+            return $json;
         }
     }
     
@@ -164,12 +164,12 @@ class PartidaBLL {
         $bll = new UsuarioBLL;
         $usuario = $bll->getById($_SESSION['id']);
         
-        $partidas = $dao->getPast($usuario);
+        $partidas = $dao->getPast($usuario->getId());
        
         $json = [];
 
         if(empty($partidas)) {
-            echo "vazio!";
+            return 0;
         } else {
             foreach ($partidas as $partida) {                         
                 $json[] = $partida->toJson();

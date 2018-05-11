@@ -29,8 +29,10 @@ class PartidaController extends Controller {
     
     function listarMinhasNovasPartidas() {
         $bll = new PartidaBLL();
-
-        echo $bll->getNew();
+        
+        $partidas = $bll->getNew();
+    
+        echo json_encode($partidas);
     }
     
     function listarMinhasAntigasPartidas() {
@@ -66,9 +68,9 @@ class PartidaController extends Controller {
     function getById($partidaId) {
         $bll = new PartidaBLL();
 
-        $quadra = $bll->getById($partidaId);
+        $partida = $bll->getById($partidaId);
     
-        echo json_encode($quadra->toJson());
+        echo json_encode($partida->toJson());
     }
     
     function cancelarPartida($partidaId) {

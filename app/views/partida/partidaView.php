@@ -19,17 +19,53 @@
                 url: "/partidamarcada/amigo/buscarAmigosConvidar",
                 dataType: 'json',
                 success: function (resposta) {
-                    $.each(resposta, function(k, v) {
+                    if(resposta) {
+                        $.each(resposta, function(k, v) {
+                            $('#form-convites-partida').append(
+                                "<div class='row'>" +
+                                    "<div class='cell-sm-12'>" +
+                                        "<input type='checkbox' data-role='checkbox' name='participantes[]' value='" + v.id + "' data-caption='" + v.nome + " " + v.sobrenome + " (" + v.apelido +  ")'>" +
+                                    "</div>" +
+                                "</div>"
+                            );
+                        })
+                    } else {
                         $('#form-convites-partida').append(
                             "<div class='row'>" +
                                 "<div class='cell-sm-12'>" +
-                                    "<input type='checkbox' data-role='checkbox' name='convites' value='" + v.id + "' data-caption='" + v.nome + " " + v.sobrenome + " (" + v.apelido +  ")'>" +
+                                    "<hr /><p>Não há amigos disponíveis</p>" +
                                 "</div>" +
                             "</div>"
                         );
-                    })
+                        $("#btn-partida-convidar-selecionados").hide();
+                    }                 
                 }
             });
+
+          /*   $('#btn-usuario-buscar').on('click', function () {
+                $('.busca').remove();
+                $.ajax({
+                    type: "post",
+                    dataType: 'json',
+                    data: $("#form-buscar-atletas").serialize(),
+                    url: "/partidamarcada/usuario/pesquisar",
+                    success: function (resposta) {
+                        console.log(resposta);
+                        if(!resposta) {
+                            $('#resultado-busca').html("<span class='busca'><hr /> Nenhum usuário encontrado.</span>");
+                            $('#resultado-busca').show();
+                        } else {
+                            $('#resultado-busca').html("<span class='busca'><hr /></span>");
+                            $.each(resposta, function (k, v) {
+                                $('#resultado-busca').append("<span class='busca'><a target='_blank' href='/partidamarcada/usuario/perfil/" + v.id + "'>" + v.nome + " " + v.sobrenome + " (" + v.apelido + ")</a><br /></span>");
+                            });
+                            
+                            $('#resultado-busca').show();
+                        }
+                    }
+                });
+                return false;
+            }); */
 
             $('#btn-convidar-cancelar').on('click', function() {
                 $('#div-partida-convidar').hide();
@@ -46,7 +82,26 @@
             });
 
             $('#btn-partida-convidar-selecionados').on('click', function() {
-                console.log($('#form-convites-partida').serialize());
+                $('#div-partida-convidar').hide();
+                $('.conteudo').css('opacity', '1');
+                $.ajax({
+                    type: "post",
+                    dataType: 'json',
+                    data: $("#form-convites-partida").serialize(),
+                    url: "/partidamarcada/participante/convidar",
+                    success: function (resposta) {
+                        $(".resposta-titulo").html("Sucesso");
+                        $("#resposta").attr('style', 'background-color: #60a917; color: #fff;');
+                        $(".resposta-mensagem").html(resposta.mensagem); 
+                        
+                        $("#resposta").data('dialog').open();
+                        
+                        setTimeout(function () {    
+                            window.location.href = "/partidamarcada/partida/partida/" + $('#id-partida').val(); 
+                        }, 3000);
+                    }
+                });
+
 
                 return false;
             });
@@ -62,7 +117,7 @@
                 <br />
                 <div data-role="accordion" data-one-frame="true" data-show-active="true">
                     
-                    <div class="frame">
+                    <!-- <div class="frame">
                         <div class="heading accor"><span class="mif-search icon"></span> Buscar atletas</div>
                         <div class="content" id="div-buscar-atletas">
                             <form id="form-buscar-atletas">
@@ -75,20 +130,20 @@
                                     <input type="text" name="sobrenome" placeholder="Sobrenome">
                                 </div>
                                 <div class="cell-sm-3">   
-                                    <input type="text" name="Apelido" placeholder="Apelido">
+                                    <input type="text" name="apelido" placeholder="Apelido">
                                 </div>
                                 <div class="cell-sm-3"> 
-                                    <button class="button yellow" id="btn-convidar-buscar-usuario">Buscar</button>
+                                    <button class="button yellow" id="btn-usuario-buscar">Buscar</button>
                                 </div>
                             </div>
-                            
+                            <div id="resultado-busca" style="display:none;"></div>
                             <input type="hidden" id="id-partida" name="partida" value="<?php echo $dados->getId(); ?>">
                             
                             </form>
                             <br />
                         </div>
                     </div>
-                    
+                     -->
                     
                     <div class="frame active">
                         <div class="heading accor"><span class="mif-users icon"></span> Amigos</div>
@@ -109,14 +164,14 @@
                 <br /> 
                 <div class="row">
                     <div class="cell-sm-12"> 
-                        <button class="cell-sm-12 button success fg-white bg-red" id="btn-convidar-cancelar">Cancelar</button>
+                        <button class="cell-sm-12 button success fg-white bg-red" id="btn-convidar-cancelar">Voltar</button>
                     </div>
                 </div>
             </div>
         </div>
 
         <?php include 'app/views/header/headerUsuario.php'; ?>
-        <div data-role="dialog" data-close-button="true" data-overlay="true" id="resposta" class="padding20">
+        <div data-role="dialog" data-close-button="false" data-overlay="true" id="resposta" class="padding20">
             <div class="dialog-title resposta-titulo"></div>
             <div class="dialog-content resposta-mensagem"></div>
         </div>       
@@ -136,6 +191,9 @@
                             <?php echo "Partida de " . $dados->getEsporte()->getNome() . " (" . $dados->getQuadra()->getTamanho() . ") no(a) " .
                                 $dados->getQuadra()->getParqueEsportivo()->getNome() . ", na quadra de número " . $dados->getQuadra()->getNumero() . ".";?>
                         </span>
+                    </div>
+                    <div class="cell-sm-12">
+                        <span class="perfil-label"><?php echo "Data: </span>" . date_format($dados->getData(), 'd/m/Y') . ", das " . $dados->getInicio() . "h às " . $dados->getFinal() . "h.";?>                     
                     </div>
                 </div>           
                 <div class="row">

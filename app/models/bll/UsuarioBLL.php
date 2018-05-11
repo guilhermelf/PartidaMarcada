@@ -230,7 +230,7 @@ class UsuarioBLL {
             
             $json = [];
             if (empty($usuarios)) {
-                return "vazio!";
+                return 0;
             } else {
                 foreach ($usuarios as $usuario) {
                     $json[] = $usuario->toJson();
@@ -242,4 +242,5 @@ class UsuarioBLL {
             return $ex->getMessage();
         }
     }
+
 }

@@ -1,6 +1,7 @@
 <?php
-
 require_once(DAO . '/ParticipanteDAO.php');
+require_once(BLL . '/UsuarioBLL.php');
+require_once(BLL . '/PartidaBLL.php');
 
 class ParticipanteBLL {
 
@@ -76,5 +77,28 @@ class ParticipanteBLL {
             
             return json_encode($json);
         }
+    }
+    
+    function convidar($participantes, $partida) {
+        $bll = new PartidaBLL();
+        $pa = $bll->getById($partida);
+        
+        foreach ($participantes as $participante) {
+            $bll = new UsuarioBLL();
+            $usuario = $bll->getById($participante);
+            
+            $part = new Participante();
+   
+            $part->setStatus(0);
+            $part->setPartida($pa);
+            $part->setUsuario($usuario);
+            
+            $this->insert($part);
+        }        
+        
+        Retorno::setStatus(1);
+        Retorno::setMensagem("Convite(s) enviado(s) com sucesso!.");
+        
+        return Retorno::toJson();
     }
 }
