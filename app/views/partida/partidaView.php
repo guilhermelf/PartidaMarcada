@@ -10,7 +10,68 @@
         <title>Partida Marcada</title>
     </head>
     <script>
-        $(document).ready(function () {
+        $(document).ready(function () {   
+
+            //confirmar presença
+            $("#btn-aceitar").on('click', function() {
+                $.ajax({
+                    async: false,
+                    type: "post",
+                    data: {participante : $('#id-participante').val()},
+                    url: "/partidamarcada/participante/aceitar",
+                    success: function (resposta) {
+                        if(resposta) {
+                            $(".resposta-titulo").html("Sucesso");
+                            $("#resposta").attr('style', 'background-color: #60a917; color: #fff;');
+
+                            $(".resposta-mensagem").html("Convite aceito com sucesso!"); 
+                            $("#resposta").data('dialog').open();
+                            
+                            setTimeout(function () {    
+                                window.location.href = "/partidamarcada/partida/partida/" + $('#id-partida').val()
+                            }, 3000);
+                        }
+                    }
+                });
+            }); 
+
+            //negar presença
+            $("#btn-negar").on('click', function() {
+                $.ajax({
+                    async: false,
+                    type: "post",
+                    data: {participante : $('#id-participante').val()},
+                    url: "/partidamarcada/participante/negar",
+                    success: function (resposta) {
+                        if(resposta) {
+                            $(".resposta-titulo").html("Sucesso");
+                            $("#resposta").attr('style', 'background-color: #60a917; color: #fff;');
+
+                            $(".resposta-mensagem").html("Convite negado com sucesso!"); 
+                            $("#resposta").data('dialog').open();
+                            
+                            setTimeout(function () {    
+                                window.location.href = "/partidamarcada/partida/partida/" + $('#id-partida').val()
+                            }, 3000);
+                        }
+                    }
+                });
+            });
+
+            //alterar presença
+            $("#participar").on('click', ".btn-alterar", function() {
+                $.ajax({
+                    async: false,
+                    type: "post",
+                    data: {participante : $('#id-participante').val()},
+                    url: "/partidamarcada/participante/aguardar",
+                    success: function (resposta) {
+                        if(resposta) {                       
+                            window.location.href = "/partidamarcada/partida/partida/" + $('#id-partida').val()
+                        }
+                    }
+                });
+            });      
 
             $.ajax({
                 async: false,
@@ -39,6 +100,39 @@
                         );
                         $("#btn-partida-convidar-selecionados").hide();
                     }                 
+                }
+            });
+            
+
+            $.ajax({
+                async: false,
+                type: "post",
+                data: {partida : $('#id-partida').val()},
+                url: "/partidamarcada/participante/buscarConvite",
+                dataType: 'json',
+                success: function (resposta) 
+                {
+                    $.each(resposta, function(k, v){
+                        $('#id-participante').val(v.id);
+                        
+                        switch (v.status) {
+                            case 0:
+                                $('#participar').hide()
+                                $('#div-convite').show();
+                                break;                     
+                            case 1:
+                                $('#div-convite').hide();
+                                $('#participar').html("<span class='perfil-label'>Estou confirmado para a partida. <a href='#' class='btn-alterar'>Alterar</a></span>");
+                                $('#participar').show();
+                                break;
+                            case 2:
+                                $('#div-convite').hide();
+                                $('#participar').html("<span class='perfil-label'>Não participarei da partida. <a href='#' class='btn-alterar'>Alterar</a></span>");
+                                $('#participar').show();
+                                break;
+                        }
+
+                    })                  
                 }
             });
 
@@ -195,7 +289,12 @@
                     <div class="cell-sm-12">
                         <span class="perfil-label"><?php echo "Data: </span>" . date_format($dados->getData(), 'd/m/Y') . ", das " . $dados->getInicio() . "h às " . $dados->getFinal() . "h.";?>                     
                     </div>
-                </div>           
+                </div>    
+                <div class="row">
+                    <div class="cell-sm-12">
+                        <span class="perfil-label">Valor: </span> <?php echo $dados->getQuadra()->getValor() . " R$"; ?>
+                    </div>
+                </div>        
                 <div class="row">
                     <div class="cell-sm-12">
                         <span class="perfil-label">Organizador: </span> <?php echo $dados->getUsuario()->getNome() . " " . $dados->getUsuario()->getSobrenome() . " (" . $dados->getUsuario()->getApelido() . ")"; ?>
@@ -212,6 +311,18 @@
                         </span>
                     </div>
                 </div>     
+                <br />
+                <div id="div-convite" style="display:none;">
+                    <div class="row">
+                        <div class="cell-sm-6">
+                            <button class="button success" id="btn-aceitar">Participarei</button>
+                        </div>
+                        <div class="cell-sm-6">
+                            <button class="button alert" id="btn-negar">Não participarei</button>
+                        </div>
+                    </div>
+                </div>
+                <div id="participar" style="display:none;"></div>
                 <br />
                 <div data-role="accordion" data-one-frame="false" data-show-active="true">
                     <div class="frame">
@@ -275,12 +386,13 @@
                                 <div id="_target_1">
                                     <?php 
                                         foreach ($dados->getParticipantes() as $participante) {
-                                            if($participante->getStatus() == 1)
+                                            if($participante->getStatus() == 1) {
                                                 echo "<a target='_blank' href='/partidamarcada/usuario/perfil/" . $participante->getUsuario()->getId() . "'>" .
                                                         $participante->getUsuario()->getNome() . " " . 
                                                         $participante->getUsuario()->getSobrenome() . 
                                                         " (" . $participante->getUsuario()->getApelido()  
                                                     .")</a><br />";
+                                                }
                                         }
                                     ?>
                                 </div>
@@ -318,9 +430,10 @@
                         <br />
                     <?php   
                         }
-                    ?>              
+                    ?>                              
                 </div>
-            </div>           
+            </div>
+            <input type="hidden" id="id-participante" value="" />              
         </div>
     </body>
 </html>

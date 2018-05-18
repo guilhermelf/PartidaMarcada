@@ -147,7 +147,7 @@
                                     v.data + ", das " + v.inicio + "h às " + v.final + "h na quadra " + v.quadra.numero + " da(o) " + v.quadra.parqueEsportivo.nome + 
                                 "</a><br />"                           
                             );
-                        }               
+                        }            
                     });
                 }
             });
@@ -160,9 +160,11 @@
                 url: "/partidamarcada/partida/listarMinhasAntigasPartidas",
                 dataType: "json",
                 success: function (resposta) {
-                    $.each(resposta, function (k, v) {
-                        $("#minhas-partidas-passadas").find(".content").find(".p-2").append("<a class='partida-passada-ver minhas-partidas-passadas' href='#'><span style='display:none;' class=id-ver>" + v.id + "</span>" + v.data + ", das " + v.inicio + "h às " + v.final + "h na quadra " + v.quadra.numero + " da(o) " + v.quadra.parqueEsportivo.nome + "</a><br />");
-                    });
+                    if(resposta) {
+                        $.each(resposta, function (k, v) {
+                            $("#minhas-partidas-passadas").find(".content").find(".p-2").append("<a class='partida-passada-ver minhas-partidas-passadas' href='#'><span style='display:none;' class=id-ver>" + v.id + "</span>" + v.data + ", das " + v.inicio + "h às " + v.final + "h na quadra " + v.quadra.numero + " da(o) " + v.quadra.parqueEsportivo.nome + "</a><br />");
+                        });
+                    }
                 }
             });
 
@@ -373,6 +375,7 @@
 
             //selecionar quadra ao cadastrar
             $('#tabela-quadras').on('click', '.btn-selecionar-quadra', function () {
+           
                 $('.quadras-selecionadas').remove();
                 $('#div-quadra').hide();
                 $('#div-quadra-selecionada').show();

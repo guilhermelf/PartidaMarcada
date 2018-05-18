@@ -53,15 +53,6 @@ class Quadra {
     private $esportes;
 
     /**
-     * @ManyToMany(targetEntity="Valor")
-     * @JoinTable(name="quadra_valor",
-     *      joinColumns={@JoinColumn(name="id_quadra", referencedColumnName="id_quadra")},
-     *      inverseJoinColumns={@JoinColumn(name="id_valor", referencedColumnName="id_valor", unique=true)}
-     *      )
-     */
-    private $valores;
-
-    /**
      * @Column(type="integer", name="tamanho")
      */
     private $tamanho;
@@ -75,14 +66,28 @@ class Quadra {
      * @Column(type="boolean", name="ativo")
      */
     private $ativo;
+    
+    /**
+     * @Column(type="float", name="valor")
+     */
+    private $valor;
 
+    function getValor() {
+        return $this->valor;
+    }
+
+    function setValor($valor) {
+        $this->valor = $valor;
+    }
+
+        
     function getNumero() {
         return $this->numero;
     }
 
     function setNumero($numero) {
         $this->numero = $numero;
-    }
+    }   
 
     function getId() {
         return $this->id;
@@ -94,10 +99,6 @@ class Quadra {
 
     function getPiso() {
         return $this->piso;
-    }
-
-    function getValores() {
-        return $this->valores;
     }
 
     function getTamanho() {
@@ -118,10 +119,6 @@ class Quadra {
 
     function setPiso($piso) {
         $this->piso = $piso;
-    }
-
-    function setValores($valores) {
-        $this->valores = $valores;
     }
 
     function setTamanho($tamanho) {
@@ -149,10 +146,6 @@ class Quadra {
     }  
 
     public function toJson() {
-        $valores = [];
-        foreach ($this->getValores() as $val) {
-            $valores[] = $val->toJson();
-        }
 
         $esportes = [];
         foreach ($this->getEsportes() as $esp) {
@@ -160,10 +153,7 @@ class Quadra {
         }
         
         if(empty($esportes))
-            $esportes = null;
-       
-        if(empty($valores))
-            $valores = null;
+            $esportes = null;    
 
         return array(
             'id' => $this->getId(),
@@ -172,7 +162,7 @@ class Quadra {
             'piso' => $this->getPiso()->toJson(),
             'parqueEsportivo' => $this->getParqueEsportivo()->toJson(),
             'ativo' => $this->getAtivo(),
-            'valores' => $valores,         
+            'valor' => $this->getValor(),
             'esportes' => $esportes
         );
     }

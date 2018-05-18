@@ -42,4 +42,43 @@ class participanteController extends Controller {
         
         echo json_encode($bll->convidar($participantes, $partida));
     }
+    
+    function buscarConvite() {
+        $partida = $_POST["partida"];
+        $usuario = $_SESSION['id'];
+        
+        $bll = new ParticipanteBLL();       
+
+        echo json_encode($bll->buscarConvite($usuario, $partida));
+    }
+    
+    function aceitar() {
+        $id = $_POST['participante'];
+        
+        $bll = new ParticipanteBLL();
+        
+        echo $bll->aceitar($id);
+    }
+    
+    function negar() {
+        $id = $_POST['participante'];
+        
+        $bll = new ParticipanteBLL();
+        
+        echo $bll->negar($id);
+    }
+    
+    function aguardar() {
+        $id = $_POST['participante'];
+        
+        $bll = new ParticipanteBLL();
+        
+        echo $bll->aguardar($id);       
+    }
+
+    function buscarPendentes() {
+        $bll = new ParticipanteBLL();
+        
+        echo $bll->buscarPendentes();
+    }
 }

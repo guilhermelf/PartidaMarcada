@@ -21,7 +21,7 @@
                     success: function (resposta) {
                         $.each(resposta, function (k, v) {
                             $("#minhas-partidas").find(".content").find(".p-2").append(
-                                "<a class='minhas-partidas'>" + 
+                                "<a href='/partidamarcada/partida/partida/" + v.id + "' class='minhas-partidas'>" + 
                                     v.data + ", das " + v.inicio + "h às " + v.final + "h na quadra " + v.quadra.numero + " da(o) " + v.quadra.parqueEsportivo.nome + 
                                 "</a><br />"
                             );
@@ -38,19 +38,19 @@
                     url: "/partidamarcada/amigo/amizadesPendentes",
                     success: function (resposta) {
                         if(resposta) {
-                        $.each(resposta, function (k, v) {
+                            $.each(resposta, function (k, v) {
 
-                            $('#tabela-amigos-pendentes').find('tbody').append(
-                                    "<tr class='amigos'>" +
-                                    "<td>" + v.usuario1.nome + " " + v.usuario1.sobrenome + " (" + v.usuario1.apelido + ")" + "</td>" +
-                                    "<td width='50px;'>" +
-                                    "<span style='cursor:pointer; float:left;' class='mif-checkmark fg-green btn-amizade-aceitar' title='Aceitar'></span>" +
-                                    "<span style='cursor:pointer; float:right;' class='mif-cross fg-red btn-amizade-rejeitar' title='Rejeitar'></span>" +
-                                    "<span class='id-amizade' style='display:none; cursor:pointer;'>" + v.id + "</span>" +
-                                    "</td>" +
-                                    "</tr>");
+                                $('#tabela-amigos-pendentes').find('tbody').append(
+                                        "<tr class='amigos'>" +
+                                        "<td>" + v.usuario1.nome + " " + v.usuario1.sobrenome + " (" + v.usuario1.apelido + ")" + "</td>" +
+                                        "<td width='50px;'>" +
+                                        "<span style='cursor:pointer; float:left;' class='mif-checkmark fg-green btn-amizade-aceitar' title='Aceitar'></span>" +
+                                        "<span style='cursor:pointer; float:right;' class='mif-cross fg-red btn-amizade-rejeitar' title='Rejeitar'></span>" +
+                                        "<span class='id-amizade' style='display:none; cursor:pointer;'>" + v.id + "</span>" +
+                                        "</td>" +
+                                        "</tr>");
 
-                        });
+                            });
                         } else {
                             $('#tabela-amigos-pendentes').find('tbody').append(
                                     "<tr class='amigos'>" +

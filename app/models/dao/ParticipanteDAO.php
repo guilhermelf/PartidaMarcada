@@ -68,4 +68,31 @@ class ParticipanteDAO {
             return false;
         }
     }
+    
+    function getParticipante($usuario, $partida) {
+        try {
+            $query = DataBase::getFactory()->createQuery("SELECT p FROM Participante p JOIN p.usuario u JOIN p.partida pa WHERE u.id = :usuario AND pa.id = :partida");
+            $query->setParameter('usuario', $usuario);
+            $query->setParameter('partida', $partida);
+            
+            $participante = $query->getResult();
+
+            return (empty($participante) ? false : $participante);
+        } catch (Exception $ex) {
+            return false;
+        }
+    }
+    
+    function getPendentes($usuario) {
+        try {
+            $query = DataBase::getFactory()->createQuery("SELECT p FROM Participante p JOIN p.usuario u JOIN p.partida pa WHERE u.id = :usuario AND pa.data >= CURRENT_DATE() AND p.status = 0");
+            $query->setParameter('usuario', $usuario);
+            
+            $participantes = $query->getResult();
+
+            return (empty($participantes) ? false : $participantes);
+        } catch (Exception $ex) {
+            return false;
+        }
+    }
 }

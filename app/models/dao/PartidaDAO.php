@@ -36,12 +36,26 @@ class PartidaDAO {
     
     function getPast($usuario) {
         try {
-            $query = DataBase::getFactory()->createQuery("SELECT p FROM Partida p JOIN p.usuario u WHERE u.id = :usuario AND p.data < CURRENT_DATE()");
+            $query = DataBase::getFactory()->createQuery("SELECT p FROM Partida p JOIN p.usuario u WHERE (u.id = :usuario AND p.data < CURRENT_DATE()) OR (u.id = :usuario AND p.data = CURRENT_DATE()) ORDER BY p.data DESC");
             $query->setParameter('usuario', $usuario);
             
             $partidas = $query->getResult(); 
             
             return (empty($partidas) ? false : $partidas);
+        } catch (Exception $ex) {
+            return false;
+        }
+    }
+    
+    function isPast($partida) {
+        try {
+            $query = DataBase::getFactory()->createQuery("SELECT p FROM Partida p WHERE (p.id = :partida AND p.data < CURRENT_DATE()) OR (p.id = :partida AND p.data = CURRENT_DATE() AND p.final <= :hora)");
+            $query->setParameter('partida', $partida);
+            $query->setParameter('hora', date('H')-5);
+            
+            $partida = $query->getResult(); 
+            
+            return (empty($partida) ? 0 : 1);
         } catch (Exception $ex) {
             return false;
         }
@@ -74,7 +88,9 @@ class PartidaDAO {
                                                                 INNER JOIN usuario u
                                                                     ON u.id_usuario = par.id_usuario
                                                                 WHERE
-                                                                    par.id_usuario = :usuario AND p.data > CURRENT_DATE() AND p.status = 1", $rsm);
+                                                                    par.id_usuario = :usuario AND p.data > CURRENT_DATE() AND p.status = 1 
+                                                                ORDER BY
+                                                                    p.data ASC", $rsm);
             $query->setParameter('usuario', $usuario);
             
             $partidas = $query->getResult(); 

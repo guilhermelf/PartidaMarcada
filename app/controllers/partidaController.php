@@ -78,4 +78,10 @@ class PartidaController extends Controller {
     
         echo json_encode($bll->cancel($partidaId));
     }
+    
+    function partidaOcorreu($id) {
+        $bll = new PartidaBLL();
+
+        echo $bll->partidaOcorreu($id);
+    }
 }

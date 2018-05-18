@@ -101,4 +101,68 @@ class ParticipanteBLL {
         
         return Retorno::toJson();
     }
+    
+    function buscarConvite($usuario, $partida) {
+        $dao = new ParticipanteDAO();
+
+        $participantes = $dao->getParticipante($usuario, $partida);
+        
+        if(!$participantes) {
+            return false;
+        } else {
+            foreach ($participantes as $participante) {                         
+                $json[] = $participante->toJson();
+            }
+            
+            return $json;
+        }
+    } 
+    
+    function aceitar($id) {
+        $dao = new ParticipanteDAO();
+
+        $participante = $dao->getById($id);
+        
+        $participante->setStatus(1);
+
+        return $dao->persist($participante);
+    }
+    
+    function negar($id) {
+        $dao = new ParticipanteDAO();
+
+        $participante = $dao->getById($id);
+        
+        $participante->setStatus(2);
+
+        return $dao->persist($participante);
+    }
+    
+    function aguardar($id) {
+        $dao = new ParticipanteDAO();
+
+        $participante = $dao->getById($id);
+        
+        $participante->setStatus(0);
+
+        return $dao->persist($participante);
+    }
+    
+    function buscarPendentes() {
+        $dao = new ParticipanteDAO();
+
+        $participantes = $dao->getPendentes($_SESSION['id']);
+
+        $json = [];
+
+        if (empty($participantes)) {
+            return 0;
+        } else {
+            foreach ($participantes as $participante) {
+                $json[] = $participante->getPartida()->toJson();
+            }
+
+            return json_encode($json);
+        }
+    }
 }

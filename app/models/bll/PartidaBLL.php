@@ -185,7 +185,13 @@ class PartidaBLL {
         $partida = $dao->getById($id);
         
         return $partida;
-    }   
+    }  
+    
+    function partidaOcorreu($id) {
+        $dao = new PartidaDAO();
+        
+        return $dao->isPast($id);
+    }
     
     function getByUsuario() {
         $bll = new UsuarioBLL;
