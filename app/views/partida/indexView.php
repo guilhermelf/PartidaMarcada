@@ -11,6 +11,35 @@
     </head>
     <script>
         $(document).ready(function () {
+
+
+            $('#txt-data').on('focusout', function() {
+
+                if($('#servicos').val() == "true") {
+                    var data = ($('#txt-data').val() != null ? $('#txt-data').val() : null);
+                    var quadra = ($('#cadastrar-quadra').val() != null ? $('#cadastrar-quadra').val() : null);
+                } else {
+                    var data = null;
+                    var quadra = null;
+                }
+
+                $('#select-inicio').html('');
+                $.ajax({
+                    data: {data : data, quadra : quadra},
+                    async: false,
+                    type: "post",
+                    url: "/partidamarcada/agendamento/buscarHorarios",
+                    dataType: "json",
+                    success: function (resposta) {
+                        if(resposta) {
+                            $.each(resposta, function(k, v) {
+                                $('#select-inicio').append('<option value="' + k + '">' + k + '</option');
+                            })
+                        }
+                    }
+                });
+            });
+
             $('#btn-selecionar-parqueesportivo-cadastrar').on('click', function() {
                 $('#div-selecionar-parqueesportivo').show();
                 $('#div-resultado-buscar').find("p").text("");
@@ -37,7 +66,7 @@
                         } else {
                             $('#div-resultado-buscar').find("p").text("");
                             $.each(resposta, function (k, v) {
-                                $('#div-resultado-buscar').find("p").append("<a class='selecionar-parque'><span class='parque-id' style='display: none;'>" + v.id + "</span><span class='parque-nome'>" + v.nome + "</span></a>");
+                                $('#div-resultado-buscar').find("p").append("<a class='selecionar-parque'><span class='parque-servicos' style='display:none;'>" + v.servicos + "</span><span class='parque-id' style='display: none;'>" + v.id + "</span><span class='parque-nome'>" + v.nome + "</span></a><br />");
 
                                 $('#div-resultado-buscar').show();
                             });
@@ -48,22 +77,32 @@
             });
 
             $('#div-resultado-buscar').on('click', '.selecionar-parque', function() {
+                $('#div-quadra-selecionada').hide();
+                $('#div-esporte').hide();
+
+                $('#servicos').val($(this).find('.parque-servicos').text());
                 $('.id-parqueEsportivo').val($(this).find('.parque-id').text());
                 
-                $('.parque-nome').val($(this).find('.parque-nome').text());
-
-
-                $('#div-selecionar-parqueesportivo').hide();
+                $('.parque-nome').val($(this).find('.parque-nome').text())                 
                 
-                buscarQuadras($('.id-parqueEsportivo').val());
+                $('#div-selecionar-parqueesportivo').hide();
+
+                buscarQuadras($('.id-parqueEsportivo').val());        
                
                 $('.conteudo').css('opacity', '1');
+
+                if($('#servicos').val() == 'true') {
+                    $(".resposta-titulo").html("Atenção");
+                    $("#resposta").attr('style', 'background-color: #ff9447; color: #fff;');                          
+                    
+                    $(".resposta-mensagem").html("O agendamento nessa quadra será feito de forma online, não necessitando contato por fora do sistema!"); 
+                    $("#resposta").data('dialog').open();
+                }
             });
 
             $('#btn-selecionar-parqueesportivo-cancelar').on('click', function() {
                 $('#div-selecionar-parqueesportivo').hide();
                 $('.conteudo').css('opacity', '1');
-
 
                 return false;
             });
@@ -129,7 +168,7 @@
                         if(v.usuario.id == $('#usuario').val()) {
                             $("#minhas-partidas").find(".content").find(".p-2").append(
                                 "<a class='minhas-partidas' href='/partidamarcada/partida/partida/" + v.id + "'>" + 
-                                    v.data + ", das " + v.inicio + "h às " + v.final + "h na quadra " + v.quadra.numero + " da(o) " + v.quadra.parqueEsportivo.nome + 
+                                    v.data + ", das " + v.inicio + "h às " + (v.inicio + 1) + "h na quadra " + v.quadra.numero + " da(o) " + v.quadra.parqueEsportivo.nome + 
                                 "</a>" + 
                                     "<span class='opcoes-partida'>" + 
                                         "<span class='partida-editar mif-pencil fg-orange' title='Editar informações da partida'>" + 
@@ -144,7 +183,7 @@
                         } else {
                             $("#minhas-partidas").find(".content").find(".p-2").append(
                                 "<a class='minhas-partidas' href='/partidamarcada/partida/partida/" + v.id + "'>" + 
-                                    v.data + ", das " + v.inicio + "h às " + v.final + "h na quadra " + v.quadra.numero + " da(o) " + v.quadra.parqueEsportivo.nome + 
+                                    v.data + ", das " + v.inicio + "h às " + (v.inicio + 1) + "h na quadra " + v.quadra.numero + " da(o) " + v.quadra.parqueEsportivo.nome + 
                                 "</a><br />"                           
                             );
                         }            
@@ -162,7 +201,7 @@
                 success: function (resposta) {
                     if(resposta) {
                         $.each(resposta, function (k, v) {
-                            $("#minhas-partidas-passadas").find(".content").find(".p-2").append("<a class='partida-passada-ver minhas-partidas-passadas' href='#'><span style='display:none;' class=id-ver>" + v.id + "</span>" + v.data + ", das " + v.inicio + "h às " + v.final + "h na quadra " + v.quadra.numero + " da(o) " + v.quadra.parqueEsportivo.nome + "</a><br />");
+                            $("#minhas-partidas-passadas").find(".content").find(".p-2").append("<a class='partida-passada-ver minhas-partidas-passadas' href='#'><span style='display:none;' class=id-ver>" + v.id + "</span>" + v.data + ", das " + v.inicio + "h às " + (v.inicio + 1) + "h na quadra " + v.quadra.numero + " da(o) " + v.quadra.parqueEsportivo.nome + "</a><br />");
                         });
                     }
                 }
@@ -519,89 +558,7 @@
                 <h4 class="align-center">Cadastrar partida</h4>
                 <br />
                 <form id="form-partida-cadastrar">
-                    <div class="row">
-                        <div class="cell-sm-2">            
-                            <input type="text" name="data" placeholder="Data">
-                        </div>
-                        <div class="cell-sm-2">
-                            <select name="inicio" id="select-inicio">
-                                <option value="-1">Início</option>
-                                <option value="0">00</option>
-                                <option value="1">01</option>
-                                <option value="2">02</option>
-                                <option value="3">03</option>
-                                <option value="4">04</option>
-                                <option value="5">05</option>
-                                <option value="6">06</option>
-                                <option value="7">07</option>
-                                <option value="8">08</option>
-                                <option value="9">09</option>
-                                <option value="10">10</option>
-                                <option value="11">11</option>
-                                <option value="12">12</option>
-                                <option value="13">13</option>
-                                <option value="14">14</option>
-                                <option value="15">15</option>
-                                <option value="16">16</option>
-                                <option value="17">17</option>
-                                <option value="18">18</option>
-                                <option value="19">19</option>
-                                <option value="20">20</option>
-                                <option value="21">21</option>
-                                <option value="22">22</option>
-                                <option value="23">23</option>
-                            </select>
-						</div>
-                        <div class="cell-sm-2"> 
-							<select name="final" id="select-final">
-                                <option value="-1">Final</option>
-                                <option value="0">00</option>
-                                <option value="1">01</option>
-                                <option value="2">02</option>
-                                <option value="3">03</option>
-                                <option value="4">04</option>
-                                <option value="5">05</option>
-                                <option value="6">06</option>
-                                <option value="7">07</option>
-                                <option value="8">08</option>
-                                <option value="9">09</option>
-                                <option value="10">10</option>
-                                <option value="11">11</option>
-                                <option value="12">12</option>
-                                <option value="13">13</option>
-                                <option value="14">14</option>
-                                <option value="15">15</option>
-                                <option value="16">16</option>
-                                <option value="17">17</option>
-                                <option value="18">18</option>
-                                <option value="19">19</option>
-                                <option value="20">20</option>
-                                <option value="21">21</option>
-                                <option value="22">22</option>
-                                <option value="23">23</option>
-                            </select>
-						</div>
-                        <div class="cell-sm-3"> 
-                            <input type="text" name="jogadores" placeholder="Quantos atletas?">
-                        </div>
-                        <div class="cell-sm-3">
-                            <select name="publico" id="select-publico">
-                                <option value="0">Jogo privado</option>
-                                <option value="1">Jogo aberto ao público</option>
-                            </select>
-                        </div>
-					</div>
-                    <br />
-                    <textarea data-role="textarea" name="descricao" placeholder="Descrição (opcional)"></textarea>
-                    <br />
-                    <!--<div class="row">
-                        <div class="cell-sm-12">             
-                            <select name="parqueEsportivo" id="select-parqueEsportivo">
-                                <option value="0">Parque Esportivo</option>
-                            </select>
-                        </div>
-                    </div>-->
-                    <div class="row div-parqueesportivo">
+                <div class="row div-parqueesportivo">
                         <div class="cell-sm-8">            
                             <input type="text" class="parque-nome" readonly="readonly" placeholder="Local do jogo...">
                         </div>
@@ -647,6 +604,41 @@
                             </select>
                         </div>
 					</div>
+                    <br />
+                    <div class="row">
+                        <div class="cell-sm-2">            
+                            <input type="text" name="data" placeholder="Data" id="txt-data">
+                        </div>
+                        <div class="cell-sm-2">
+                            <select name="inicio" id="select-inicio">
+                                <option value="-1">Início</option>
+                            </select>
+						</div>
+                        <div class="cell-sm-2"> 
+							<select name="final" id="select-final">
+                                <option value="-1">Final</option>
+                            </select>
+						</div>
+                        <div class="cell-sm-3"> 
+                            <input type="text" name="jogadores" placeholder="Quantos atletas?">
+                        </div>
+                        <div class="cell-sm-3">
+                            <select name="publico" id="select-publico">
+                                <option value="0">Jogo privado</option>
+                                <option value="1">Jogo aberto ao público</option>
+                            </select>
+                        </div>
+					</div>
+                    <br />
+                    <textarea name="descricao" placeholder="Descrição (opcional)"></textarea>
+                    <!--<div class="row">
+                        <div class="cell-sm-12">             
+                            <select name="parqueEsportivo" id="select-parqueEsportivo">
+                                <option value="0">Parque Esportivo</option>
+                            </select>
+                        </div>
+                    </div>-->
+                    
                         <input type="hidden" class="id-parqueEsportivo" name="id_parque" />
                         <input type="hidden" id="cadastrar-quadra" name="quadra" />  
                         <br />           
@@ -668,60 +660,10 @@
                         <div class="cell-sm-2">
                             <select name="inicio" id="select-inicio-atualizar">
                                 <option value="-1">Início</option>
-                                <option value="0">00</option>
-                                <option value="1">01</option>
-                                <option value="2">02</option>
-                                <option value="3">03</option>
-                                <option value="4">04</option>
-                                <option value="5">05</option>
-                                <option value="6">06</option>
-                                <option value="7">07</option>
-                                <option value="8">08</option>
-                                <option value="9">09</option>
-                                <option value="10">10</option>
-                                <option value="11">11</option>
-                                <option value="12">12</option>
-                                <option value="13">13</option>
-                                <option value="14">14</option>
-                                <option value="15">15</option>
-                                <option value="16">16</option>
-                                <option value="17">17</option>
-                                <option value="18">18</option>
-                                <option value="19">19</option>
-                                <option value="20">20</option>
-                                <option value="21">21</option>
-                                <option value="22">22</option>
-                                <option value="23">23</option>
                             </select>
 						</div>
                         <div class="cell-sm-2"> 
-							<select name="final" id="select-final-atualizar">
-                                <option value="-1">Final</option>
-                                <option value="0">00</option>
-                                <option value="1">01</option>
-                                <option value="2">02</option>
-                                <option value="3">03</option>
-                                <option value="4">04</option>
-                                <option value="5">05</option>
-                                <option value="6">06</option>
-                                <option value="7">07</option>
-                                <option value="8">08</option>
-                                <option value="9">09</option>
-                                <option value="10">10</option>
-                                <option value="11">11</option>
-                                <option value="12">12</option>
-                                <option value="13">13</option>
-                                <option value="14">14</option>
-                                <option value="15">15</option>
-                                <option value="16">16</option>
-                                <option value="17">17</option>
-                                <option value="18">18</option>
-                                <option value="19">19</option>
-                                <option value="20">20</option>
-                                <option value="21">21</option>
-                                <option value="22">22</option>
-                                <option value="23">23</option>
-                            </select>
+                            <input type="text" name="final" placeholder="Final">
 						</div>
                         <div class="cell-sm-3"> 
                             <input type="text" name="jogadores" id="jogadores-atualizar" placeholder="Quantos atletas?">
@@ -734,7 +676,7 @@
                         </div>
 					</div>
                     <br />
-                    <textarea id="descricao-atualizar" data-role="textarea" data-auto-size="false" id="descricao-atualizar" name="descricao" placeholder="Descrição (opcional)"></textarea>
+                    <textarea id="descricao-atualizar" data-auto-size="false" id="descricao-atualizar" name="descricao" placeholder="Descrição (opcional)"></textarea>
                     <br />
                     <div class="row">
                         <div class="cell-sm-12">            
@@ -777,6 +719,7 @@
                         <br />
                     </form>
                 </div>
+                <input type="hidden" id="servicos" /> 
 		</div>
 </body>
 </html>

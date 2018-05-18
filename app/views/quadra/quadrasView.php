@@ -43,36 +43,53 @@
                 async: false,
                 dataType: "json",
                 type: 'post',
-                url: "/partidamarcada/quadra/listar",
+                url: "/partidamarcada/quadra/listarPorParqueEsportivo",
                 success: function (resposta) {
-                    console.log(resposta);
-                    $.each(resposta, function (k, v) {
-                        var esportes = "";
-                        if (v.esportes != null) {
-                            $.each(v.esportes, function (key, value) {
-                                if(esportes == "") {
-                                    esportes += value.nome;
-                                } else {
-                                    esportes += " - " + value.nome;
-                                }                            
-                            });
-                        }
-                        $('#tabela-quadras').find('tbody').append(
-                                "<tr>" + 
-                                    "<td>" + v.numero + "</td>" +
-                                    "<td>" + v.tamanho + "</td>" +
-                                    "<td>" + v.piso.nome + "</td>" +
-                                    "<td>" + esportes + "</td>" +
-                                    "<td>" + 
-                                        "<span style='cursor:pointer' class='mif-pencil btn-editar-quadra'></span>" +
-                                        "<span class='id-quadra' style='display:none; cursor:pointer;'>" + v.id + "</span>" +
-                                    "</td>" +
-                                    "<td>" + 
-                                        "<span style='cursor:pointer;' class='mif-calendar'></span>" + 
-                                    "</td>" + 
-                                "</tr>"
-                                );
+                    if(resposta) {
+                        $.each(resposta, function (k, v) {
+                            var esportes = "";
+                            if (v.esportes != null) {
+                                $.each(v.esportes, function (key, value) {
+                                    if(esportes == "") {
+                                        esportes += value.nome;
+                                    } else {
+                                        esportes += " - " + value.nome;
+                                    }                            
+                                });
+                            }
+                            $('#tabela-quadras').find('tbody').append(
+                                    "<tr>" + 
+                                        "<td>" + v.numero + "</td>" +
+                                        "<td>" + v.tamanho + "</td>" +
+                                        "<td>" + v.piso.nome + "</td>" +
+                                        "<td>" + esportes + "</td>" +
+                                        "<td>" + 
+                                            "<span style='cursor:pointer' class='mif-pencil btn-editar-quadra'></span>" +
+                                            "<span class='id-quadra' style='display:none; cursor:pointer;'>" + v.id + "</span>" +
+                                        "</td>" +
+                                        "<td class='calendario'>" + 
+                                            "<span style='cursor:pointer;' class='mif-calendar btn-calandario'></span>" + 
+                                        "</td>" + 
+                                    "</tr>"
+                                    );
 
+                        });
+                    } else {
+                        $('#tabela-quadras').find('tbody').append(
+                                    "<tr>" + 
+                                        "<td colspan='6'>Nenhuma quadra foi cadastrada ainda.</td>" +                                     
+                                    "</tr>"
+                                    );
+                    }
+                    $.ajax({
+                        async: false,
+                        type: "post",
+                        url: "/partidamarcada/parqueEsportivo/isOnline",
+                        success: function (resposta) {
+                            if(resposta == 0) {
+                                $('.calendario').remove();
+                            }
+                        }
                     });
                 }
             });
@@ -210,12 +227,12 @@
             <div id="gerenciar-quadras">
                 <table id='tabela-quadras' class="table striped hovered">
                     <thead>
-                    <th style="width: 10%">#</th>
-                    <th style="width: 10%">Tamanho</th>
-                    <th style="width: 10%">Piso</th>
-                    <th>Esportes</th>
-                    <th style="width: 10%">Editar</th>
-                    <th style="width: 10%">Horários</th>
+                        <th style="width: 10%">#</th>
+                        <th style="width: 10%">Tamanho</th>
+                        <th style="width: 10%">Piso</th>
+                        <th>Esportes</th>
+                        <th style="width: 10%">Editar</th>
+                        <th style="width: 10%" class="calendario">Horários</th>
                     </thead>
                     <tbody>
 
@@ -233,17 +250,17 @@
                     <div class="row">
                         <div class="cell-sm-2">
                             <label>Número da quadra</label>
-                        </div>
-                            <div class="cell-sm-2">                      
+                        </div>                 
+                        <div class="cell-sm-2">                      
                             <input type="text" name="numero" id="atnumero">
                         </div>
                         <div class="cell-sm-1">
                             <label>Piso</label>
                         </div>
-                        <div class="cell-sm-2">                      
+                        <div class="cell-sm-2">      
                             <select name="piso" id="select-atpiso">
-                                <option>Selecione</option>
-                            </select>
+								<option value="0">Piso</option>
+							</select>                
                         </div>
                         <div class="cell-sm-3">
                             <label>Número de jogadores</label>
@@ -267,42 +284,41 @@
                 <div class="form-cadastro grid">
                     <center><h4>Cadastrar quadra</h4></center>
                     <hr />
+                    <br />
                     <form id="form-quadras-cadastrar">
-
-                        <div class="row cells3">
-                            <div class="cell">
+                        <div class="row">
+                            <div class="cell-sm-2">
                                 <label>Número da quadra</label>
-                                <div class="input-control cell text full-size">                      
-                                    <input type="text" name="numero" id="numero">
-                                </div>
                             </div>
-                            <div class="cell">
+                            <div class="cell-sm-2">               
+                                <input type="text" name="numero" id="numero">
+                            </div>
+                            <div class="cell-sm-1">
                                 <label>Piso</label>
-                                <div class="input-control select full-size">
-                                    <select name="piso" id="select-piso">
-                                        <option>Selecione</option>
-                                    </select>
-                                </div>
                             </div>
-                            <div class="cell">
+                            <div class="cell-sm-2">
+                                <select name="piso" id="select-piso">
+                                    <option>Selecione</option>
+                                </select>
+                            </div>
+                            <div class="cell-sm-3">
                                 <label>Número de jogadores</label>
-                                <div class="input-control cell text full-size">                      
-                                    <input type="text" name="tamanho" id="tamanho">
-                                </div>
+                            </div>
+                            <div class="cell-sm-2">
+                                <input type="text" name="tamanho" id="tamanho">
                             </div>
                         </div>
+                        <br />
                         <h5>Esportes</h5>
-                        <div id='check-esportes' class="row cells5">
+                        <hr />
+                        <div id='check-esportes' class="row">
 
                         </div>
-                        <div class="row cells2">
-                            <div class="cell">
-                                <input type="button" id="btn-quadras-cadastrar"  class="full-size bg-lightBlue" value="Cadastrar">
-                            </div>
-                            <div class="cell">
-                                <input type="button" id="btn-quadras-cadastrar-voltar"  class="full-size bg-lightBlue" value="Voltar">
-                            </div>
-                        </div>
+                        <br />&nbsp;
+                        <input type="button" id="btn-quadras-cadastrar"  class="button cell-sm-12 success" value="Cadastrar">
+                        <br />&nbsp;
+                        <input type="button" id="btn-quadras-cadastrar-voltar"  class="button cell-sm-12 warning" value="Voltar">
+
                     </form>
                 </div>
             </div>

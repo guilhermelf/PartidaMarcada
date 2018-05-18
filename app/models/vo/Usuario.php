@@ -255,7 +255,7 @@ class Usuario {
             'cidade' => $this->getCidade()->toJson(),
             'sobrenome' => $this->getSobrenome(),
             'apelido' => $this->getApelido(),
-            'dataNascimento' => date_format($this->getDataNascimento(), 'd-m-Y'),
+            'dataNascimento' => date_format($this->getDataNascimento(), 'd/m/Y'),
             'cep' => $this->getCep(),
             'ddd' => $this->getDdd(),
             'endereco' => $this->getEndereco(),

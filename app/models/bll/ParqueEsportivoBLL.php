@@ -231,4 +231,14 @@ class ParqueEsportivoBLL {
             return $ex->getMessage();
         }
     }
+    
+    function isOnline() {
+        try {
+            $parque = $this->getById($_SESSION['id']);
+            
+            return ($parque->getServicos() ? 1 : 0);
+        } catch (Exception $ex) {
+            return $ex->getMessage();
+        }
+    }
 }

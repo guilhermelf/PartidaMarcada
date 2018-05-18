@@ -4,6 +4,7 @@ require_once(DAO . '/QuadraDAO.php');
 require_once(BLL . '/ParqueEsportivoBLL.php');
 require_once(BLL . '/EsporteBLL.php');
 require_once(BLL . '/PisoBLL.php');
+require_once(BLL . '/AgendamentoBLL.php');
 
 class QuadraBLL {
 
@@ -48,7 +49,7 @@ class QuadraBLL {
                 $quadra->setPiso($piso);
                 $quadra->setTamanho($dados['tamanho']);
                 $quadra->setNumero($dados['numero']);
-                $quadra->setParqueEsportivo($parqueEsportivo);
+                $quadra->setParqueEsportivo($parqueEsportivo);              
 
                 $dao = new QuadraDAO();
 
@@ -127,7 +128,7 @@ class QuadraBLL {
         $json = [];
 
         if(empty($quadras)) {
-            echo "vazio!";
+            return 0;
         } else {
             foreach ($quadras as $quad) {                         
                 $json[] = $quad->toJson();

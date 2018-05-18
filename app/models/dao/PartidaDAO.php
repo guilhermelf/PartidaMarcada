@@ -49,7 +49,7 @@ class PartidaDAO {
     
     function isPast($partida) {
         try {
-            $query = DataBase::getFactory()->createQuery("SELECT p FROM Partida p WHERE (p.id = :partida AND p.data < CURRENT_DATE()) OR (p.id = :partida AND p.data = CURRENT_DATE() AND p.final <= :hora)");
+            $query = DataBase::getFactory()->createQuery("SELECT p FROM Partida p WHERE (p.id = :partida AND p.data < CURRENT_DATE()) OR (p.id = :partida AND p.data = CURRENT_DATE() AND p.inicio <= :hora)");
             $query->setParameter('partida', $partida);
             $query->setParameter('hora', date('H')-5);
             
@@ -74,7 +74,6 @@ class PartidaDAO {
                                                                     p.id_quadra,
                                                                     p.id_esporte,
                                                                     p.inicio,
-                                                                    p.final,
                                                                     p.publico,
                                                                     p.numero_jogadores,
                                                                     p.descricao,

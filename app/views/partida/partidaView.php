@@ -287,7 +287,7 @@
                         </span>
                     </div>
                     <div class="cell-sm-12">
-                        <span class="perfil-label"><?php echo "Data: </span>" . date_format($dados->getData(), 'd/m/Y') . ", das " . $dados->getInicio() . "h às " . $dados->getFinal() . "h.";?>                     
+                        <span class="perfil-label"><?php echo "Data: </span>" . date_format($dados->getData(), 'd/m/Y') . ", das " . $dados->getInicio() . "h às " . ($dados->getInicio() + 1) . "h.";?>                     
                     </div>
                 </div>    
                 <div class="row">

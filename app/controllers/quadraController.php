@@ -51,7 +51,11 @@ class quadraController extends Controller {
     }
     
     function listarPorParqueEsportivo() {
-        $parqueEsportivo = $_POST["parqueEsportivo"];
+        if(isset($_POST['parqueEsportivo'])) {
+            $parqueEsportivo =  $_POST['parqueEsportivo'];
+        } else {        
+            $parqueEsportivo = $_SESSION["id"];
+        }
         
         $bll = new QuadraBLL();
         

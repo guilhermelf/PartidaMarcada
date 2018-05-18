@@ -1,4 +1,18 @@
 <?php $quadra = $_SESSION['nome']; ?>
+<script>
+    $(document).ready(function () {
+        $.ajax({
+            async: false,
+            type: "post",
+            url: "/partidamarcada/parqueEsportivo/isOnline",
+            success: function (resposta) {
+                if(resposta == 1) {
+                    $('#online').show();
+                }
+            }
+        });
+    });
+</script>
 
 <div class="app-bar" id="menu-quadra">
     <span class="app-bar-divider"></span>
@@ -16,7 +30,7 @@
     <span class="app-bar-divider"></span>
     <ul class="h-menu">
         <li><a href="/partidamarcada">Partida Marcada</a></li>
-        <li><a href="#">Partidas</a></li>
+        <li id="online" style="display: none;"><a href="#">Partidas</a></li>
         <li><a href="/partidamarcada/parqueesportivo/quadras">Gerenciar quadras</a></li>
         <li><a href="#" class="dropdown-toggle"><?php echo $quadra; ?></a>              
             <ul class="d-menu" data-role="dropdown">

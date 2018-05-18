@@ -8,7 +8,14 @@ class ParqueEsportivoController extends Controller {
         if (empty($_SESSION['tipo']) or $_SESSION['tipo'] != "quadra") {
             $this->AccessDenied();
         } else {
-            $this->View('quadra/index');
+            $bll = new ParqueEsportivoBLL();
+            $parqueEsportivo = $bll->getById($_SESSION['id']);
+            
+            if($parqueEsportivo->getServicos()) {
+                $this->View('quadra/index');
+            } else {
+                $this->View('quadra/quadras');
+            }
         }     
     }
 
@@ -147,5 +154,10 @@ class ParqueEsportivoController extends Controller {
 
             echo $bll->pesquisar($_POST);
         }
+    }
+    
+    function isOnline() {
+        $bll = new ParqueEsportivoBLL();
+        echo $bll->isOnline();
     }
 }

@@ -23,7 +23,7 @@ class EstadoDAO {
 
     function getAll() {
         try {
-            $estados = DataBase::getFactory()->getRepository('Estado')->findAll();
+            $estados = DataBase::getFactory()->getRepository('Estado')->findBy(array(), array('nome' => 'ASC'));
 
             return (empty($estados) ? false : $estados);
         } catch (Exception $ex) {

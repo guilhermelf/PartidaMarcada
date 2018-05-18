@@ -52,11 +52,6 @@ class Partida {
     private $inicio;
     
      /**
-     * @Column(type="integer", name="final")
-     */
-    private $final;
-    
-     /**
      * @Column(type="integer", name="numero_jogadores")
      */
     private $numeroJogadores;
@@ -75,6 +70,11 @@ class Partida {
      * @Column(type="integer", name="status")
      */
     private $status;
+    
+    /**
+     * @OneToOne(targetEntity="Agendamento", mappedBy="partida")
+     */
+    private $agendamento;
     
     function getId() {
         return $this->id;
@@ -98,10 +98,6 @@ class Partida {
 
     function getInicio() {
         return $this->inicio;
-    }
-
-    function getFinal() {
-        return $this->final;
     }
 
     function getNumeroJogadores() {
@@ -140,10 +136,6 @@ class Partida {
         $this->inicio = $inicio;
     }
 
-    function setFinal($final) {
-        $this->final = $final;
-    }
-
     function setNumeroJogadores($numeroJogadores) {
         $this->numeroJogadores = $numeroJogadores;
     }
@@ -177,6 +169,14 @@ class Partida {
         $this->participantes->add($usuario);
     }
     
+    function getAgendamento() {
+        return $this->agendamento;
+    }
+
+    function setAgendamento($agendamento) {
+        $this->agendamento = $agendamento;
+    }
+
     public function toJson() {     
         $participantes = null;
         foreach ($this->getParticipantes() as $part) {
@@ -188,7 +188,6 @@ class Partida {
             'data' => date_format($this->getData(), 'd/m/Y'),
             'publico' => $this->getPublico(),
             'inicio' => $this->getInicio(),
-            'final' => $this->getFinal(),
             'esporte' => $this->getEsporte()->toJson(),
             'numeroJogadores' => $this->getNumeroJogadores(),
             'descricao' => $this->getDescricao(),
