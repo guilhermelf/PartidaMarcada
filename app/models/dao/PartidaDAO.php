@@ -87,9 +87,9 @@ class PartidaDAO {
                                                                 INNER JOIN usuario u
                                                                     ON u.id_usuario = par.id_usuario
                                                                 WHERE
-                                                                    par.id_usuario = :usuario AND p.data > CURRENT_DATE() AND p.status = 1 
+                                                                    par.id_usuario = :usuario AND p.data > CURRENT_DATE() AND par.id_status <> 3 
                                                                 ORDER BY
-                                                                    p.data ASC", $rsm);
+                                                                    p.data, p.inicio ASC", $rsm);
             $query->setParameter('usuario', $usuario);
             
             $partidas = $query->getResult(); 

@@ -30,7 +30,7 @@
     <span class="app-bar-divider"></span>
     <ul class="h-menu">
         <li><a href="/partidamarcada">Partida Marcada</a></li>
-        <li id="online" style="display: none;"><a href="#">Partidas</a></li>
+        <li id="online" style="display: none;"><a href="/partidamarcada">Partidas</a></li>
         <li><a href="/partidamarcada/parqueesportivo/quadras">Gerenciar quadras</a></li>
         <li><a href="#" class="dropdown-toggle"><?php echo $quadra; ?></a>              
             <ul class="d-menu" data-role="dropdown">

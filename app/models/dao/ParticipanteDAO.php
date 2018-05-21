@@ -46,7 +46,7 @@ class ParticipanteDAO {
     
     function getByPartida($partida) {
         try {
-            $query = DataBase::getFactory()->createQuery("SELECT p FROM Participante p WHERE p.partida = " . $partida);
+            $query = DataBase::getFactory()->createQuery("SELECT p FROM Participante p WHERE p.status <> 3 AND p.partida = " . $partida);
             $participantes = $query->getResult();
 
             return (empty($participantes) ? false : $participantes);
@@ -69,9 +69,23 @@ class ParticipanteDAO {
         }
     }
     
+    function participantePediu($participante, $partida) {
+        try {
+            $query = DataBase::getFactory()->createQuery("SELECT p FROM Participante p JOIN p.usuario u JOIN p.partida pa WHERE u.id = :usuario AND pa.id = :partida AND p.status = 3");
+            $query->setParameter('usuario', $participante);
+            $query->setParameter('partida', $partida);
+            
+            $participantes = $query->getResult();
+
+            return (empty($participantes) ? false : true);
+        } catch (Exception $ex) {
+            return false;
+        }
+    }
+    
     function getParticipante($usuario, $partida) {
         try {
-            $query = DataBase::getFactory()->createQuery("SELECT p FROM Participante p JOIN p.usuario u JOIN p.partida pa WHERE u.id = :usuario AND pa.id = :partida");
+            $query = DataBase::getFactory()->createQuery("SELECT p FROM Participante p JOIN p.usuario u JOIN p.partida pa WHERE u.id = :usuario AND pa.id = :partida AND pa.data >= CURRENT_DATE()");
             $query->setParameter('usuario', $usuario);
             $query->setParameter('partida', $partida);
             

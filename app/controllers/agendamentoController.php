@@ -11,6 +11,12 @@ class AgendamentoController extends Controller {
         echo $bll->getAll();
     }
     
+    function buscarAgendamentosPendentes() {
+        $bll = new agendamentoBLL();
+        
+        echo $bll->buscarAgendamentosPendentes();
+    }
+    
     function buscarHorarios() {
         $bll = new AgendamentoBLL();
         
@@ -21,7 +27,12 @@ class AgendamentoController extends Controller {
             echo json_encode($bll->buscarHorarios($quadra, $data));
         } catch (Exception $exc) {
             echo json_encode($bll->buscarHorarios());
-        }      
-        
+        }           
+    }
+    
+    function negar($id) {
+        $bll = new AgendamentoBLL();
+    
+        echo json_encode($bll->negar($id));
     }
 }

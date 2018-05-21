@@ -53,6 +53,12 @@ class ParticipanteBLL {
         return $dao->getByParticipantePartida($participante, $partida);
     }
     
+    function participantePediu($participante, $partida) {
+        $dao = new ParticipanteDAO();
+
+        return $dao->participantePediu($participante, $partida);
+    }
+    
     function getById($id) {
         $dao = new ParticipanteDAO();
 
@@ -164,5 +170,22 @@ class ParticipanteBLL {
 
             return json_encode($json);
         }
+    }
+    
+    function candidatar($partida) {
+        $dao = new ParticipanteDAO();
+        $bll = new PartidaBLL();
+        $usuarioBLL = new UsuarioBLL();
+        
+        $partida = $bll->getById($partida);
+        $usuario = $usuarioBLL->getById($_SESSION['id']);
+        
+        $participante = new Participante();
+        
+        $participante->setPartida($partida);
+        $participante->setStatus(3);
+        $participante->setUsuario($usuario);
+
+        return $dao->persist($participante);
     }
 }

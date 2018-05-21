@@ -35,6 +35,53 @@
                 });
             }); 
 
+            $.ajax({
+                async: false,
+                type: "post",
+                url: "/partidamarcada/participante/participanteExiste/" + $('#id-partida').val(),
+                success: function (resposta) {
+
+                    if(resposta == 1) {
+                        $.ajax({
+                            async: false,
+                            type: "post",
+                            url: "/partidamarcada/participante/participantePediu/" + $('#id-partida').val(),
+                            success: function (resposta) {
+                                if(resposta != 1) {                                   
+                                    $('#div-btn-convidar').show();
+                                } else {
+                                    $('#div-aguardar').show();
+                                }
+                            }
+                        });                             
+                    } else {                     
+                        $('#div-btn-pedir').show();              
+                    }
+                }
+            });
+
+            //pedir para participar
+            $('#btn-partida-pedir').on('click', function() {
+                $.ajax({
+                    async: false,
+                    type: "post",
+                    url: "/partidamarcada/participante/candidatar/" + $('#id-partida').val(),
+                    success: function (resposta) {
+                        if(resposta) {
+                            $(".resposta-titulo").html("Sucesso");
+                            $("#resposta").attr('style', 'background-color: #60a917; color: #fff;');
+
+                            $(".resposta-mensagem").html("Solicitação enviada com sucesso!"); 
+                            $("#resposta").data('dialog').open();
+                            
+                            setTimeout(function () {    
+                                window.location.href = "/partidamarcada/";
+                            }, 3000);
+                        }
+                    }
+                });
+            });
+
             //negar presença
             $("#btn-negar").on('click', function() {
                 $.ajax({
@@ -103,39 +150,40 @@
                 }
             });
             
+            <?php if($dados->getStatus() == 1) {?>
+                $.ajax({
+                    async: false,
+                    type: "post",
+                    data: {partida : $('#id-partida').val()},
+                    url: "/partidamarcada/participante/buscarConvite",
+                    dataType: 'json',
+                    success: function (resposta) {
+                        if(resposta != null) {
+                            $.each(resposta, function(k, v){
+                                $('#id-participante').val(v.id);
+                                
+                                switch (v.status) {
+                                    case 0:
+                                        $('#participar').hide()
+                                        $('#div-convite').show();
+                                        break;                     
+                                    case 1:
+                                        $('#div-convite').hide();
+                                        $('#participar').html("<span class='perfil-label'>Estou confirmado para a partida. <a href='#' class='btn-alterar'>Alterar</a></span>");
+                                        $('#participar').show();
+                                        break;
+                                    case 2:
+                                        $('#div-convite').hide();
+                                        $('#participar').html("<span class='perfil-label'>Não participarei da partida. <a href='#' class='btn-alterar'>Alterar</a></span>");
+                                        $('#participar').show();
+                                        break;
+                                }
 
-            $.ajax({
-                async: false,
-                type: "post",
-                data: {partida : $('#id-partida').val()},
-                url: "/partidamarcada/participante/buscarConvite",
-                dataType: 'json',
-                success: function (resposta) 
-                {
-                    $.each(resposta, function(k, v){
-                        $('#id-participante').val(v.id);
-                        
-                        switch (v.status) {
-                            case 0:
-                                $('#participar').hide()
-                                $('#div-convite').show();
-                                break;                     
-                            case 1:
-                                $('#div-convite').hide();
-                                $('#participar').html("<span class='perfil-label'>Estou confirmado para a partida. <a href='#' class='btn-alterar'>Alterar</a></span>");
-                                $('#participar').show();
-                                break;
-                            case 2:
-                                $('#div-convite').hide();
-                                $('#participar').html("<span class='perfil-label'>Não participarei da partida. <a href='#' class='btn-alterar'>Alterar</a></span>");
-                                $('#participar').show();
-                                break;
-                        }
-
-                    })                  
-                }
-            });
-
+                            })
+                        }                 
+                    }
+                });
+            <?php } ?>
           /*   $('#btn-usuario-buscar').on('click', function () {
                 $('.busca').remove();
                 $.ajax({
@@ -169,6 +217,7 @@
             });
 
             $('#btn-partida-convidar').on('click', function() {
+        
                 $('#div-partida-convidar').show();
                 $('.conteudo').css('opacity', '0.2');
 
@@ -264,21 +313,26 @@
             </div>
         </div>
 
-        <?php include 'app/views/header/headerUsuario.php'; ?>
+        <?php if($_SESSION['tipo'] == 'usuario') {
+            include 'app/views/header/headerUsuario.php';
+         } else {
+            include 'app/views/header/headerQuadra.php';
+         } ?>
         <div data-role="dialog" data-close-button="false" data-overlay="true" id="resposta" class="padding20">
             <div class="dialog-title resposta-titulo"></div>
             <div class="dialog-content resposta-mensagem"></div>
         </div>       
         <div class="conteudo container">
             <div id="div-dados-partida">
-                <h3>Informações da partida</h3>
-                <br />  
-
                 <?php 
                     if(!$dados->getStatus()) {
-                        echo "<h2 class='align-center fg-red'>Partida cancelada!</h2><br />";
+                        echo "<h2 class='align-center fg-red'>Partida cancelada pelo organizador!</h2><br />";
+                    } else if($dados->getStatus() == 2){
+                        echo "<h2 class='align-center fg-red'>Partida cancelada. Agendamento não aceito pela quadra!</h2><br />";
                     }
                 ?>
+                <h3>Informações da partida</h3>
+                <br />             
                 <div class="row">
                     <div class="cell-sm-12">
                         <span class="perfil-label">
@@ -292,7 +346,7 @@
                 </div>    
                 <div class="row">
                     <div class="cell-sm-12">
-                        <span class="perfil-label">Valor: </span> <?php echo $dados->getQuadra()->getValor() . " R$"; ?>
+                        <span class="perfil-label">Valor: </span> R$ <?php echo $dados->getQuadra()->getValor(); ?>
                     </div>
                 </div>        
                 <div class="row">
@@ -422,15 +476,22 @@
                             </div>                       
                         </div>
                     </div>
-                    <?php 
-                        if($dados->getUsuario()->getId() == $_SESSION['id']) {
-                    ?>
-                        <br />
-                        <button class="cell-sm-12 button success" id="btn-partida-convidar">Convidar atletas</button>
-                        <br />
-                    <?php   
-                        }
-                    ?>                              
+                    <br />  
+                    <div id="div-btn-convidar" style="display:none;">   
+                        <?php if(strtotime(date_format($dados->getData(), 'Y-m-d')) >= strtotime(date('Y-m-d')) && $dados->getStatus() == 1 && $_SESSION['tipo'] != 'quadra') { ?>                                                                                      
+                            <button class="cell-sm-12 button success" id="btn-partida-convidar">Convidar atletas</button>
+                            <br />                         
+                        <?php }?>   
+                    </div>
+                    <div id="div-btn-pedir" style="display:none;">   
+                        <?php if(strtotime(date_format($dados->getData(), 'Y-m-d')) >= strtotime(date('Y-m-d')) && $_SESSION['tipo'] != 'quadra') { ?>                                                                                      
+                            <button class="cell-sm-12 button warning" id="btn-partida-pedir">Pedir para participar</button>
+                            <br />                         
+                        <?php }?>   
+                    </div>  
+                    <div id="div-aguardar" style="display:none;">   
+                        <h2 class='align-center fg-red'>Você já se candidatou a participar dessa partida, aguarde a resposta!</h2>
+                    </div>                                         
                 </div>
             </div>
             <input type="hidden" id="id-participante" value="" />              

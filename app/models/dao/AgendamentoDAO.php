@@ -48,9 +48,22 @@ class AgendamentoDAO {
     
     function buscarHorarios($quadra = null, $data = null) {
         try {
-            $query = DataBase::getFactory()->createQuery("SELECT a FROM Agendamento a JOIN a.partida p JOIN p.quadra q WHERE q.id = :quadra AND a.data = :data");
+            $query = DataBase::getFactory()->createQuery("SELECT a FROM Agendamento a JOIN a.partida p JOIN p.quadra q WHERE q.id = :quadra AND a.data = :data AND (a.status = 0 OR a.status = 1)");
             $query->setParameter('quadra', $quadra);
             $query->setParameter('data', $data);
+            
+            $agendamentos = $query->getResult();           
+            
+            return (empty($agendamentos) ? false : $agendamentos);
+        } catch (Exception $ex) {
+            return false;
+        }
+    }
+    
+    function buscarAgendamentosPendentes($parqueEsportivo) {
+        try {
+            $query = DataBase::getFactory()->createQuery("SELECT a FROM Agendamento a JOIN a.partida p JOIN p.quadra q JOIN q.parqueEsportivo pq WHERE a.status = 0 AND pq.id = :parqueEsportivo AND a.data >= CURRENT_DATE() ORDER BY p.data, p.inicio ASC");
+            $query->setParameter('parqueEsportivo', $parqueEsportivo);
             
             $agendamentos = $query->getResult();           
             

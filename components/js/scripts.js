@@ -99,24 +99,19 @@ $(document).ready(function () {
             dataType: 'json',
             data: $("#form-partida-cadastrar").serialize(),
             url: "/partidamarcada/partida/salvar",
-            success: function (resposta) {  
-                console.log(resposta);     
+            success: function (resposta) {    
                 if (resposta.status) {
                     $(".resposta-titulo").html("Sucesso");
                     $("#resposta").attr('style', 'background-color: #60a917; color: #fff;');  
-                    //setTimeout(function () {    
-                      //  window.location.href = "/partidamarcada/"
-                    //}, 3000);      
                 } else {
                     $(".resposta-titulo").html("Erro");                   
                     $("#resposta").attr('style', 'background-color: #ce352c; color: #fff;');
                 }          
                 $("#resposta").data('dialog').open();  
-                $(".resposta-mensagem").html(resposta.mensagem);  
-                
-                //setTimeout(function () {    
-                //    window.location.href = "/partidamarcada/"
-               // }, 3000);
+                $(".resposta-mensagem").html(resposta.mensagem);
+                setTimeout(function () {    
+                    window.location.href = "/partidamarcada/partida/gerenciar"
+                }, 2000);   
             }
         });
 

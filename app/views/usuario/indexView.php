@@ -22,7 +22,7 @@
                         $.each(resposta, function (k, v) {
                             $("#minhas-partidas").find(".content").find(".p-2").append(
                                 "<a href='/partidamarcada/partida/partida/" + v.id + "' class='minhas-partidas'>" + 
-                                    v.data + ", das " + v.inicio + "h às " + v.final + "h na quadra " + v.quadra.numero + " da(o) " + v.quadra.parqueEsportivo.nome + 
+                                    v.data + ", das " + v.inicio + "h às " + (v.inicio + 1) + "h, partida de " + v.esporte.nome + ", na quadra " + v.quadra.numero + " da(o) " + v.quadra.parqueEsportivo.nome + 
                                 "</a><br />"
                             );
                         });

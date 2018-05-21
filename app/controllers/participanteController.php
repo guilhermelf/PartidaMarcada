@@ -81,4 +81,26 @@ class participanteController extends Controller {
         
         echo $bll->buscarPendentes();
     }
+    
+    function participanteExiste($partida) {
+        $bll = new ParticipanteBLL();
+        
+        $usuario = $_SESSION['id'];
+        
+        echo $bll->participanteExiste($usuario, $partida);
+    }
+    
+    function candidatar($partida) {     
+        $bll = new ParticipanteBLL();
+        
+        echo $bll->candidatar($partida);
+    }
+    
+    function participantePediu($partida) {
+        $bll = new ParticipanteBLL();
+        
+        $usuario = $_SESSION['id'];
+        
+        echo $bll->participantePediu($usuario, $partida);
+    }
 }

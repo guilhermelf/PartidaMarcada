@@ -6,6 +6,7 @@ require_once(BLL . '/VisibilidadeBLL.php');
 require_once(BLL . '/UsuarioBLL.php');
 require_once(BLL . '/ParticipanteBLL.php');
 require_once(DAO . '/ParticipanteDAO.php');
+require_once(DAO . '/AgendamentoDAO.php');
 
 class PartidaBLL {
     public function permitirAcesso($id) {
@@ -17,6 +18,8 @@ class PartidaBLL {
         } else {
             if($bll->participanteExiste($_SESSION['id'], $id)) {
                 return true;
+            } else if($_SESSION['tipo'] == 'quadra' && $partida->getQuadra()->getParqueEsportivo()->getId() == $_SESSION['id']) {
+                return true;
             } else {
                 return false;
             }
@@ -26,6 +29,16 @@ class PartidaBLL {
     public function cancel($id) {
         $partida = $this->getById($id);
         $partida->setStatus(0);
+        
+        if($partida->getQuadra()->getParqueEsportivo()->getServicos()) {
+            $agendamentoDAO = new AgendamentoDAO();
+            
+            $agendamento = $partida->getAgendamento();
+
+            $agendamento->setStatus(2);
+            
+            $agendamentoDAO->persist($agendamento);
+        }
         
         $dao = new PartidaDAO;
         
@@ -91,11 +104,13 @@ class PartidaBLL {
                             $agendamento->setInicio($partida->getInicio());
                             $agendamento->setStatus(0);
                             $agendamento->setPartida($partida);
+                            $agendamento->setValor(100);
 
                             $agendamentoDAO = new AgendamentoDAO();
 
                             $agendamentoDAO->persist($agendamento);
-                        }                                   
+                        }      
+                        
                         $participanteDAO = new ParticipanteDAO();
                         $participante = new Participante();
                         

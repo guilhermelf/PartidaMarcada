@@ -12,6 +12,11 @@
     <script>
         $(document).ready(function () {
 
+            $('#btn-partida-convidar').on('click', function() {
+                window.location.href = "/partidamarcada/partida/partida/" + $('#id-partida-atualizar').val(); 
+
+                return false;
+            });
 
             $('#txt-data').on('focusout', function() {
 
@@ -165,10 +170,10 @@
                     console.log(resposta);
                     $.each(resposta, function (k, v) {
                         
-                        if(v.usuario.id == $('#usuario').val()) {
+                        if(v.usuario.id == $('#usuario').val() && v.status == 1) {
                             $("#minhas-partidas").find(".content").find(".p-2").append(
                                 "<a class='minhas-partidas' href='/partidamarcada/partida/partida/" + v.id + "'>" + 
-                                    v.data + ", das " + v.inicio + "h às " + (v.inicio + 1) + "h na quadra " + v.quadra.numero + " da(o) " + v.quadra.parqueEsportivo.nome + 
+                                    v.data + ", das " + v.inicio + "h às " + (v.inicio + 1) + "h, partida de " + v.esporte.nome + ", na quadra " + v.quadra.numero + " da(o) " + v.quadra.parqueEsportivo.nome + 
                                 "</a>" + 
                                     "<span class='opcoes-partida'>" + 
                                         "<span class='partida-editar mif-pencil fg-orange' title='Editar informações da partida'>" + 
@@ -180,13 +185,19 @@
                                         "</span>" +
                                     "</span><br />"                           
                             );
+                        } else if(v.status == 1) {
+                            $("#minhas-partidas").find(".content").find(".p-2").append(
+                                "<a class='minhas-partidas' href='/partidamarcada/partida/partida/" + v.id + "'>" + 
+                                    v.data + ", das " + v.inicio + "h às " + (v.inicio + 1) + "h, partida de " + v.esporte.nome + ", na quadra " + v.quadra.numero + " da(o) " + v.quadra.parqueEsportivo.nome + 
+                                "</a><br />"                           
+                            );
                         } else {
                             $("#minhas-partidas").find(".content").find(".p-2").append(
                                 "<a class='minhas-partidas' href='/partidamarcada/partida/partida/" + v.id + "'>" + 
-                                    v.data + ", das " + v.inicio + "h às " + (v.inicio + 1) + "h na quadra " + v.quadra.numero + " da(o) " + v.quadra.parqueEsportivo.nome + 
-                                "</a><br />"                           
+                                    v.data + ", das " + v.inicio + "h às " + (v.inicio + 1) + "h, partida de " + v.esporte.nome + ", na quadra " + v.quadra.numero + " da(o) " + v.quadra.parqueEsportivo.nome + 
+                                "<span class='opcoes-partida'>Cancelada</span></a><br />"                           
                             );
-                        }            
+                        }          
                     });
                 }
             });
@@ -201,7 +212,7 @@
                 success: function (resposta) {
                     if(resposta) {
                         $.each(resposta, function (k, v) {
-                            $("#minhas-partidas-passadas").find(".content").find(".p-2").append("<a class='partida-passada-ver minhas-partidas-passadas' href='#'><span style='display:none;' class=id-ver>" + v.id + "</span>" + v.data + ", das " + v.inicio + "h às " + (v.inicio + 1) + "h na quadra " + v.quadra.numero + " da(o) " + v.quadra.parqueEsportivo.nome + "</a><br />");
+                            $("#minhas-partidas-passadas").find(".content").find(".p-2").append("<a class='partida-passada-ver minhas-partidas-passadas' href='/partidamarcada/partida/partida/" + v.id + "'><span style='display:none;' class=id-ver>" + v.id + "</span>" + v.data + ", das " + v.inicio + "h às " + (v.inicio + 1) + "h, partida de " + v.esporte.nome + ", na quadra " + v.quadra.numero + " da(o) " + v.quadra.parqueEsportivo.nome + "</a><br />");
                         });
                     }
                 }
@@ -712,14 +723,14 @@
                         <button class="cell-sm-12 button info" id="btn-partida-atualizar">Atualizar</button>
                         <br />
                         &nbsp;
-						<button class="cell-sm-12 button success" id="btn-partida-convidar">Convidar jogadores</button>
+						<button class="cell-sm-12 button success" id="btn-partida-convidar">Ir para partida</button>
                         <br />
                         &nbsp;
                         <button class="cell-sm-12 button warning" id="btn-partida-atualizar-cancelar">Voltar</button>
                         <br />
-                    </form>
-                </div>
-                <input type="hidden" id="servicos" /> 
+                </form>
+            </div>
+            <input type="hidden" id="servicos" /> 
 		</div>
-</body>
+    </body>
 </html>
