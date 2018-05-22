@@ -30,15 +30,21 @@ class Agendamento {
     private $status;
     
     /**
-     * @Column(type="float", name="valor")
+     * @Column(type="float", name="valor", nullable=true)
      */
     private $valor;
     
     /**
      * @OneToOne(targetEntity="Partida", inversedBy="agendamento")
-     * @JoinColumn(name="id_partida", referencedColumnName="id_partida")
+     * @JoinColumn(name="id_partida", referencedColumnName="id_partida", nullable=true)
      */
     private $partida;
+    
+    /**
+     * @ManyToOne(targetEntity="Quadra", inversedBy="agendamentos")
+     * @JoinColumn(name="id_quadra", referencedColumnName="id_quadra")
+     */
+    private $quadra;
     
     function getId() {
         return $this->id;
@@ -84,19 +90,34 @@ class Agendamento {
         $this->valor = $valor;
     }
 
-    function setPartida($partida) {
+    function setPartida(Partida $partida = null) {
         $this->partida = $partida;
     }
 
+    function getQuadra() {
+        return $this->quadra;
+    }
+
+    function setQuadra($quadra) {
+        $this->quadra = $quadra;
+    }
         
-    public function toJson() {           
+    
+    
+    public function toJson() {  
+        if($this->getPartida() != null)
+            $partida = $this->getPartida()->toJson();
+        else
+            $partida = null;
+        
         return array(           
             'id' => $this->getId(),
             'data' => date_format($this->getData(), 'd/m/Y'),
             'inicio' => $this->getInicio(),
             'valor' => $this->getValor(),
             'status' => $this->getStatus(),
-            'partida' => $this->getPartida()->toJson()
+            'partida' => $partida,
+            'quadra' => $this->getQuadra()->toJson()
         );
     } 
 }

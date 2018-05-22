@@ -48,7 +48,12 @@ class AgendamentoDAO {
     
     function buscarHorarios($quadra = null, $data = null) {
         try {
-            $query = DataBase::getFactory()->createQuery("SELECT a FROM Agendamento a JOIN a.partida p JOIN p.quadra q WHERE q.id = :quadra AND a.data = :data AND (a.status = 0 OR a.status = 1)");
+            $rsm = new ResultSetMappingBuilder(DataBase::getFactory());
+            $rsm->addRootEntityFromClassMetadata('Agendamento', 'a');
+            
+            $query = DataBase::getFactory()->createNativeQuery("SELECT a.id_agendamento, a.status, a.id_quadra, a.valor, a.data, a.inicio FROM agendamento a 
+                INNER JOIN quadra q ON q.id_quadra = a.id_quadra 
+                WHERE q.id_quadra = :quadra AND a.data = :data AND (a.status = 0 OR a.status = 1)", $rsm);
             $query->setParameter('quadra', $quadra);
             $query->setParameter('data', $data);
             

@@ -60,10 +60,11 @@
                     url: "/partidamarcada/amigo/amizadesPendentes",
                     success: function (resposta) {
                         if (resposta) {
+                            console.log(resposta);
                             $.each(resposta, function (k, v) {
                                 $('#tabela-amigos-pendentes').find('tbody').append(
                                         "<tr class='amigos-pendentes'>" +
-                                        "<td><a href='/partidamarcada/usuario/perfil/" + v.usuario1.id + "'>" + v.usuario1.nome + " " + v.usuario1.sobrenome + " (" + v.usuario1.apelido + ")</a>" + "</td>" +
+                                        "<td><a href='/partidamarcada/usuario/perfil/" + v.usuario1id + "'>" + v.usuario1nome +"</a></td>" +
                                         "<td width='50px;'>" +
                                         "<span style='cursor:pointer; float:left;' class='mif-checkmark fg-green btn-amizade-aceitar' title='Aceitar'></span>" +
                                         "<span style='cursor:pointer; float:right;' class='mif-cross fg-red btn-amizade-rejeitar' title='Rejeitar'></span>" +
@@ -271,20 +272,20 @@
                                         <div class="cell-sm-4">                 
                                             <input type="text" name="apelido" placeholder="Apelido">
                                         </div>
-                                    </div>
-                                    <br />
-                                    <input type="button" class="cell-sm-12 button bg-lightBlue" value="Buscar" id="btn-usuario-buscar">
-                                    <br />
+                                    </div>                                 
                                     <div id="div-amigos-busca">
                                         <table id="tabela-amigos-busca">
                                             <thead>
-                                                <th>Atletas localizados</th>
+                                                <hr />
                                             </thead>
                                             <tbody>
 
                                             </tbody>
                                         </table>
                                     </div>
+                                    <br />
+                                    <input type="button" class="cell-sm-12 button bg-lightBlue" value="Buscar" id="btn-usuario-buscar">
+                                    <br />
                                 </form>
                             </div>
                     </div>

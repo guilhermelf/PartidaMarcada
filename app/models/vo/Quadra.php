@@ -22,6 +22,7 @@ class Quadra {
 
     public function __construct() {
         $this->esportes = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->agendamentos = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -72,6 +73,19 @@ class Quadra {
      */
     private $valor;
 
+    /**
+     * @OneToMany(targetEntity="Agendamento", mappedBy="quadra")
+     * */
+    private $agendamentos;
+    
+    function getAgendamentos() {
+        return $this->agendamentos;
+    }
+
+    function setAgendamentos($agendamentos) {
+        $this->agendamentos = $agendamentos;
+    }
+    
     function getValor() {
         return $this->valor;
     }

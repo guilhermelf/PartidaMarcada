@@ -84,4 +84,20 @@ class PartidaController extends Controller {
 
         echo $bll->partidaOcorreu($id);
     }
+    
+    function pesquisar() {
+        if (empty($_SESSION['tipo']))
+            $this->AccessDenied();
+        else {
+            $bll = new PartidaBLL();
+
+            echo $bll->pesquisar($_POST);
+        }
+    }
+    
+    function buscarPartidasParqueEsportivo() {
+        $bll = new PartidaBLL();
+
+        echo $bll->buscarPartidasParqueEsportivo();
+    }
 }

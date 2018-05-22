@@ -12,6 +12,45 @@
     <script>
         $(document).ready(function () {
 
+            $('#btn-buscar-partida').on('click', function() { 
+                $.ajax({
+                    data: $('#buscar-partida-publica').serialize(),
+                    async: false,
+                    type: "post",
+                    url: "/partidamarcada/partida/pesquisar",
+                    dataType: "json",
+                    success: function (resposta) {
+                        if(!resposta) {
+                            $('#div-resultado-partidas').find("p").text("Nenhuma partida encontrada!");
+                            
+                            $('#div-resultado-partidas').show();
+                        } else {
+                            $('#div-resultado-partidas').find("p").text("");
+                            $.each(resposta, function (k, v) {
+                                $('#div-resultado-partidas').find("p").append("<a target='_blank' href='/partidamarcada/partida/partida/" + v.id + "'>" +
+                                    "Partida de " + v.esporte.nome + " na(o) " + v.quadra.parqueEsportivo.nome + ", dia " +
+                                    v.data + ", das " + v.inicio + "h às " + (v.inicio + 1) + "h." +
+                                    "</a><br />");
+
+                                $('#div-resultado-partidas').show();
+                            });
+                        }
+                    }
+                });
+                return false;
+            });
+
+            $.ajax({
+                async: false,
+                type: "post",
+                url: "/partidamarcada/usuario/buscarUsuario/",
+                dataType: 'json',
+                success: function (resposta) {
+                    $('#buscar-partida-cidade').val(resposta.cidade.nome);                  
+                }
+            });
+
+
             $('#btn-partida-convidar').on('click', function() {
                 window.location.href = "/partidamarcada/partida/partida/" + $('#id-partida-atualizar').val(); 
 
@@ -167,7 +206,7 @@
                 url: "/partidamarcada/partida/listarMinhasNovasPartidas",
                 dataType: "json",
                 success: function (resposta) {
-                    console.log(resposta);
+
                     $.each(resposta, function (k, v) {
                         
                         if(v.usuario.id == $('#usuario').val() && v.status == 1) {
@@ -558,6 +597,34 @@
                         <div class="heading bg-cyan fg-white accor"><span class="mif-calendar icon"></span> Partidas passadas</div>
                         <div class="content">
                             <div class="p-2"></div>
+                        </div>
+                    </div>
+                    <div class="frame" id="buscar-partidas-publicas">
+                        <div class="heading bg-cyan fg-white accor"><span class="mif-dribbble icon"></span> Buscar partidas públicas com vagas</div>
+                        <div class="content">
+                            <form id="buscar-partida-publica">
+                                <br />
+                                <div class="row">
+                                    <div class="cell-sm-3">   
+                                        <input type="text" name="quadra" placeholder="Quadra">
+                                    </div>
+                                    <div class="cell-sm-3">   
+                                        <input type="text" name="esporte" placeholder="Esporte">
+                                    </div>
+                                    <div class="cell-sm-3">   
+                                        <input type="text" name="cidade" id="buscar-partida-cidade" placeholder="Cidade">
+                                    </div>
+                                    <div class="cell-sm-3"> 
+                                        <button class="button success" id="btn-buscar-partida">Buscar</button>
+                                    </div>
+                                </div>
+                                <div id="div-resultado-partidas" style="display: none">
+                                    <hr>
+                                    <p></p>
+                                </div>
+                                <br />&nbsp;
+                                
+                            </form>
                         </div>
                     </div>
                 </div>

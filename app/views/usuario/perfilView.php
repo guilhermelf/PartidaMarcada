@@ -65,7 +65,11 @@
 
     </head>
     <body>
-        <?php include 'app/views/header/headerUsuario.php'; ?>
+        <?php if($_SESSION['tipo'] == 'usuario') {
+            include 'app/views/header/headerUsuario.php';
+         } else {
+            include 'app/views/header/headerQuadra.php';
+         } ?>
         <div data-role="dialog" data-close-button="true" data-overlay="true" id="resposta" class="padding20">
             <div class="dialog-title resposta-titulo"></div>
             <div class="dialog-content resposta-mensagem"></div>
@@ -103,12 +107,14 @@
 
                 <form id="form-adicionar-amigo">
                 <br />
-                <div class="row">
-                    <div class="cell-sm-12">
-                        <input type="button" class="button bg-lightBlue place-right" value="Adicionar aos amigos" id="btn-adicionar-amigo">
-                        <input type="hidden" name="usuario" value="<?php echo $dados->getId(); ?>">
+                <?php if($_SESSION['tipo'] == 'usuario') { ?>
+                    <div class="row">
+                        <div class="cell-sm-12">
+                            <input type="button" class="button bg-lightBlue place-right" value="Adicionar aos amigos" id="btn-adicionar-amigo">
+                            <input type="hidden" name="usuario" value="<?php echo $dados->getId(); ?>">
+                        </div>
                     </div>
-                </div>
+                <?php } ?>
                 <br />&nbsp;
                 </form>
             </div>

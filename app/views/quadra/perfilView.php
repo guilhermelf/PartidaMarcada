@@ -10,7 +10,11 @@
         <title>Partida Marcada</title>
     </head>
     <body>
-        <?php include 'app/views/header/headerQuadra.php'; ?>
+        <?php if($_SESSION['tipo'] == 'usuario') {
+            include 'app/views/header/headerUsuario.php';
+         } else {
+            include 'app/views/header/headerQuadra.php';
+         } ?>
         <div data-role="dialog" data-close-button="true" data-overlay="true" id="resposta" class="padding20">
             <div class="dialog-title resposta-titulo"></div>
             <div class="dialog-content resposta-mensagem"></div>
@@ -49,16 +53,16 @@
             <hr />
             <div class="row">
                 <div class="cell-sm-3">
-                    <span class="perfil-label">Churrasqueiras? </span> <?php echo ($dados->getChurrasqueira() ? 'Sim' : 'Não') ?>
+                    <span class="perfil-label">Churrasqueiras: </span> <?php echo ($dados->getChurrasqueira() ? 'Sim' : 'Não') ?>
                 </div>                     
                 <div class="cell-sm-3">
-                    <span class="perfil-label">Vestiários? </span> <?php echo ($dados->getVestiario() ? 'Sim' : 'Não') ?>
+                    <span class="perfil-label">Vestiários: </span> <?php echo ($dados->getVestiario() ? 'Sim' : 'Não') ?>
                 </div>
                 <div class="cell-sm-3">
-                    <span class="perfil-label">Copa/bar? </span> <?php echo ($dados->getCopa() ? 'Sim' : 'Não') ?>
+                    <span class="perfil-label">Copa/bar: </span> <?php echo ($dados->getCopa() ? 'Sim' : 'Não') ?>
                 </div>
                 <div class="cell-sm-3">
-                    <span class="perfil-label">Agendamento online? </span> <?php echo ($dados->getServicos() ? 'Sim' : 'Não') ?>
+                    <span class="perfil-label">Agendamento online: </span> <?php echo ($dados->getServicos() ? 'Sim' : 'Não') ?>
                 </div>
             </div>
             <br />

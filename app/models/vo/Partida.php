@@ -173,7 +173,7 @@ class Partida {
         return $this->agendamento;
     }
 
-    function setAgendamento($agendamento) {
+    function setAgendamento(Agendamento $agendamento = null) {
         $this->agendamento = $agendamento;
     }
 

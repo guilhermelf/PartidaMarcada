@@ -97,7 +97,7 @@ class PartidaBLL {
                 if ($dao->persist($partida)) {
 
                     if($novo) {
-                        if($partida->getQuadra()->getParqueEsportivo()->getServicos()) {
+                        if($partida->getQuadra()->getParqueEsportivo()->getServicos()) {                          
                             $agendamento = new Agendamento();
 
                             $agendamento->setData($partida->getData());
@@ -105,6 +105,7 @@ class PartidaBLL {
                             $agendamento->setStatus(0);
                             $agendamento->setPartida($partida);
                             $agendamento->setValor(100);
+                            $agendamento->setQuadra($partida->getQuadra());
 
                             $agendamentoDAO = new AgendamentoDAO();
 
@@ -226,6 +227,47 @@ class PartidaBLL {
         $dao = new PartidaDAO();
 
         $dados = $dao->getByUsuario($usuario);
+
+        $partidas = [];
+
+        if (empty($dados)) {
+            return 0;
+        } else {
+            foreach ($dados as $value) {
+                $partidas[] = $value->toJson();
+            }
+            return json_encode($partidas);
+        }
+        return null;
+    }
+    
+    function pesquisar($dados) {
+        try {
+            $dao = new PartidaDAO();
+
+            $partidas = $dao->pesquisar($dados);
+            
+            $json = [];
+            if (empty($partidas)) {
+                return 0;
+            } else {
+                foreach ($partidas as $partida) {
+                    $json[] = $partida->toJson();
+                }
+
+                return json_encode($json);
+            }
+        } catch (Exception $ex) {
+            return $ex->getMessage();
+        }
+    }
+    
+    function buscarPartidasParqueEsportivo() {
+        $parqueEsportivo = $_SESSION['id'];
+
+        $dao = new PartidaDAO();
+
+        $dados = $dao->buscarPartidasParqueEsportivo($parqueEsportivo);
 
         $partidas = [];
 

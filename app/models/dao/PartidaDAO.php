@@ -124,4 +124,51 @@ class PartidaDAO {
             return false;
         }  
     }
+    
+    function pesquisar($dados) {
+        try {
+            $sql = "SELECT p FROM Partida p JOIN p.quadra q JOIN q.parqueEsportivo pq JOIN pq.cidade c JOIN p.esporte e WHERE p.publico = 1 AND p.status = 1";
+
+            if ($dados['quadra'] != "")
+                $sql .= " AND pq.nome LIKE :quadra";
+
+            if ($dados['cidade'] != "")
+                $sql .= " AND c.nome LIKE :cidade";
+
+            if ($dados['esporte'] != "")
+                $sql .= " AND e.nome LIKE :esporte";
+
+            $query = DataBase::getFactory()->createQuery($sql);
+            
+            if ($dados['quadra'] != "")
+                $query->setParameter('quadra', '%' . $dados['quadra'] . '%');
+            
+            if ($dados['cidade'] != "")
+                $query->setParameter('cidade', '%' . $dados['cidade'] . '%');
+            
+            if ($dados['esporte'] != "")
+                $query->setParameter('esporte', '%' . $dados['esporte'] . '%');
+
+            $partidas = $query->getResult();
+
+            return (empty($partidas) ? false : $partidas);
+        } catch (Exception $ex) {
+            return $ex->getMessage();
+        }
+    }
+    
+    function buscarPartidasParqueEsportivo($parqueEsportivo) {
+        try {
+            $sql = "SELECT p FROM Partida p JOIN p.quadra q JOIN q.parqueEsportivo pq JOIN p.agendamento a WHERE pq.id = :parqueEsportivo AND p.status = 1 AND pq.servicos = 1 AND a.status = 1 ORDER BY p.data, p.inicio ASC";        
+            $query = DataBase::getFactory()->createQuery($sql);
+            
+            $query->setParameter('parqueEsportivo', $parqueEsportivo);
+        
+            $partidas = $query->getResult();
+
+            return (empty($partidas) ? false : $partidas);
+        } catch (Exception $ex) {
+            return $ex->getMessage();
+        }
+    }
 }

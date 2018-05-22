@@ -35,4 +35,16 @@ class AgendamentoController extends Controller {
     
         echo json_encode($bll->negar($id));
     }
+    
+    function confirmar($id) {
+        $bll = new AgendamentoBLL();
+    
+        echo json_encode($bll->confirmar($id));
+    }
+    
+    function reservarHorario() {
+        $bll = new AgendamentoBLL();
+    
+        echo json_encode($bll->reservarHorario($_POST));
+    }
 }

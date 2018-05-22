@@ -1,6 +1,7 @@
 <?php
 require_once(DAO . '/AgendamentoDAO.php');
 require_once(DAO . '/PartidaDAO.php');
+require_once(BLL . '/QuadraBLL.php');
 
 class AgendamentoBLL {
 
@@ -40,7 +41,7 @@ class AgendamentoBLL {
         for ($i = 0; $i < 24; $i++) {
             $horarios[] = $i;
         }
-
+        
         if(empty($agendamentos)) {
             return $horarios;
         } else {
@@ -94,5 +95,62 @@ class AgendamentoBLL {
 
             return Retorno::toJson();
         }
+    }
+    
+    public function confirmar($id) {
+        $partidaDAO = new PartidaDAO();
+        
+        $agendamento = $this->getById($id);
+        $agendamento->setStatus(1);
+        
+        $partida = $agendamento->getPartida();
+        $partida->setStatus(1);
+        
+        $partidaDAO->persist($partida);
+        $dao = new AgendamentoDAO();
+        
+        if ($dao->persist($agendamento)) {
+            Retorno::setStatus(1);
+            Retorno::setMensagem("Agendamento confirmado com sucesso!");
+            
+            return Retorno::toJson();
+        } else {
+            Retorno::setStatus(0);
+            Retorno::setMensagem("Erro ao confirmar agendamento!");
+
+            return Retorno::toJson();
+        }
+    }
+    
+    public function reservarHorario($dados) {
+        try {
+            $dao = new AgendamentoDAO();   
+            $agendamento = new Agendamento();
+            $quadraBLL = new QuadraBLL();
+            
+            $inicio = $dados['inicio'];
+            $quadra = $quadraBLL->getById($dados['quadra']);
+            $data = Retorno::invertDate($dados['data']);
+
+            $agendamento->setStatus(1);
+            $agendamento->setPartida(null);
+            $agendamento->setInicio($inicio);
+            $agendamento->setData(new \DateTime($data));
+            $agendamento->setQuadra($quadra);
+
+            if ($dao->persist($agendamento)) {
+                Retorno::setStatus(1);
+                Retorno::setMensagem("Agendamento confirmado com sucesso!");
+
+                return Retorno::toJson();
+            } else {
+                Retorno::setStatus(0);
+                Retorno::setMensagem("Erro ao confirmar agendamento!");
+
+                return Retorno::toJson();
+            }
+        } catch (Exception $exc) {
+            return 0;
+        }  
     }
 }
