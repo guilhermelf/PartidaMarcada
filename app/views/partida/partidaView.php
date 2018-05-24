@@ -12,6 +12,52 @@
     <script>
         $(document).ready(function () {   
 
+            //aceitar candidato
+            $(".aceitar-participante").on('click', function() {
+
+                $.ajax({
+                    async: false,
+                    type: "post",
+                    url: "/partidamarcada/participante/aceitarCandidato/" + $(this).find('.id-aceitar-candidato').text(),
+                    success: function (resposta) {
+                        console.log(resposta);
+                        if(resposta) {
+                            $(".resposta-titulo").html("Sucesso");
+                            $("#resposta").attr('style', 'background-color: #60a917; color: #fff;');
+
+                            $(".resposta-mensagem").html("Atleta aceito com sucesso!"); 
+                            $("#resposta").data('dialog').open();
+                            
+                            setTimeout(function () {    
+                                window.location.href = "/partidamarcada/partida/partida/" + $('#id-partida').val()
+                            }, 3000);
+                        }
+                    }
+                });
+            });
+
+            //rejeitar candidato
+            $(".negar-participante").on('click', function() {
+                $.ajax({
+                    async: false,
+                    type: "post",
+                    url: "/partidamarcada/participante/negarCandidato/" + $(this).find('.id-negar-candidato').text(),
+                    success: function (resposta) {
+                        if(resposta) {
+                            $(".resposta-titulo").html("Sucesso");
+                            $("#resposta").attr('style', 'background-color: #60a917; color: #fff;');
+
+                            $(".resposta-mensagem").html("Atleta rejeitado com sucesso!"); 
+                            $("#resposta").data('dialog').open();
+                            
+                            setTimeout(function () {    
+                                window.location.href = "/partidamarcada/partida/partida/" + $('#id-partida').val()
+                            }, 3000);
+                        }
+                    }
+                });
+            });
+
             //confirmar presença
             $("#btn-aceitar").on('click', function() {
                 $.ajax({
@@ -441,6 +487,11 @@
                                 <li><a href="#_target_1">Confirmados</a></li>
                                 <li><a href="#_target_2">Convidados</a></li>
                                 <li><a href="#_target_3">Não irão</a></li>
+                                <?php 
+                                    if($dados->getUsuario()->getId() == $_SESSION['id']) {
+                                        echo '<li><a href="#_target_4">Candidatos</a></li>';
+                                    }
+                                ?>
                             </ul>
                             <div class="border bd-default no-border-top p-2">
                                 <div id="_target_1">
@@ -479,6 +530,31 @@
                                                 .")</a><br />";                                    }
                                     ?>
                                 </div>
+                                <?php
+                                    if($dados->getUsuario()->getId() == $_SESSION['id']) {
+                                ?>
+                                        <div id="_target_4">
+                                            <?php 
+                                                foreach ($dados->getParticipantes() as $participante) {
+                                                    if($participante->getStatus() === 3)
+                                                        echo "<a target='_blank' href='/partidamarcada/usuario/perfil/" . $participante->getUsuario()->getId() . "'>" .
+                                                            $participante->getUsuario()->getNome() . " " . 
+                                                            $participante->getUsuario()->getSobrenome() . 
+                                                            " (" . $participante->getUsuario()->getApelido()  
+                                                        .")</a><span class='opcoes-partida'>".
+                                                            "<span class='aceitar-participante mif-checkmark fg-green' title='Aceitar atleta'>".
+                                                                "<span style='display:none;' class='id-aceitar-candidato'>".$participante->getId()."</span>".
+                                                            "</span>&nbsp;&nbsp;".
+                                                            "<span class='negar-participante mif-cross fg-red' style='cursor: pointer;' title='Não aceitar'>".
+                                                                "<span style='display:none;' class='id-negar-candidato'>".$participante->getId()."</span>".
+                                                            "</span><br />".
+                                                        "</span>";                                   
+                                                }
+                                            ?>
+                                        </div>
+                                <?php
+                                    }
+                                ?>
                             </div>                       
                         </div>
                     </div>
@@ -497,7 +573,7 @@
                     </div>  
                     <div id="div-aguardar" style="display:none;">   
                         <h2 class='align-center fg-red'>Você já se candidatou a participar dessa partida, aguarde a resposta!</h2>
-                    </div>                                         
+                    </div>                           
                 </div>
             </div>
             <input type="hidden" id="id-participante" value="" />              

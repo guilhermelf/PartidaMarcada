@@ -124,6 +124,7 @@ class PartidaBLL {
                         Retorno::setStatus(1);
                         Retorno::setMensagem("Partida cadastrada com sucesso!");
                     } else {
+                        Retorno::setStatus(1);
                         Retorno::setMensagem("Informações da partida atualizadas!");
                     }    
                     return Retorno::toJson();
@@ -171,6 +172,27 @@ class PartidaBLL {
         $usuario = $bll->getById($_SESSION['id']);
         
         $partidas = $dao->getNew($usuario->getId());
+
+        $json = [];
+
+        if(empty($partidas)) {
+            return 0;
+        } else {
+            foreach ($partidas as $partida) {    
+                $json[] = $partida->toJson();          
+            }     
+
+            return $json;
+        }
+    }
+    
+    function getCancelled() {
+        $dao = new PartidaDAO();
+        
+        $bll = new UsuarioBLL;
+        $usuario = $bll->getById($_SESSION['id']);
+        
+        $partidas = $dao->getCancelled($usuario->getId());
 
         $json = [];
 

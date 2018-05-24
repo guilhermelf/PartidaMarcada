@@ -30,6 +30,19 @@ class AgendamentoController extends Controller {
         }           
     }
     
+    function buscarHorariosQuadraData() {
+        $bll = new AgendamentoBLL();
+        
+        try {
+            $data = Retorno::invertDate($_POST['data']);      
+            $quadra = $_POST['quadra'];
+            
+            echo json_encode($bll->buscarHorariosQuadraData($quadra, $data));
+        } catch (Exception $exc) {
+            echo 0;
+        }           
+    }
+    
     function negar($id) {
         $bll = new AgendamentoBLL();
     
@@ -46,5 +59,17 @@ class AgendamentoController extends Controller {
         $bll = new AgendamentoBLL();
     
         echo json_encode($bll->reservarHorario($_POST));
+    }
+    
+    function liberar() {
+        try {
+            $id = $_POST['agendamento'];
+            
+            $bll = new AgendamentoBLL();
+    
+            echo json_encode($bll->liberar($id));
+        } catch (Exception $exc) {
+            return false;
+        }
     }
 }

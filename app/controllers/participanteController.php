@@ -103,4 +103,16 @@ class participanteController extends Controller {
         
         echo $bll->participantePediu($usuario, $partida);
     }
+    
+    function aceitarCandidato($participante) {
+        $bll = new ParticipanteBLL();
+              
+        echo $bll->aceitarCandidato($participante);
+    }
+    
+    function negarCandidato($participante) {
+        $bll = new ParticipanteBLL();
+              
+        echo $bll->negarCandidato($participante);
+    }  
 }

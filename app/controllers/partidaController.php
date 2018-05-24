@@ -35,6 +35,14 @@ class PartidaController extends Controller {
         echo json_encode($partidas);
     }
     
+    function listarMinhasPartidasCanceladas() {
+        $bll = new PartidaBLL();
+        
+        $partidas = $bll->getCancelled();
+    
+        echo json_encode($partidas);
+    }
+    
     function listarMinhasAntigasPartidas() {
         $bll = new PartidaBLL();
 

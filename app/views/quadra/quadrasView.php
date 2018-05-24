@@ -68,7 +68,7 @@
                                             "<span class='id-quadra' style='display:none; cursor:pointer;'>" + v.id + "</span>" +
                                         "</td>" +
                                         "<td class='calendario'>" + 
-                                            "<span style='cursor:pointer;' class='mif-calendar btn-calandario'></span>" + 
+                                            "<a href='/partidamarcada/parqueesportivo/horarios/" + v.id + "'><span style='cursor:pointer;' class='mif-calendar btn-calendario'></span></a>" + 
                                         "</td>" + 
                                     "</tr>"
                                     );
@@ -120,7 +120,6 @@
 
                             $("#resposta").data('dialog').open();
                         }
-                        console.log(resposta);
                     }
                 });
                 return false;

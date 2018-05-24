@@ -188,4 +188,23 @@ class ParticipanteBLL {
 
         return $dao->persist($participante);
     }
+    
+    function aceitarCandidato($participante) {
+        $dao = new ParticipanteDAO();
+        $bll = new ParticipanteBLL();
+        
+        $participante = $bll->getById($participante);
+        $participante->setStatus(1);
+        
+        return $dao->persist($participante);
+    }
+    
+    function negarCandidato($participante) {
+        $dao = new ParticipanteDAO();
+        $bll = new ParticipanteBLL();
+        
+        $participante = $bll->getById($participante);
+        
+        return $dao->delete($participante);
+    }
 }

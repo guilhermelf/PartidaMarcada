@@ -77,7 +77,7 @@
                     success: function (resposta) {
                         if(resposta) {
                             $.each(resposta, function(k, v) {
-                                $('#select-inicio').append('<option value="' + k + '">' + k + '</option');
+                                $('#select-inicio').append('<option value="' + k + '">das ' + k + 'h às ' + (resposta[k] + 1) + 'h</option');
                             })
                         }
                     }
@@ -210,20 +210,33 @@
                     $.each(resposta, function (k, v) {
                         
                         if(v.usuario.id == $('#usuario').val() && v.status == 1) {
-                            $("#minhas-partidas").find(".content").find(".p-2").append(
-                                "<a class='minhas-partidas' href='/partidamarcada/partida/partida/" + v.id + "'>" + 
-                                    v.data + ", das " + v.inicio + "h às " + (v.inicio + 1) + "h, partida de " + v.esporte.nome + ", na quadra " + v.quadra.numero + " da(o) " + v.quadra.parqueEsportivo.nome + 
-                                "</a>" + 
-                                    "<span class='opcoes-partida'>" + 
-                                        "<span class='partida-editar mif-pencil fg-orange' title='Editar informações da partida'>" + 
-                                            "<span style='display:none;' class='id-editar'>" + v.id + "</span>" + 
-                                        "</span>" +
-                                        "&nbsp;&nbsp;&nbsp;" +
-                                        "<span class='partida-cancelar mif-cross fg-red' title='Cancelar partida'>" + 
-                                            "<span style='display:none;' class='id-cancelar'>" + v.id + "</span>" + 
-                                        "</span>" +
-                                    "</span><br />"                           
-                            );
+                            if(v.quadra.parqueEsportivo.servicos) {
+                                $("#minhas-partidas").find(".content").find(".p-2").append(
+                                    "<a class='minhas-partidas' href='/partidamarcada/partida/partida/" + v.id + "'>" + 
+                                        v.data + ", das " + v.inicio + "h às " + (v.inicio + 1) + "h, partida de " + v.esporte.nome + ", na quadra " + v.quadra.numero + " da(o) " + v.quadra.parqueEsportivo.nome + 
+                                    "</a>" + 
+                                        "<span class='opcoes-partida'>" +                                        
+                                            "<span class='partida-cancelar mif-cross fg-red' title='Cancelar partida'>" + 
+                                                "<span style='display:none;' class='id-cancelar'>" + v.id + "</span>" + 
+                                            "</span>" +
+                                        "</span><br />"                           
+                                );
+                            } else {
+                                $("#minhas-partidas").find(".content").find(".p-2").append(
+                                    "<a class='minhas-partidas' href='/partidamarcada/partida/partida/" + v.id + "'>" + 
+                                        v.data + ", das " + v.inicio + "h às " + (v.inicio + 1) + "h, partida de " + v.esporte.nome + ", na quadra " + v.quadra.numero + " da(o) " + v.quadra.parqueEsportivo.nome + 
+                                    "</a>" + 
+                                        "<span class='opcoes-partida'>" + 
+                                            "<span class='partida-editar mif-pencil fg-orange' title='Editar informações da partida'>" + 
+                                                "<span style='display:none;' class='id-editar'>" + v.id + "</span>" + 
+                                            "</span>" +
+                                            "&nbsp;&nbsp;&nbsp;" +
+                                            "<span class='partida-cancelar mif-cross fg-red' title='Cancelar partida'>" + 
+                                                "<span style='display:none;' class='id-cancelar'>" + v.id + "</span>" + 
+                                            "</span>" +
+                                        "</span><br />"                           
+                                );
+                            }
                         } else if(v.status == 1) {
                             $("#minhas-partidas").find(".content").find(".p-2").append(
                                 "<a class='minhas-partidas' href='/partidamarcada/partida/partida/" + v.id + "'>" + 
@@ -252,6 +265,22 @@
                     if(resposta) {
                         $.each(resposta, function (k, v) {
                             $("#minhas-partidas-passadas").find(".content").find(".p-2").append("<a class='partida-passada-ver minhas-partidas-passadas' href='/partidamarcada/partida/partida/" + v.id + "'><span style='display:none;' class=id-ver>" + v.id + "</span>" + v.data + ", das " + v.inicio + "h às " + (v.inicio + 1) + "h, partida de " + v.esporte.nome + ", na quadra " + v.quadra.numero + " da(o) " + v.quadra.parqueEsportivo.nome + "</a><br />");
+                        });
+                    }
+                }
+            });
+
+            //buscar partidas canceladas
+            $('.minhasPartidas').remove();
+            $.ajax({
+                async: false,
+                type: "post",
+                url: "/partidamarcada/partida/listarMinhasPartidasCanceladas",
+                dataType: "json",
+                success: function (resposta) {
+                    if(resposta) {
+                        $.each(resposta, function (k, v) {
+                            $("#minhas-partidas-canceladas").find(".content").find(".p-2").append("<a class='partida-passada-ver minhas-partidas-passadas' href='/partidamarcada/partida/partida/" + v.id + "'><span style='display:none;' class=id-ver>" + v.id + "</span>" + v.data + ", das " + v.inicio + "h às " + (v.inicio + 1) + "h, partida de " + v.esporte.nome + ", na quadra " + v.quadra.numero + " da(o) " + v.quadra.parqueEsportivo.nome + "</a><br />");
                         });
                     }
                 }
@@ -599,6 +628,12 @@
                             <div class="p-2"></div>
                         </div>
                     </div>
+                    <div class="frame" id="minhas-partidas-canceladas">
+                        <div class="heading bg-cyan fg-white accor"><span class="mif-calendar icon"></span> Partidas canceladas</div>
+                        <div class="content">
+                            <div class="p-2"></div>
+                        </div>
+                    </div>
                     <div class="frame" id="buscar-partidas-publicas">
                         <div class="heading bg-cyan fg-white accor"><span class="mif-dribbble icon"></span> Buscar partidas públicas com vagas</div>
                         <div class="content">
@@ -687,14 +722,9 @@
                         <div class="cell-sm-2">            
                             <input type="text" name="data" placeholder="Data" id="txt-data">
                         </div>
-                        <div class="cell-sm-2">
-                            <select name="inicio" id="select-inicio">
-                                <option value="-1">Início</option>
-                            </select>
-						</div>
-                        <div class="cell-sm-2"> 
-							<select name="final" id="select-final">
-                                <option value="-1">Final</option>
+                        <div class="cell-sm-4">
+                            <select name="inicio" id="select-inicio" title="Horário">
+                                <option value="-1">Horário</option>
                             </select>
 						</div>
                         <div class="cell-sm-3"> 
@@ -735,13 +765,34 @@
                         <div class="cell-sm-2">            
                             <input type="text" id="data-atualizar" name="data" placeholder="Data">
                         </div>
-                        <div class="cell-sm-2">
-                            <select name="inicio" id="select-inicio-atualizar">
-                                <option value="-1">Início</option>
+                        <div class="cell-sm-4">
+                            <select name="inicio" id="select-inicio-atualizar" title="Horário">
+                                <option value="-1">Horário</option>
+                                <option value="0">das 00h às 01h</option>
+                                <option value="1">das 01h às 02h</option>
+                                <option value="2">das 02h às 03h</option>
+                                <option value="3">das 03h às 04h</option>
+                                <option value="4">das 04h às 05h</option>
+                                <option value="5">das 05h às 06h</option>
+                                <option value="6">das 06h às 07h</option>
+                                <option value="7">das 07h às 08h</option>
+                                <option value="8">das 08h às 09h</option>
+                                <option value="9">das 09h às 10h</option>
+                                <option value="10">das 10h às 11h</option>
+                                <option value="11">das 11h às 12h</option>
+                                <option value="12">das 12h às 13h</option>
+                                <option value="13">das 13h às 14h</option>
+                                <option value="14">das 14h às 15h</option>
+                                <option value="15">das 15h às 16h</option>
+                                <option value="16">das 16h às 17h</option>
+                                <option value="17">das 17h às 18h</option>
+                                <option value="18">das 18h às 19h</option>
+                                <option value="19">das 19h às 20h</option>
+                                <option value="20">das 20h às 21h</option>
+                                <option value="21">das 21h às 22h</option>
+                                <option value="22">das 22h às 23h</option>
+                                <option value="23">das 23h às 00h</option>
                             </select>
-						</div>
-                        <div class="cell-sm-2"> 
-                            <input type="text" name="final" placeholder="Final">
 						</div>
                         <div class="cell-sm-3"> 
                             <input type="text" name="jogadores" id="jogadores-atualizar" placeholder="Quantos atletas?">

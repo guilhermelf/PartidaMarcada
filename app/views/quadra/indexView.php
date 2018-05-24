@@ -41,7 +41,23 @@
                 url: "/partidamarcada/agendamento/reservarHorario",
                 dataType: "json",
                 success: function (resposta) {
-                    console.log(resposta);
+                    if (resposta.status) {
+                        $(".resposta-titulo").html("Sucesso");
+                        $("#resposta").attr('style', 'background-color: #60a917; color: #fff;');
+                        $(".resposta-mensagem").html(resposta.mensagem);
+
+                        $("#resposta").data('dialog').open();
+
+                        setTimeout(function () {
+                            window.location.href = "/partidamarcada/parqueesportivo/"
+                        }, 2000);
+                    } else {
+                        $(".resposta-titulo").html("Erro");
+                        $("#resposta").attr('style', 'background-color: #ce352c; color: #fff;');
+                        $(".resposta-mensagem").html(resposta.mensagem);
+
+                        $("#resposta").data('dialog').open();
+                    }
                 }
             });
             return false;

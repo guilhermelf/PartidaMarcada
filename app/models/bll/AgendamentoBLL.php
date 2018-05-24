@@ -52,6 +52,38 @@ class AgendamentoBLL {
             return $horarios;
         }
     }
+    function buscarHorariosQuadraData($quadra = null, $data = null) {
+        $dao = new AgendamentoDAO();
+        
+        $agendamentos = $dao->buscarHorarios($quadra, $data);
+       
+        $horarios = [];
+        
+        for ($i = 0; $i < 24; $i++) {
+            $horarios[] = array(
+                            "horario" => $i,
+                            "status" => "Horário disponível",
+                        );
+        }
+        
+        if(empty($agendamentos)) {
+            return $horarios;
+        } else {
+            foreach ($agendamentos as $agendamento) {    
+                if($agendamento->getPartida() != null) {
+                    $horarios[$agendamento->getInicio()]['status'] = 'Partida de ' . $agendamento->getPartida()->getEsporte()->getNome() . " agendada.";
+                    $horarios[$agendamento->getInicio()]['idPartida'] = $agendamento->getPartida()->getId();
+                    $horarios[$agendamento->getInicio()]['idAgendamento'] = $agendamento->getId();
+                } else {
+                    $horarios[$agendamento->getInicio()]['status'] = 'Horário reservado pela quadra';
+                    $horarios[$agendamento->getInicio()]['idAgendamento'] = $agendamento->getId();
+                }
+            }
+            
+            return $horarios;
+        }
+    }
+    
     
     function buscarAgendamentosPendentes() {
         $dao = new AgendamentoDAO();
@@ -140,17 +172,35 @@ class AgendamentoBLL {
 
             if ($dao->persist($agendamento)) {
                 Retorno::setStatus(1);
-                Retorno::setMensagem("Agendamento confirmado com sucesso!");
+                Retorno::setMensagem("Reserva de horário confirmada!");
 
                 return Retorno::toJson();
             } else {
                 Retorno::setStatus(0);
-                Retorno::setMensagem("Erro ao confirmar agendamento!");
+                Retorno::setMensagem("Erro ao confirmar reserva!");
 
                 return Retorno::toJson();
             }
         } catch (Exception $exc) {
             return 0;
         }  
+    }
+    
+    public function liberar($id) {     
+        $agendamento = $this->getById($id);
+
+        $dao = new AgendamentoDAO();
+        
+        if ($dao->delete($agendamento)) {
+            Retorno::setStatus(1);
+            Retorno::setMensagem("Reserva cancelada, horário disponível para agendamento!");
+            
+            return Retorno::toJson();
+        } else {
+            Retorno::setStatus(0);
+            Retorno::setMensagem("Erro ao cancelar reserva!");
+
+            return Retorno::toJson();
+        }
     }
 }

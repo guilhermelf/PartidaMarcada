@@ -160,4 +160,8 @@ class ParqueEsportivoController extends Controller {
         $bll = new ParqueEsportivoBLL();
         echo $bll->isOnline();
     }
+    
+    function horarios($quadra = null) {
+        $this->view('quadra/horarios', $quadra);
+    }
 }
