@@ -67,6 +67,25 @@ class PartidaController extends Controller {
         }      
     }
     
+    function avaliar() {
+        if (empty($_SESSION))
+            $this->AccessDenied();
+        else {
+            $this->view('./partida/avaliar');                    
+        }      
+    }
+    
+    function avaliar2() {          
+        $json = [];
+        
+        for ($index = 0; $index < count($_POST['email']); $index++) {
+             $json[] = array("idPartida" =>$_POST['partida'], "idAvaliado" => $_POST['idAvaliado'][$index], "habilidade" => $_POST['habilidade'][$index], "email" => $_POST['email'][$index]);
+        }
+        
+        if(isset($_POST))
+            echo json_encode($json);
+    }
+    
     function getByUsuario() {
         $bll = new PartidaBLL();
 
