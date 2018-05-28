@@ -67,23 +67,32 @@ class PartidaController extends Controller {
         }      
     }
     
-    function avaliar() {
-        if (empty($_SESSION))
+    function avaliar($partida) {
+        if (empty($_SESSION['tipo']))
             $this->AccessDenied();
-        else {
-            $this->view('./partida/avaliar');                    
-        }      
+        else {       
+            $bll = new AvaliacaoAtletaBLL();
+            $partidaBLL = new PartidaBLL();
+            
+            $part = $partidaBLL->getById($partida);
+            
+            if (!$bll->avaliacaoExiste($_SESSION['id'], $partida) && $partidaBLL->partidaOcorreu($partida))
+                $this->View('partida/avaliar', $part);
+            else
+                $this->View('naoencontrada');
+        }
     }
     
-    function avaliar2() {          
-        $json = [];
+    function avaliacaoExiste($partida) {
+        $bll = new AvaliacaoAtletaBLL();
         
-        for ($index = 0; $index < count($_POST['email']); $index++) {
-             $json[] = array("idPartida" =>$_POST['partida'], "idAvaliado" => $_POST['idAvaliado'][$index], "habilidade" => $_POST['habilidade'][$index], "email" => $_POST['email'][$index]);
-        }
+        echo $bll->avaliacaoExiste($_SESSION['id'], $partida);
+    }
+    
+    function salvarAvaliacao() {          
+        $bll = new PartidaBLL();
         
-        if(isset($_POST))
-            echo json_encode($json);
+        echo $bll->avaliar($_POST);
     }
     
     function getByUsuario() {

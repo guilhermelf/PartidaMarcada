@@ -255,7 +255,7 @@
             });
 
             //buscar partidas antigas cadastradas pelo usuário
-            $('.minhasPartidas').remove();
+            $('.minhasPartidas-passadas').remove();
             $.ajax({
                 async: false,
                 type: "post",
@@ -264,7 +264,21 @@
                 success: function (resposta) {
                     if(resposta) {
                         $.each(resposta, function (k, v) {
-                            $("#minhas-partidas-passadas").find(".content").find(".p-2").append("<a class='partida-passada-ver minhas-partidas-passadas' href='/partidamarcada/partida/partida/" + v.id + "'><span style='display:none;' class=id-ver>" + v.id + "</span>" + v.data + ", das " + v.inicio + "h às " + (v.inicio + 1) + "h, partida de " + v.esporte.nome + ", na quadra " + v.quadra.numero + " da(o) " + v.quadra.parqueEsportivo.nome + "</a><br />");
+                            $.ajax({
+                                async: false,
+                                type: "post",
+                                url: "/partidamarcada/partida/avaliacaoExiste/" + v.id,
+                                dataType: "json",
+                                success: function (resposta2) {
+                                    if(resposta2) {
+                                        $("#minhas-partidas-passadas").find(".content").find(".p-2").append("<a class='partida-passada-ver minhas-partidas-passadas' href='/partidamarcada/partida/partida/" + v.id + "'><span style='display:none;' class=id-ver>" + v.id + "</span>" + v.data + ", das " + v.inicio + "h às " + (v.inicio + 1) + "h, partida de " + v.esporte.nome + ", na quadra " + v.quadra.numero + " da(o) " + v.quadra.parqueEsportivo.nome + "</a><br />");
+                                    } else {
+                                        $("#minhas-partidas-passadas").find(".content").find(".p-2").append("<a class='partida-passada-ver minhas-partidas-passadas' href='/partidamarcada/partida/partida/" + v.id + "'><span style='display:none;' class=id-ver>" + v.id + "</span>" + v.data + ", das " + v.inicio + "h às " + (v.inicio + 1) + "h, partida de " + v.esporte.nome + ", na quadra " + v.quadra.numero + " da(o) " + v.quadra.parqueEsportivo.nome + "</a>" +
+                                        "<span class='opcoes-partida'><a title='Avaliar partida' href='/partidamarcada/partida/avaliar/" + v.id + "'><span class='mif-checkmark mif fg-green'></span></a></span>" + 
+                                        "<br />");
+                                    }
+                                }
+                            });
                         });
                     }
                 }

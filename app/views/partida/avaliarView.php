@@ -11,19 +11,52 @@
     </head>
     <script>
         $(document).ready(function () {
-            $('#btn-usuario-alteraremail').on('click', function() {
-                //console.log($('#form-usuario-alteraremail').serialize());
- 
-                $.ajax({
-                    type: "post",
-                    dataType: 'json',
-                    data: $('#form-usuario-alteraremail').serialize(),
-                    url: "/partidamarcada/partida/avaliar2",
-                    success: function (resposta) {
-                        console.log(resposta);
-                    }
+            
+            $('#btn-partida-avaliar').on('click', function() {
+
+
+                Metro.dialog.create({
+                    title: "Avaliar partida",
+                    content: "<div>Você tem certeza que deseja avaliar a partida?<br />Não será possível alterar a avaliação posteriormente!</div>",
+                    actions: [
+                        {
+                            caption: "Tenho certeza",
+                            cls: "js-dialog-close alert",
+                            onclick: function(){
+                                //console.log($('#form-usuario-alteraremail').serialize());
+                                $.ajax({
+                                    type: "post",
+                                    dataType: 'json',
+                                    data: $('#form-partida-avaliar').serialize(),
+                                    url: "/partidamarcada/partida/salvarAvaliacao",
+                                    success: function (resposta) {
+                                        if(resposta) {
+                                            $(".resposta-titulo").html("Sucesso");
+                                            $("#resposta").attr('style', 'background-color: #60a917; color: #fff;');     
+                                            $(".resposta-mensagem").html("Avaliação salva com sucesso!");                              
+                                        } else {
+                                            $(".resposta-titulo").html("Erro");
+                                            $("#resposta").attr('style', 'background-color: #ce352c; color: #fff;');    
+                                            $(".resposta-mensagem").html("Erro ao salvar avaliação!");                
+                                        }                                                                     
+                                            $("#resposta").data('dialog').open();
+                                            setTimeout(function () {    
+                                                window.location.href = "/partidamarcada/partida/gerenciar/"
+                                            }, 3000);                               
+                                    }
+                                });
+                                return false;
+                            }
+                        },
+                        {
+                            caption: "Não, quero conferir os dados.",
+                            cls: "js-dialog-close",
+                            onclick: function(){
+                                return false;
+                            }
+                        }
+                    ]
                 });
-                return false;
             });
         });
     </script>
@@ -34,7 +67,7 @@
             <div class="dialog-content resposta-mensagem"></div>
         </div>       
         <div class="conteudo container">
-            <form id="form-usuario-alteraremail">
+            <form id="form-partida-avaliar">
                 <h2 class="text-center">Avaliar partida</h2>
                 <hr />            
                 <br />
@@ -49,20 +82,20 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td>Quadra do Guilherme</td>
+                            <td><?php echo $dados->getQuadra()->getParqueEsportivo()->getNome(); ?></td>
                             <td><input data-role="rating" data-value="3"
-                                    name="piso[]">
+                                    name="qualidade">
                             </td>
                             <td><input data-role="rating" data-value="3"
-                                    name="estrutura[]">
+                                    name="estrutura">
                             </td>
                             <td><input data-role="rating" data-value="3"
-                                    name="atendimento[]">
+                                    name="atendimento">
                             </td>
                         </tr>
                     </tbody>
                 </table>
-                <table class="table striped">
+                <table class="table striped" id="tabela-avaliar-atletas">
                     <thead>
                         <tr>
                             <th style="display: none">Id</th>
@@ -73,38 +106,32 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td style="display: none"><input type="hidden" name="idAvaliado[]" value="1"></td>
-                            <td>Fulano da Silva</td>
-                            <td><input data-role="rating" data-value="3"
-                                    name="habilidade[]">
-                            </td>
-                            <td><input data-role="rating" data-value="3"
-                                    name="comportamento[]">
-                            </td>
-                            <td><input data-role="rating" data-value="3"
-                                    name="pontualidade[]">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="display: none"><input type="hidden" name="idAvaliado[]" value="2"></td>
-                            <td>Beltrano da Silva</td>
-                            <td><input data-role="rating" data-value="3"
-                                    name="habilidade[]">
-                            </td>
-                            <td><input data-role="rating" data-value="3"
-                                    name="comportamento[]">
-                            </td>
-                            <td><input data-role="rating" data-value="3"
-                                    name="pontualidade[]">
-                            </td>
-                        </tr>
+                        <?php
+                            foreach ($dados->getParticipantes() as $participante) {
+                                if($participante->getStatus() == 1 && $participante->getUsuario()->getId() != $_SESSION['id']) {
+                                    echo '<tr class="avaliar-atletas">
+                                        <td style="display: none"><input type="hidden" name="idAvaliado[]" value="' . $participante->getUsuario()->getId() . '"></td>
+                                        <td>' . $participante->getUsuario()->getNome() . ' ' . $participante->getUsuario()->getSobrenome() . ' (' . $participante->getUsuario()->getApelido() .')</td>
+                                        <td><input data-role="rating" data-value="3"
+                                            name="habilidade[]">
+                                        </td>
+                                        <td><input data-role="rating" data-value="3"
+                                            name="comportamento[]">
+                                        </td>
+                                        <td><input data-role="rating" data-value="3"
+                                            name="pontualidade[]">
+                                        </td>
+                                    </tr>';
+                                    }
+                            }                            
+                        ?>              
                     </tbody>
-                </table>
-                
+                </table>           
                 <br />
-                <input type="hidden" name="partida" value="40">
-                <input type="button" class="cell-sm-12 button bg-lightBlue" value="Enviar avaliação" id="btn-usuario-alteraremail">
+                <input type="hidden" name="quadra" value="<?php echo $dados->getQuadra()->getId(); ?>">
+                <input type="hidden" name="avaliador" value="<?php echo $_SESSION['id']; ?>">
+                <input type="hidden" name="partida" value="<?php echo $dados->getId(); ?>">
+                <input type="button" class="cell-sm-12 button bg-lightBlue" value="Enviar avaliação" id="btn-partida-avaliar">
                 <br />&nbsp;
             </form>           
         </div>

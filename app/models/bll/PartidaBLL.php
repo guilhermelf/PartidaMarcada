@@ -5,8 +5,12 @@ require_once(BLL . '/EsporteBLL.php');
 require_once(BLL . '/VisibilidadeBLL.php');
 require_once(BLL . '/UsuarioBLL.php');
 require_once(BLL . '/ParticipanteBLL.php');
+require_once(BLL . '/AvaliacaoQuadraBLL.php');
+require_once(BLL . '/AvaliacaoAtletaBLL.php');
 require_once(DAO . '/ParticipanteDAO.php');
 require_once(DAO . '/AgendamentoDAO.php');
+require_once(DAO . '/AvaliacaoQuadraDAO.php');
+require_once(DAO . '/AvaliacaoAtletaDAO.php');
 
 class PartidaBLL {
     public function permitirAcesso($id) {
@@ -302,5 +306,61 @@ class PartidaBLL {
             return json_encode($partidas);
         }
         return null;
+    }
+    
+    function avaliar($dados) {
+        $quadraBLL = new QuadraBLL();
+        $usuarioBLL = new UsuarioBLL();
+        $partidaBLL = new PartidaBLL();
+        $avaliacaoQuadraDAO = new AvaliacaoQuadraDAO();
+        
+        $atletas = [];
+        
+        $avaliacaoQuadra = new AvaliacaoQuadra();
+        
+        $quadra = $quadraBLL->getById($dados['quadra']);
+        $usuario = $usuarioBLL->getById($dados['avaliador']);
+        $partida = $partidaBLL->getById($dados['partida']);
+        
+        $avaliacaoQuadra->setAtendimento($dados['atendimento']);
+        $avaliacaoQuadra->setQuadra($quadra);
+        $avaliacaoQuadra->setUsuario($usuario);
+        $avaliacaoQuadra->setEstrutura($dados['estrutura']);
+        $avaliacaoQuadra->setQualidade($dados['qualidade']);
+        $avaliacaoQuadra->setPartida($partida);
+        
+        $avaliacaoQuadraDAO->persist($avaliacaoQuadra);
+        
+        if(isset($dados['habilidade'])) {
+            for ($index = 0; $index < count($dados['habilidade']); $index++) {           
+                $usuario2BLL = new UsuarioBLL();
+
+                $avaliado = $usuario2BLL->getById($dados['idAvaliado'][$index]);
+
+                $avaliacaoAtleta = new AvaliacaoAtleta();
+
+                $avaliacaoAtleta->setPartida($partida);
+                $avaliacaoAtleta->setAvaliador($usuario);
+                $avaliacaoAtleta->setUsuario($avaliado);
+                $avaliacaoAtleta->setComportamento($dados['comportamento'][$index]);
+                $avaliacaoAtleta->setHabilidade($dados['habilidade'][$index]);
+                $avaliacaoAtleta->setPontualidade($dados['pontualidade'][$index]);
+
+                $avaliacaoAtletaDAO = new AvaliacaoAtletaDAO();
+
+                $avaliacaoAtletaDAO->persist($avaliacaoAtleta);           
+    //             $atletas[] = array("idPartida" =>$dados['partida'], 
+    //                                "idAvaliado" => $dados['idAvaliado'][$index], 
+    //                                "habilidade" => $dados['habilidade'][$index], 
+    //                                "comportamento" => $dados['comportamento'][$index],
+    //                                "pontualidade" => $dados['pontualidade'][$index],
+    //                                "idAvaliador" => $dados['avaliador']
+    //                            );
+            }
+        }
+            if(isset($dados))
+                return 1;
+            else
+                return 0;
     }
 }

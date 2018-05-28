@@ -104,6 +104,11 @@ class Usuario {
      */
     private $visibilidade; 
     
+    /**
+     * @OneToOne(targetEntity="EstatisticaAtleta", mappedBy="usuario")
+     */
+    private $estatistica;
+    
     function getId() {
         return $this->id;
     }
@@ -246,6 +251,14 @@ class Usuario {
 
     function setMostrarTelefone($mostrarTelefone) {
         $this->mostrarTelefone = $mostrarTelefone;
+    }
+    
+    function getEstatistica() {
+        return $this->estatistica;
+    }
+
+    function setEstatistica($estatistica) {
+        $this->estatistica = $estatistica;
     }
     
     public function toJson() {
