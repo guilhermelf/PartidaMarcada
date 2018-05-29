@@ -25,9 +25,9 @@
                                 "<td>" + v.nome + "</td>" +
                                 "<td>" + v.participacoes + "</td>" +
                                 "<td>" + v.partidasMarcadas + "</td>" +
-                                "<td>" + 0 + "</td>" +
-                                "<td>" + 0 + "</td>" +
-                                "<td>" + 0 + "</td>" +
+                                "<td></td>" +
+                                "<td></td>" +
+                                "<td></td>" +
                                 "<td>" + v.pontos + "</td>" +
                             "</tr>");
                        } else {
@@ -35,9 +35,9 @@
                                 "<td>" + v.nome + "</td>" +
                                 "<td>" + v.participacoes + "</td>" +
                                 "<td>" + v.partidasMarcadas + "</td>" +
-                                "<td>" + v.comportamento/v.avaliacoes + "</td>" +
-                                "<td>" + v.habilidade/v.avaliacoes + "</td>" +
-                                "<td>" + v.pontualidade/v.avaliacoes + "</td>" +
+                                "<td title='Total de " + v.avaliacoes + " avaliações'><span style='display: none;'>" + v.comportamento/v.avaliacoes + "</span>" + '<input data-static="true" data-role="rating" data-value="' + v.comportamento/v.avaliacoes + '"></td>' +
+                                "<td title='Total de " + v.avaliacoes + " avaliações'><span style='display: none;'>" + v.habilidade/v.avaliacoes + "</span>" + '<input data-static="true" data-role="rating" data-value="' + v.habilidade/v.avaliacoes + '"></td>' +
+                                "<td title='Total de " + v.avaliacoes + " avaliações'><span style='display: none;'>" + v.pontualidade/v.avaliacoes + "</span>" + '<input data-static="true" data-role="rating" data-value="' + v.pontualidade/v.avaliacoes + '"></td>' +
                                 "<td>" + v.pontos + "</td>" +
                             "</tr>");
                         }
@@ -64,7 +64,7 @@
             <div class="dialog-content resposta-mensagem"></div>
         </div>       
         <div class="conteudo container">
-            <div data-role="accordion" data-one-frame="true" data-show-active="true">                                    
+            <div data-role="accordion" data-one-frame="false" data-show-active="true">                                    
                 <div class="frame active">
                     <div class="heading accor"><span class="mif-chart-bars2 icon"></span> Ranking dos atletas</div>
                     <div class="content">
