@@ -4,7 +4,7 @@
 class AvaliacaoQuadraController extends Controller {
     
     function listar() {
-        $bll = new quadraBLL();
+        $bll = new AvaliacaoQuadraBLL();
 
         echo $bll->getAll();
     }
