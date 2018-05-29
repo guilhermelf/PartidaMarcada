@@ -1,5 +1,6 @@
 <?php
 require_once(DAO . '/PartidaDAO.php');
+require_once(DAO . '/EstatisticaAtletaDAO.php');
 require_once(BLL . '/QuadraBLL.php');
 require_once(BLL . '/EsporteBLL.php');
 require_once(BLL . '/VisibilidadeBLL.php');
@@ -7,6 +8,7 @@ require_once(BLL . '/UsuarioBLL.php');
 require_once(BLL . '/ParticipanteBLL.php');
 require_once(BLL . '/AvaliacaoQuadraBLL.php');
 require_once(BLL . '/AvaliacaoAtletaBLL.php');
+require_once(BLL . '/AvaliacaoOrganizadorBLL.php');
 require_once(DAO . '/ParticipanteDAO.php');
 require_once(DAO . '/AgendamentoDAO.php');
 require_once(DAO . '/AvaliacaoQuadraDAO.php');
@@ -47,6 +49,15 @@ class PartidaBLL {
         $dao = new PartidaDAO;
         
         if ($dao->persist($partida)) {
+            $estatistica = $partida->getUsuario()->getEstatistica();
+                
+            $estatistica->setPontos($estatistica->getPontos() - 50);
+            $estatistica->setPartidasMarcadas($estatistica->getPartidasMarcadas() - 1);
+
+            $estatisticaDAO = new EstatisticaAtletaDAO();
+
+            $estatisticaDAO->persist($estatistica);
+            
             Retorno::setStatus(1);
             Retorno::setMensagem("Partida cancelada com sucesso!");
             
@@ -96,7 +107,7 @@ class PartidaBLL {
                 $partida->setQuadra($quadra);
                 $partida->setUsuario($usuario);
                         
-                $dao = new PartidaDAO();
+                $dao = new PartidaDAO();                             
 
                 if ($dao->persist($partida)) {
 
@@ -124,6 +135,16 @@ class PartidaBLL {
                         $participante->setStatus(1);
                         
                         $participanteDAO->persist($participante);
+                        
+                        $estatistica = $usuario->getEstatistica();
+                
+                        $estatistica->setPontos($estatistica->getPontos() + 60);
+                        $estatistica->setPartidasMarcadas($estatistica->getPartidasMarcadas() + 1);
+                        $estatistica->setParticipacoes($estatistica->getParticipacoes() + 1);
+
+                        $estatisticaDAO = new EstatisticaAtletaDAO();
+
+                        $estatisticaDAO->persist($estatistica);
                         
                         Retorno::setStatus(1);
                         Retorno::setMensagem("Partida cadastrada com sucesso!");
@@ -305,8 +326,25 @@ class PartidaBLL {
             }
             return json_encode($partidas);
         }
-        return null;
     }
+    function buscarPartidasPassadasParqueEsportivo() {
+        $parqueEsportivo = $_SESSION['id'];
+
+        $dao = new PartidaDAO();
+
+        $dados = $dao->buscarPartidasPassadasParqueEsportivo($parqueEsportivo);
+
+        $partidas = [];
+
+        if (empty($dados)) {
+            return 0;
+        } else {
+            foreach ($dados as $value) {
+                $partidas[] = $value->toJson();
+            }
+            return json_encode($partidas);
+        }
+    }  
     
     function avaliar($dados) {
         $quadraBLL = new QuadraBLL();
@@ -346,6 +384,17 @@ class PartidaBLL {
                 $avaliacaoAtleta->setHabilidade($dados['habilidade'][$index]);
                 $avaliacaoAtleta->setPontualidade($dados['pontualidade'][$index]);
 
+                $estatistica = $avaliado->getEstatistica();
+                
+                $estatistica->setAvaliacoes($estatistica->getAvaliacoes() + 1);
+                $estatistica->setComportamento($estatistica->getComportamento() + $dados['comportamento'][$index]);
+                $estatistica->setHabilidade($estatistica->getHabilidade() + $dados['habilidade'][$index]);
+                $estatistica->setPontualidade($estatistica->getPontualidade() + $dados['pontualidade'][$index]);
+                
+                $estatisticaDAO = new EstatisticaAtletaDAO();
+                
+                $estatisticaDAO->persist($estatistica);
+                
                 $avaliacaoAtletaDAO = new AvaliacaoAtletaDAO();
 
                 $avaliacaoAtletaDAO->persist($avaliacaoAtleta);           

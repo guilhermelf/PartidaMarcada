@@ -89,6 +89,12 @@ class PartidaController extends Controller {
         echo $bll->avaliacaoExiste($_SESSION['id'], $partida);
     }
     
+    function avaliacaoOrganizadorExiste($partida) {
+        $bll = new AvaliacaoOrganizadorBLL();
+        
+        echo $bll->avaliacaoOrganizadorExiste($_SESSION['id'], 41);
+    }
+    
     function salvarAvaliacao() {          
         $bll = new PartidaBLL();
         
@@ -135,5 +141,11 @@ class PartidaController extends Controller {
         $bll = new PartidaBLL();
 
         echo $bll->buscarPartidasParqueEsportivo();
+    }
+    
+    function buscarPartidasPassadasParqueEsportivo() {
+        $bll = new PartidaBLL();
+
+        echo $bll->buscarPartidasPassadasParqueEsportivo();
     }
 }

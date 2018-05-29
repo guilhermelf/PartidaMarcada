@@ -52,6 +52,11 @@ class EstatisticaAtleta {
     private $partidasMarcadas;
     
     /**
+     * @Column(type="integer", name="organizadas_online")
+     */
+    private $organizadasOnline;
+    
+    /**
      * @Column(type="integer", name="participacoes")
      */
     private $participacoes;
@@ -139,5 +144,29 @@ class EstatisticaAtleta {
 
     function setAvaliacoes($avaliacoes) {
         $this->avaliacoes = $avaliacoes;
-    }   
+    }
+    
+    function getOrganizadasOnline() {
+        return $this->organizadasOnline;
+    }
+
+    function setOrganizadasOnline($organizadasOnline) {
+        $this->organizadasOnline = $organizadasOnline;
+    }
+    
+    public function toJson() {       
+        return array(        
+            'id' => $this->getId(),
+            'avaliacoes' => $this->getAvaliacoes(),
+            'comportamento' => $this->getComportamento(),
+            'habilidade' => $this->getHabilidade(),
+            'organizador' => $this->getOrganizador(),
+            'participacoes' => $this->getParticipacoes(),
+            'partidasMarcadas' => $this->getPartidasMarcadas(),
+            'pontos' => $this->getPontos(),
+            'pontualidade' => $this->getPontualidade(),
+            'organizadasOnline' => $this->getOrganizadasOnline(),
+            'nome' => $this->getUsuario()->getNome()." ".$this->getUsuario()->getSobrenome(). " (".$this->getUsuario()->getApelido().")",
+        );
+    } 
 }

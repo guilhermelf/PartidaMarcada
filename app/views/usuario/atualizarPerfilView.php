@@ -164,8 +164,8 @@
                             <option>Genero</option>
                         </select>
                     </div>           
-                    <div class="cell-sm-4">               
-                        <input type="text" name="dt_nascimento" id="dt_nascimento" placeholder="Data de nascimento">
+                    <div class="cell-sm-4">     
+                        <input type="text" data-role="calendarpicker" data-format="%d/%m/%Y" id="dt_nascimento" name="dt_nascimento" data-locale="pt-BR" placeholder="Nascimento">
                     </div>
                 </div>
                 <br />

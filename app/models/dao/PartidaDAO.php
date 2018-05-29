@@ -224,16 +224,32 @@ class PartidaDAO {
     
     function buscarPartidasParqueEsportivo($parqueEsportivo) {
         try {
-            $sql = "SELECT p FROM Partida p JOIN p.quadra q JOIN q.parqueEsportivo pq JOIN p.agendamento a WHERE pq.id = :parqueEsportivo AND p.status = 1 AND pq.servicos = 1 AND a.status = 1 ORDER BY p.data, p.inicio ASC";        
+            $sql = "SELECT p FROM Partida p JOIN p.quadra q JOIN q.parqueEsportivo pq JOIN p.agendamento a WHERE pq.id = :parqueEsportivo AND p.status = 1 AND pq.servicos = 1 AND a.status = 1 AND p.data >= CURRENT_DATE() ORDER BY p.data, p.inicio ASC";        
             $query = DataBase::getFactory()->createQuery($sql);
             
             $query->setParameter('parqueEsportivo', $parqueEsportivo);
         
             $partidas = $query->getResult();
 
-            return (empty($partidas) ? false : $partidas);
+            return (empty($partidas) ? 0 : $partidas);
         } catch (Exception $ex) {
             return $ex->getMessage();
         }
     }
+    
+    function buscarPartidasPassadasParqueEsportivo($parqueEsportivo) {
+        try {
+            $sql = "SELECT p FROM Partida p JOIN p.quadra q JOIN q.parqueEsportivo pq JOIN p.agendamento a WHERE pq.id = :parqueEsportivo AND p.status = 1 AND pq.servicos = 1 AND a.status = 1 AND p.data < CURRENT_DATE() ORDER BY p.data, p.inicio ASC";        
+            $query = DataBase::getFactory()->createQuery($sql);
+            
+            $query->setParameter('parqueEsportivo', $parqueEsportivo);
+        
+            $partidas = $query->getResult();
+
+            return (empty($partidas) ? 0 : $partidas);
+        } catch (Exception $ex) {
+            return $ex->getMessage();
+        }
+    }
+    
 }

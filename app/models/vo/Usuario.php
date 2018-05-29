@@ -262,6 +262,11 @@ class Usuario {
     }
     
     public function toJson() {
+        if($this->getEstatistica() != null)
+            $estatistica = $this->getEstatistica()->toJson();
+        else
+            $estatistica = null;
+        
         return array(        
             'id' => $this->getId(),
             'nome' => $this->getNome(),
@@ -281,6 +286,7 @@ class Usuario {
             'visibilidade' => $this->getVisibilidade()->toJson(),
             'mostrarTelefone' => $this->getMostrarTelefone(),
             'mostrarEndereco' => $this->getMostrarEndereco(),
+            'estatistica' => $estatistica
         );
     } 
 }

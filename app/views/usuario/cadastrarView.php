@@ -60,8 +60,8 @@
 							</select>
 						</div>
 					
-						<div class="cell-sm-2">              
-							<input type="text" maxlength="10" placeholder="Data de nascimento" name="dt_nascimento">
+						<div class="cell-sm-2">         
+                            <input type="text" data-role="calendarpicker" data-format="%d/%m/%Y" name="dt_nascimento" data-locale="pt-BR" placeholder="Nascimento">
 						</div>					
 					</div>
                     <br />

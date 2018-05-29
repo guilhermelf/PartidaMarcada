@@ -1,5 +1,6 @@
 <?php
 require_once(DAO . '/ParticipanteDAO.php');
+require_once(DAO . '/EstatisticaAtletaDAO.php');
 require_once(BLL . '/UsuarioBLL.php');
 require_once(BLL . '/PartidaBLL.php');
 
@@ -131,6 +132,14 @@ class ParticipanteBLL {
         
         $participante->setStatus(1);
 
+        $estatistica = $participante->getUsuario()->getEstatistica();
+        $estatistica->setPontos($estatistica->getPontos() + 10);
+        $estatistica->setParticipacoes($estatistica->getParticipacoes() + 1);
+        
+        $estatisticaDAO = new EstatisticaAtletaDAO();
+        
+        $estatisticaDAO->persist($estatistica);
+        
         return $dao->persist($participante);
     }
     
@@ -138,6 +147,16 @@ class ParticipanteBLL {
         $dao = new ParticipanteDAO();
 
         $participante = $dao->getById($id);
+        
+        if($participante->getStatus() == 1) {
+            $estatistica = $participante->getUsuario()->getEstatistica();
+            $estatistica->setPontos($estatistica->getPontos() - 10);
+            $estatistica->setParticipacoes($estatistica->getParticipacoes() - 1);
+
+            $estatisticaDAO = new EstatisticaAtletaDAO();
+
+            $estatisticaDAO->persist($estatistica);
+        }
         
         $participante->setStatus(2);
 
@@ -148,6 +167,16 @@ class ParticipanteBLL {
         $dao = new ParticipanteDAO();
 
         $participante = $dao->getById($id);
+        
+        if($participante->getStatus() == 1) {
+            $estatistica = $participante->getUsuario()->getEstatistica();
+            $estatistica->setPontos($estatistica->getPontos() - 10);
+            $estatistica->setParticipacoes($estatistica->getParticipacoes() - 1);
+
+            $estatisticaDAO = new EstatisticaAtletaDAO();
+
+            $estatisticaDAO->persist($estatistica);
+        }
         
         $participante->setStatus(0);
 

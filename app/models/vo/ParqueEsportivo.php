@@ -90,6 +90,11 @@ class ParqueEsportivo {
      */
     private $cidade;
     
+    /**
+     * @OneToOne(targetEntity="EstatisticaQuadra", mappedBy="parqueEsportivo")
+     */
+    private $estatistica;
+    
     function getId() {
         return $this->id;
     }
@@ -218,7 +223,20 @@ class ParqueEsportivo {
         $this->servicos = $servicos;
     }
     
+    function getEstatistica() {
+        return $this->estatistica;
+    }
+
+    function setEstatistica($estatistica) {
+        $this->estatistica = $estatistica;
+    }
+    
     public function toJson() {
+        if($this->getEstatistica() != null)
+            $estatistica = $this->getEstatistica()->toJson();
+        else
+            $estatistica = null;
+        
         return array(        
             'id' => $this->getId(),
             'nome' => $this->getNome(),
@@ -235,7 +253,8 @@ class ParqueEsportivo {
             'numero' => $this->getNumero(),
             'email' => $this->getEmail(),
             'telefone' => $this->getTelefone(),
-            'senha' => $this->getSenha()
+            'senha' => $this->getSenha(),
+            'estatistica' => $estatistica
         );
     }
 }

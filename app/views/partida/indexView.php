@@ -7,11 +7,13 @@
         <script src="/partidamarcada/components/jquery/jquery.min.js"></script>
         <script src="/partidamarcada/components/js/scripts.js"></script>
         <script src="/partidamarcada/components/metro-ui-css/js/metro.js"></script>
+        <script src="/partidamarcada/components/jquery/timepicker/jquery.timepicker.js"></script>
+        <link rel="stylesheet" href="/partidamarcada/components/jquery/timepicker/jquery.timepicker.css" />
+        
         <title>Partida Marcada</title>
     </head>
     <script>
         $(document).ready(function () {
-
             $('#btn-buscar-partida').on('click', function() { 
                 $.ajax({
                     data: $('#buscar-partida-publica').serialize(),
@@ -77,7 +79,7 @@
                     success: function (resposta) {
                         if(resposta) {
                             $.each(resposta, function(k, v) {
-                                $('#select-inicio').append('<option value="' + k + '">das ' + k + 'h às ' + (resposta[k] + 1) + 'h</option');
+                                $('#select-inicio').append('<option value="' + k + '">' + k + 'h às ' + (resposta[k] + 1) + 'h</option');
                             })
                         }
                     }
@@ -206,51 +208,54 @@
                 url: "/partidamarcada/partida/listarMinhasNovasPartidas",
                 dataType: "json",
                 success: function (resposta) {
-
-                    $.each(resposta, function (k, v) {
-                        
-                        if(v.usuario.id == $('#usuario').val() && v.status == 1) {
-                            if(v.quadra.parqueEsportivo.servicos) {
+                    if(resposta) {
+                        $.each(resposta, function (k, v) {
+                            
+                            if(v.usuario.id == $('#usuario').val() && v.status == 1) {
+                                if(v.quadra.parqueEsportivo.servicos) {
+                                    $("#minhas-partidas").find(".content").find(".p-2").append(
+                                        "<a class='minhas-partidas' href='/partidamarcada/partida/partida/" + v.id + "'>" + 
+                                            v.data + ", das " + v.inicio + "h às " + (v.inicio + 1) + "h, partida de " + v.esporte.nome + ", na quadra " + v.quadra.numero + " da(o) " + v.quadra.parqueEsportivo.nome + 
+                                        "</a>" + 
+                                            "<span class='opcoes-partida'>" +                                        
+                                                "<span class='partida-cancelar mif-cross fg-red' title='Cancelar partida'>" + 
+                                                    "<span style='display:none;' class='id-cancelar'>" + v.id + "</span>" + 
+                                                "</span>" +
+                                            "</span><br />"                           
+                                    );
+                                } else {
+                                    $("#minhas-partidas").find(".content").find(".p-2").append(
+                                        "<a class='minhas-partidas' href='/partidamarcada/partida/partida/" + v.id + "'>" + 
+                                            v.data + ", das " + v.inicio + "h às " + (v.inicio + 1) + "h, partida de " + v.esporte.nome + ", na quadra " + v.quadra.numero + " da(o) " + v.quadra.parqueEsportivo.nome + 
+                                        "</a>" + 
+                                            "<span class='opcoes-partida'>" + 
+                                                "<span class='partida-editar mif-pencil fg-orange' title='Editar informações da partida'>" + 
+                                                    "<span style='display:none;' class='id-editar'>" + v.id + "</span>" + 
+                                                "</span>" +
+                                                "&nbsp;&nbsp;&nbsp;" +
+                                                "<span class='partida-cancelar mif-cross fg-red' title='Cancelar partida'>" + 
+                                                    "<span style='display:none;' class='id-cancelar'>" + v.id + "</span>" + 
+                                                "</span>" +
+                                            "</span><br />"                           
+                                    );
+                                }
+                            } else if(v.status == 1) {
                                 $("#minhas-partidas").find(".content").find(".p-2").append(
                                     "<a class='minhas-partidas' href='/partidamarcada/partida/partida/" + v.id + "'>" + 
                                         v.data + ", das " + v.inicio + "h às " + (v.inicio + 1) + "h, partida de " + v.esporte.nome + ", na quadra " + v.quadra.numero + " da(o) " + v.quadra.parqueEsportivo.nome + 
-                                    "</a>" + 
-                                        "<span class='opcoes-partida'>" +                                        
-                                            "<span class='partida-cancelar mif-cross fg-red' title='Cancelar partida'>" + 
-                                                "<span style='display:none;' class='id-cancelar'>" + v.id + "</span>" + 
-                                            "</span>" +
-                                        "</span><br />"                           
+                                    "</a><br />"                           
                                 );
                             } else {
                                 $("#minhas-partidas").find(".content").find(".p-2").append(
                                     "<a class='minhas-partidas' href='/partidamarcada/partida/partida/" + v.id + "'>" + 
                                         v.data + ", das " + v.inicio + "h às " + (v.inicio + 1) + "h, partida de " + v.esporte.nome + ", na quadra " + v.quadra.numero + " da(o) " + v.quadra.parqueEsportivo.nome + 
-                                    "</a>" + 
-                                        "<span class='opcoes-partida'>" + 
-                                            "<span class='partida-editar mif-pencil fg-orange' title='Editar informações da partida'>" + 
-                                                "<span style='display:none;' class='id-editar'>" + v.id + "</span>" + 
-                                            "</span>" +
-                                            "&nbsp;&nbsp;&nbsp;" +
-                                            "<span class='partida-cancelar mif-cross fg-red' title='Cancelar partida'>" + 
-                                                "<span style='display:none;' class='id-cancelar'>" + v.id + "</span>" + 
-                                            "</span>" +
-                                        "</span><br />"                           
+                                    "<span class='opcoes-partida'>Cancelada</span></a><br />"                           
                                 );
-                            }
-                        } else if(v.status == 1) {
-                            $("#minhas-partidas").find(".content").find(".p-2").append(
-                                "<a class='minhas-partidas' href='/partidamarcada/partida/partida/" + v.id + "'>" + 
-                                    v.data + ", das " + v.inicio + "h às " + (v.inicio + 1) + "h, partida de " + v.esporte.nome + ", na quadra " + v.quadra.numero + " da(o) " + v.quadra.parqueEsportivo.nome + 
-                                "</a><br />"                           
-                            );
-                        } else {
-                            $("#minhas-partidas").find(".content").find(".p-2").append(
-                                "<a class='minhas-partidas' href='/partidamarcada/partida/partida/" + v.id + "'>" + 
-                                    v.data + ", das " + v.inicio + "h às " + (v.inicio + 1) + "h, partida de " + v.esporte.nome + ", na quadra " + v.quadra.numero + " da(o) " + v.quadra.parqueEsportivo.nome + 
-                                "<span class='opcoes-partida'>Cancelada</span></a><br />"                           
-                            );
-                        }          
-                    });
+                            }          
+                        });
+                    } else {
+                        $("#minhas-partidas").find(".content").find(".p-2").append("Nenhuma partida agendada!");
+                    }
                 }
             });
 
@@ -280,12 +285,14 @@
                                 }
                             });
                         });
+                    } else {
+                        $("#minhas-partidas-passadas").find(".content").find(".p-2").append("Você não participou de nenhuma partida ainda.");
                     }
                 }
             });
 
             //buscar partidas canceladas
-            $('.minhasPartidas').remove();
+            $('.minhasPartidas-canceladas').remove();
             $.ajax({
                 async: false,
                 type: "post",
@@ -296,6 +303,8 @@
                         $.each(resposta, function (k, v) {
                             $("#minhas-partidas-canceladas").find(".content").find(".p-2").append("<a class='partida-passada-ver minhas-partidas-passadas' href='/partidamarcada/partida/partida/" + v.id + "'><span style='display:none;' class=id-ver>" + v.id + "</span>" + v.data + ", das " + v.inicio + "h às " + (v.inicio + 1) + "h, partida de " + v.esporte.nome + ", na quadra " + v.quadra.numero + " da(o) " + v.quadra.parqueEsportivo.nome + "</a><br />");
                         });
+                    } else {
+                        $("#minhas-partidas-canceladas").find(".content").find(".p-2").append("Nenhuma partida cancelada até o momento.");
                     }
                 }
             });

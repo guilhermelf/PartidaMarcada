@@ -36,7 +36,7 @@ $(document).ready(function () {
 
     //cadastrar usuário
     $("#btn-usuario-cadastrar").on('click', function () {
-
+        console.log($("#form-usuario-cadastrar").serialize());
         $.ajax({
             type: "post",
             dataType: 'json',
@@ -49,17 +49,15 @@ $(document).ready(function () {
                     $("#resposta").data('dialog').open();
                     setTimeout(function () {
                         window.location.href = "/partidamarcada"
-                    }, 2000);
+                    }, 3000);
                     $("#resposta").attr('style', 'background-color: #60a917; color: #fff;');
                 } else {
                     $(".resposta-titulo").html("Erro");
                     $(".resposta-mensagem").html(resposta.mensagem);
                     $("#resposta").attr('style', 'background-color: #ce352c; color: #fff;');
-                    $("#resposta").data('dialog').open();
                 }
+                $("#resposta").data('dialog').open();
                 
-
-                console.log(resposta);
                 return false;
             }
         });

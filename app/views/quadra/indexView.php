@@ -87,6 +87,7 @@
             url: "/partidamarcada/partida/buscarPartidasParqueEsportivo",
             dataType: "json",
             success: function (resposta) {
+                console.log(resposta);
                 if(resposta) {
                     $.each(resposta, function (k, v) {
                         $("#div-proximas-partidas-parque").find(".p-2").append(
@@ -95,7 +96,44 @@
                         );
                     });
                 } else {
-                    $("#div-proximas-partidas-parque").find(".p-2").append("<span class='proximasPartidas'>Nenhum agendamento está pendente!</span>");
+                    $("#div-proximas-partidas-parque").find(".p-2").append("<span class='proximasPartidas'>Nenhuma partida está marcada!</span>");
+                }
+            }
+        });
+
+        //buscar partidas passadas cadastradas pelo usuário
+        $('.antigasPartidas').remove();
+        $.ajax({
+            async: false,
+            type: "post",
+            url: "/partidamarcada/partida/buscarPartidasPassadasParqueEsportivo",
+            dataType: "json",
+            success: function (resposta) {
+                if(resposta) {
+                    $.each(resposta, function (k, v) {
+                        $.ajax({
+                                async: false,
+                                type: "post",
+                                url: "/partidamarcada/partida/avaliacaoOrganizadorExiste/" + v.id,
+                                dataType: "json",
+                                success: function (resposta2) {
+                                    if(resposta2) {
+                                        $("#div-antigas-partidas-parque").find(".p-2").append(
+                                            "<a href='/partidamarcada/partida/partida/" + v.id + "' class='antigasPartidas'>" + 
+                                                v.data + ", das " + v.inicio + "h às " + (v.inicio + 1) + "h, partida de " + v.esporte.nome + ", na quadra número " + v.quadra.numero + ".</a><br />"
+                                        );
+                                    } else {
+                                        $("#div-antigas-partidas-parque").find(".p-2").append(
+                                            "<a href='/partidamarcada/partida/partida/" + v.id + "' class='antigasPartidas'>" + 
+                                                v.data + ", das " + v.inicio + "h às " + (v.inicio + 1) + "h, partida de " + v.esporte.nome + ", na quadra número " + v.quadra.numero + ".</a>" +
+                                            "<span class='opcoes-partida'><a title='Avaliar organizador' href='/partidamarcada/partida/avaliarOrganizador/" + v.id + "'><span class='mif-checkmark mif fg-green'></span></a></span>" + 
+                                        "<br />");
+                                    }
+                                }
+                            });                      
+                    });
+                } else {
+                    $("#div-proximas-partidas-parque").find(".p-2").append("<span class='proximasPartidas'>Nenhuma partida foi encontrada!</span>");
                 }
             }
         });
@@ -243,6 +281,12 @@
                     <div class="frame">
                         <div class="heading bg-cyan fg-white accor"><span class="mif-calendar icon"></span> Próximas partidas</div>
                         <div class="content" id="div-proximas-partidas-parque">
+                            <div class="p-2"></div>
+                        </div>
+                    </div>
+                    <div class="frame">
+                        <div class="heading bg-cyan fg-white accor"><span class="mif-calendar icon"></span> Partidas passadas</div>
+                        <div class="content" id="div-antigas-partidas-parque">
                             <div class="p-2"></div>
                         </div>
                     </div>

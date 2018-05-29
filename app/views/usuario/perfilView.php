@@ -96,15 +96,47 @@
             <br />
             <h4>Estatísticas</h4>
             <hr />
-            Módulo ainda não terminado. 
-
-            <br />
+            <div class="row">
+                <div class="cell-sm-12">
+                    <span class="perfil-label">Partidas organizadas: </span> <?php echo $dados->getEstatistica()->getPartidasMarcadas(); ?>
+                </div>    
+            </div>
+            <div class="row">
+                <div class="cell-sm-12">
+                    <span class="perfil-label">Partidas: </span> <?php echo $dados->getEstatistica()->getParticipacoes(); ?>
+                </div>    
+            </div>
             <br />
             <h4>Avaliações</h4>
             <hr />
-
-                Informações gráficas levando em conta as avaliações recebidas dos outros usuários. (Próxima Sprint)
-
+            <?php if($dados->getEstatistica()->getAvaliacoes() == 0) {?>
+                <div class="row">
+                    <div class="cell-sm-12">
+                        <span class="perfil-label">Você ainda não foi avaliado</span>
+                    </div>    
+                </div>
+            <?php } else { ?>
+                <div class="row">
+                    <div class="cell-sm-12">
+                        <span class="perfil-label">Comportamento: </span> <input data-static="true" data-role="rating" data-value="<?php echo ($dados->getEstatistica()->getComportamento()/$dados->getEstatistica()->getAvaliacoes()); ?>">
+                    </div>    
+                </div>
+                <div class="row">
+                    <div class="cell-sm-12">
+                        <span class="perfil-label">Habilidade: </span> <input data-static="true" data-role="rating" data-value="<?php echo ($dados->getEstatistica()->getHabilidade()/$dados->getEstatistica()->getAvaliacoes()); ?>">
+                    </div>    
+                </div>
+                <div class="row">
+                    <div class="cell-sm-12">
+                        <span class="perfil-label">Pontualidade: </span> <input data-static="true" data-role="rating" data-value="<?php echo ($dados->getEstatistica()->getPontualidade()/$dados->getEstatistica()->getAvaliacoes()); ?>">
+                    </div>    
+                </div>
+                <div class="row">
+                    <div class="cell-sm-12">
+                        <span>Você tem um total de <?php echo $dados->getEstatistica()->getAvaliacoes(); ?> avaliações.</span>
+                    </div>    
+                </div>
+            <?php } ?>
                 <form id="form-adicionar-amigo">
                 <br />
                 <?php if($_SESSION['tipo'] == 'usuario') { ?>
@@ -115,6 +147,7 @@
                         </div>
                     </div>
                 <?php } ?>
+                
                 <br />&nbsp;
                 </form>
             </div>

@@ -209,14 +209,13 @@
                     data: $("#form-amizades-adicionar").serialize(),
                     url: "/partidamarcada/usuario/pesquisar",
                     success: function (resposta) {
-                        console.log(resposta);
                         $.each(resposta, function (k, v) {
                             $('#tabela-amigos-busca').find('tbody').append(
-                                    "<tr class='busca'>" +
-                                    "<td><a href='/partidamarcada/usuario/perfil/" + v.id + "'>" + v.nome + "</a>" +
-                                    "</td>" +
-                                    "</tr>"
-                                    );
+                                "<tr class='busca'>" +
+                                "<td><a href='/partidamarcada/usuario/perfil/" + v.id + "'>" + v.nome + " " + v.sobrenome + " (" + v.apelido + ")</a>" +
+                                "</td>" +
+                                "</tr>"
+                            );
                         });
                     }
                 });
@@ -258,7 +257,7 @@
                         </div>
                     </div>
                     <div class="frame active">
-                        <div class="heading bg-cyan fg-white accor"><span class="mif-user-plus icon"></span> Buscar amigo</div>
+                        <div class="heading bg-cyan fg-white accor"><span class="mif-user-plus icon"></span> Buscar usuário</div>
                             <div class="content">
                                 <form id="form-amizades-adicionar">
                                     <br />

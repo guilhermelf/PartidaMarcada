@@ -4,6 +4,7 @@ require_once(DAO . '/UsuarioDAO.php');
 require_once(BLL . '/CidadeBLL.php');
 require_once(BLL . '/GeneroBLL.php');
 require_once(BLL . '/VisibilidadeBLL.php');
+require_once(BLL . '/EstatisticaAtletaBLL.php');
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -125,7 +126,7 @@ class UsuarioBLL {
                 $visibilidadeBLL = new VisibilidadeBLL();
                 $visibilidade = $visibilidadeBLL->getById($dados['visibilidade']);
 
-                $data = date('d-m-Y', strtotime($dados['dt_nascimento']));
+                $data = Retorno::invertDate($dados['dt_nascimento']);                                 
                 
                 $usuario = new Usuario();
 
@@ -152,6 +153,10 @@ class UsuarioBLL {
                 if ($dao->persist($usuario)) {
                     Retorno::setStatus(1);
                     Retorno::setMensagem("Usuário cadastrado com sucesso, efetue o login no sistema!");
+                                       
+                    $estatisticaAtletaBLL = new EstatisticaAtletaBLL();
+                    
+                    $estatisticaAtletaBLL->insert($usuario);
 
                     return Retorno::toJson();
                 } else {
@@ -180,7 +185,13 @@ class UsuarioBLL {
             $usuario = $this->getById($_SESSION['id']);
 
             $usuario->setNome($dados['nome']);
-            $usuario->setApelido($dados['apelido']);
+            
+            if($dados['apelido'] == "") {
+                $usuario->setApelido($dados['nome']);
+            } else {
+                $usuario->setApelido($dados['apelido']);
+            }
+            
             $usuario->setCep($dados['cep']);
             $usuario->setAtivo(1);
             $usuario->setCidade($cidade);
