@@ -73,6 +73,10 @@
                         $.each(resposta, function(k, v) {
                             $('#select-quadra').append("<option class='quadras' value='" + v.id + "'>Quadra " + v.numero + " - " + v.piso.nome + " </option>");
                         });
+
+                        if($('#quadra-passada').val() != "") {
+                            $('#select-quadra').val($('#quadra-passada').val());
+                        }
                     }
                 }
             });
@@ -168,7 +172,8 @@
 
                         </tbody>
                     </table>
-                </div>  
+                </div>
+                <input type="hidden" id="quadra-passada" value="<?php if(isset($dados)) echo $dados; ?>">   
             </form>
         </div>
     </body>

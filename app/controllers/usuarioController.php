@@ -37,7 +37,7 @@ class UsuarioController extends Controller {
             echo "erro";
         } else {
             $email = $_POST['usuario-email'];
-            $senha = $_POST['usuario-senha'];
+            $senha = md5($_POST['usuario-senha']);
 
             $usuario = new UsuarioBLL();
 

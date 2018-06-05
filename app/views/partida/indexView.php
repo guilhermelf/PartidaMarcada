@@ -438,29 +438,36 @@
                         url: "/partidamarcada/quadra/listarPorParqueEsportivo",
                         dataType: 'json',
                         success: function (resposta) {
+                            if(resposta) {
                             $('.esportes').remove();
-                            $.each(resposta, function (k, v) {
-                                var esportes = "";                           
-                                if (v.esportes != null) {
-                                    $.each(v.esportes, function (key, value) {
-                                        if(esportes == "") {
-                                            esportes += value.nome;
-                                        } else {
-                                            esportes += " - " + value.nome;
-                                        }
-                                    });
-                                }                      
+                                $.each(resposta, function (k, v) {
+                                    var esportes = "";                           
+                                    if (v.esportes != null) {
+                                        $.each(v.esportes, function (key, value) {
+                                            if(esportes == "") {
+                                                esportes += value.nome;
+                                            } else {
+                                                esportes += " - " + value.nome;
+                                            }
+                                        });
+                                    }                      
 
+                                    $('#tabela-quadras').find('tbody').append(
+                                        "<tr class='quadras'><td>" + v.numero + "</td>" +
+                                        "<td>" + v.tamanho + "</td>" +
+                                        "<td>" + v.piso.nome + "</td>" +
+                                        "<td>" + esportes + "</td>" +
+                                        "<td style='text-align:center;'><span title='Selecionar' style='cursor:pointer;' class='btn-selecionar-quadra'>Selecionar</span><span class='id-quadra' style='display:none; cursor:pointer;'>" + v.id + "</span></td>" +
+                                        "</tr>"
+                                    );
+
+                                });
+                            } else {
                                 $('#tabela-quadras').find('tbody').append(
-                                    "<tr class='quadras'><td>" + v.numero + "</td>" +
-                                    "<td>" + v.tamanho + "</td>" +
-                                    "<td>" + v.piso.nome + "</td>" +
-                                    "<td>" + esportes + "</td>" +
-                                    "<td style='text-align:center;'><span title='Selecionar' style='cursor:pointer;' class='btn-selecionar-quadra'>Selecionar</span><span class='id-quadra' style='display:none; cursor:pointer;'>" + v.id + "</span></td>" +
-                                    "</tr>"
-                                );
-
-                            });
+                                        "<tr class='quadras'><td colspan='5'>Não há nenhuma quadra disponível nesse local!</td>" +
+                                        "</tr>"
+                                    );
+                            }
                         }
                     });
                 } else {

@@ -225,13 +225,13 @@
     </head>
     <body>
         <?php include 'app/views/header/headerUsuario.php'; ?>
-        <div data-role="dialog" data-close-button="true" data-overlay="true" id="resposta" class="padding20">
+        <div data-role="dialog" data-close-button="false" data-overlay="true" id="resposta" class="padding20">
             <div class="dialog-title resposta-titulo"></div>
             <div class="dialog-content resposta-mensagem"></div>
         </div>       
         <div class="conteudo container">
             <div id="div-partidas" style="display: block;">
-                <div data-role="accordion" data-one-frame="true" data-show-active="true" data-active-heading-class="bg-cyan fg-white">
+                <div data-role="accordion" data-one-frame="false" data-show-active="true" data-active-heading-class="bg-cyan fg-white">
                     <div class="frame active" id="div-amigos" class="bg-cyan fg-white">
                         <div class="heading accor" id="div-amigos"><span class="mif-users icon"></span> Meus amigos</div>
                         <div class="content">
@@ -256,7 +256,7 @@
                             </form> 
                         </div>
                     </div>
-                    <div class="frame active">
+                    <div class="frame">
                         <div class="heading bg-cyan fg-white accor"><span class="mif-user-plus icon"></span> Buscar usuário</div>
                             <div class="content">
                                 <form id="form-amizades-adicionar">

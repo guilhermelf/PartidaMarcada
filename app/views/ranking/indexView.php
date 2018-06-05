@@ -18,7 +18,7 @@
                 url: "/partidamarcada/estatisticaAtleta/listar",
                 dataType: "json",
                 success: function (resposta) {
-                   console.log(resposta);
+            
                    $.each(resposta, function(k, v) {
                        if(v.avaliacoes == 0) {
                             $("#tabela-estatisticas-atletas").find('tbody').append("<tr>" +
@@ -44,12 +44,48 @@
                    })
                    
                    $('#tabela-estatisticas-atletas').DataTable({
-                        "order": [[ 6, "desc" ]]
+                        "order": [[ 6, "desc" ]],
+                        "paging":   false,
+                        "info":     false,
+                        "searching":   false
                     });
                 }
             });
-            
-            
+
+            $.ajax({
+                type: "post",
+                url: "/partidamarcada/estatisticaQuadra/listar",
+                dataType: "json",
+                success: function (resposta) {
+ 
+                   $.each(resposta, function(k, v) {
+                       if(v.avaliacoes == 0) {
+                            $("#tabela-estatisticas-quadras").find('tbody').append("<tr>" +
+                                "<td>" + v.nome + "</td>" +
+                                "<td>" + v.partidas + "</td>" +
+                                "<td></td>" +
+                                "<td></td>" +
+                                "<td></td>" +
+                            "</tr>");
+                       } else {
+                            $("#tabela-estatisticas-quadras").find('tbody').append("<tr>" +
+                                "<td>" + v.nome + "</td>" +
+                                "<td>" + v.partidas + "</td>" +
+                                "<td title='Total de " + v.avaliacoes + " avaliações'><span style='display: none;'>" + v.atendimento/v.avaliacoes + "</span>" + '<input data-static="true" data-role="rating" data-value="' + v.atendimento/v.avaliacoes + '"></td>' +
+                                "<td title='Total de " + v.avaliacoes + " avaliações'><span style='display: none;'>" + v.estrutura/v.avaliacoes + "</span>" + '<input data-static="true" data-role="rating" data-value="' + v.estrutura/v.avaliacoes + '"></td>' +
+                                "<td title='Total de " + v.avaliacoes + " avaliações'><span style='display: none;'>" + v.qualidade/v.avaliacoes + "</span>" + '<input data-static="true" data-role="rating" data-value="' + v.qualidade/v.avaliacoes + '"></td>' +
+                            "</tr>");
+                        }
+                   })
+                   
+                   $('#tabela-estatisticas-quadras').DataTable({
+                        "order": [[ 1, "desc" ]],
+                        "paging":   false,
+                        "info":     false,
+                        "searching":   false
+                    });
+                }
+            });
 
         });
     </script>
@@ -87,7 +123,18 @@
                 <div class="frame">
                     <div class="heading accor"><span class="mif-chart-bars2 icon"></span> Ranking das quadras</div>
                     <div class="content">
-                        
+                    <table id='tabela-estatisticas-quadras' class="table striped hovered">
+                            <thead>
+                                <th>Nome</th>
+                                <th>Partidas</th>
+                                <th>Atendimento</th>
+                                <th>Estrutura</th>
+                                <th>Qualidade</th>
+                            </thead>
+                            <tbody>
+
+                            </tbody>
+                        </table>
                     </div>
                 </div>                   
             </div>

@@ -45,7 +45,7 @@ class EstatisticaQuadraBLL {
                 $estatisticaQuadra->setAtendimento(0);
                 $estatisticaQuadra->setQualidade(0);
                 $estatisticaQuadra->setEstrutura(0);
-                $estatisticaQuadra->setPartias(0);
+                $estatisticaQuadra->setPartidas(0);
 
                 $dao = new EstatisticaQuadraDAO();
 

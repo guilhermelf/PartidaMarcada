@@ -50,7 +50,7 @@ class ParqueEsportivo {
     private $copa;
     
     /**
-     * @Column(type="integer", name="cep")
+     * @Column(type="string", name="cep")
      */
     private $cep;
     

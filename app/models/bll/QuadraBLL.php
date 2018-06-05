@@ -55,7 +55,7 @@ class QuadraBLL {
 
                 if ($dao->persist($quadra)) {
                     Retorno::setStatus(1);
-                    Retorno::setMensagem("Quadra cadastrada com sucesso!");
+                    Retorno::setMensagem("Quadra cadastrada com sucesso!");                   
 
                     return Retorno::toJson();
                 } else {

@@ -133,7 +133,7 @@
                             });                      
                     });
                 } else {
-                    $("#div-proximas-partidas-parque").find(".p-2").append("<span class='proximasPartidas'>Nenhuma partida foi encontrada!</span>");
+                    $("#div-antigas-partidas-parque").find(".p-2").append("<span class='proximasPartidas'>Nenhuma partida foi encontrada!</span>");
                 }
             }
         });

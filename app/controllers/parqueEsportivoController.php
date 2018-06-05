@@ -53,7 +53,7 @@ class ParqueEsportivoController extends Controller {
             echo "erro";
         } else {
             $email = $_POST['quadra-email'];
-            $senha = $_POST['quadra-senha'];
+            $senha = md5($_POST['quadra-senha']);
 
             $parqueEsportivo = new ParqueEsportivoBLL();
 

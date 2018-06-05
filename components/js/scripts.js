@@ -36,7 +36,7 @@ $(document).ready(function () {
 
     //cadastrar usuário
     $("#btn-usuario-cadastrar").on('click', function () {
-        console.log($("#form-usuario-cadastrar").serialize());
+    
         $.ajax({
             type: "post",
             dataType: 'json',

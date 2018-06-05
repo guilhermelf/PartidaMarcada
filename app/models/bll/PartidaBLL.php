@@ -1,6 +1,7 @@
 <?php
 require_once(DAO . '/PartidaDAO.php');
 require_once(DAO . '/EstatisticaAtletaDAO.php');
+require_once(DAO . '/EstatisticaQuadraDAO.php');
 require_once(BLL . '/QuadraBLL.php');
 require_once(BLL . '/EsporteBLL.php');
 require_once(BLL . '/VisibilidadeBLL.php');
@@ -50,6 +51,10 @@ class PartidaBLL {
         
         if ($dao->persist($partida)) {
             $estatistica = $partida->getUsuario()->getEstatistica();
+            
+            $estatisticaQuadra = $partida->getQuadra()->getParqueEsportivo()->getEstatistica();
+                        
+            $estatisticaQuadra->setPartidas($estatisticaQuadra->getPartidas() - 1);
                 
             $estatistica->setPontos($estatistica->getPontos() - 50);
             $estatistica->setPartidasMarcadas($estatistica->getPartidasMarcadas() - 1);
@@ -137,6 +142,10 @@ class PartidaBLL {
                         $participanteDAO->persist($participante);
                         
                         $estatistica = $usuario->getEstatistica();
+                        
+                        $estatisticaQuadra = $partida->getQuadra()->getParqueEsportivo()->getEstatistica();
+                        
+                        $estatisticaQuadra->setPartidas($estatisticaQuadra->getPartidas() + 1);
                 
                         $estatistica->setPontos($estatistica->getPontos() + 60);
                         $estatistica->setPartidasMarcadas($estatistica->getPartidasMarcadas() + 1);
@@ -368,6 +377,17 @@ class PartidaBLL {
         $avaliacaoQuadra->setPartida($partida);
         
         $avaliacaoQuadraDAO->persist($avaliacaoQuadra);
+        
+        $estatisticaQuadra = $quadra->getParqueEsportivo()->getEstatistica();
+        
+        $estatisticaQuadra->setAvaliacoes($estatisticaQuadra->getAvaliacoes() + 1);
+        $estatisticaQuadra->setQualidade($estatisticaQuadra->getQualidade() + $dados['qualidade']);
+        $estatisticaQuadra->setEstrutura($estatisticaQuadra->getEstrutura() + $dados['estrutura']);
+        $estatisticaQuadra->setAtendimento($estatisticaQuadra->getAtendimento() + $dados['atendimento']);
+                
+        $estatisticaQuadraDAO = new EstatisticaQuadraDAO();
+
+        $estatisticaQuadraDAO->persist($estatisticaQuadra);
         
         if(isset($dados['habilidade'])) {
             for ($index = 0; $index < count($dados['habilidade']); $index++) {           

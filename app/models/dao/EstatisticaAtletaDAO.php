@@ -25,9 +25,11 @@ class EstatisticaAtletaDAO {
     }
 
     function getAll() {
-        try {
-            $estatisticaAtletas = DataBase::getFactory()->getRepository('EstatisticaAtleta')->findAll();
+        try {          
+            $query = DataBase::getFactory()->createQuery("SELECT a FROM EstatisticaAtleta a WHERE 1 = 1 ORDER BY a.pontos DESC")->setMaxResults(10);
 
+            $estatisticaAtletas = $query->getResult();
+            
             return (empty($estatisticaAtletas) ? false : $estatisticaAtletas);
         } catch (Exception $ex) {
             return false;

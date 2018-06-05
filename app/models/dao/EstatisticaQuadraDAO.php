@@ -26,7 +26,9 @@ class EstatisticaQuadraDAO {
 
     function getAll() {
         try {
-            $estatisticaQuadras = DataBase::getFactory()->getRepository('EstatisticaQuadra')->findAll();
+            $query = DataBase::getFactory()->createQuery("SELECT a FROM EstatisticaQuadra a WHERE 1 = 1 ORDER BY a.partidas DESC")->setMaxResults(10);
+
+            $estatisticaQuadras = $query->getResult();
 
             return (empty($estatisticaQuadras) ? false : $estatisticaQuadras);
         } catch (Exception $ex) {

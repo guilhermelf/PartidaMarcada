@@ -56,8 +56,8 @@ class UsuarioBLL {
 
                 $usuario = $dao->getById($_SESSION['id']);
 
-                if ($usuario->getSenha() == $dados['senha']) {
-                    $usuario->setSenha($dados['nova_senha']);
+                if ($usuario->getSenha() == md5($dados['senha'])) {
+                    $usuario->setSenha(md5($dados['nova_senha']));
 
                     $dao->persist($usuario);
 
@@ -131,6 +131,13 @@ class UsuarioBLL {
                 $usuario = new Usuario();
 
                 $usuario->setNome($dados['nome']);
+                
+                if($dados['apelido'] == "") {
+                    $usuario->setApelido($dados['nome']);
+                } else {
+                    $usuario->setApelido($dados['apelido']);
+                }
+                
                 $usuario->setApelido($dados['apelido']);
                 $usuario->setCep($dados['cep']);
                 $usuario->setAtivo(1);
@@ -143,7 +150,7 @@ class UsuarioBLL {
                 $usuario->setEndereco($dados['endereco']);
                 $usuario->setGenero($genero);
                 $usuario->setNumero($dados['numero']);
-                $usuario->setSenha($dados['senha']);
+                $usuario->setSenha(md5($dados['senha']));
                 $usuario->setSobrenome($dados['sobrenome']);
                 $usuario->setTelefone($dados['telefone']);
                 $usuario->setVisibilidade($visibilidade);

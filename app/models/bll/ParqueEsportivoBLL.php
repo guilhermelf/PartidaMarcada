@@ -4,6 +4,7 @@ require_once(DAO . '/ParqueEsportivoDAO.php');
 require_once(BLL . '/CidadeBLL.php');
 require_once(BLL . '/GeneroBLL.php');
 require_once(BLL . '/VisibilidadeBLL.php');
+require_once(BLL . '/EstatisticaQuadraBLL.php');
 
 class ParqueEsportivoBLL {
 
@@ -50,7 +51,7 @@ class ParqueEsportivoBLL {
                 $parqueEsportivo->setEmail($dados['email']);
                 $parqueEsportivo->setEndereco($dados['endereco']);
                 $parqueEsportivo->setNumero($dados['numero']);
-                $parqueEsportivo->setSenha($dados['senha']);
+                $parqueEsportivo->setSenha(md5($dados['senha']));
                 $parqueEsportivo->setTelefone($dados['telefone']);
                 $parqueEsportivo->setServicos($dados['servicos']);
                 $parqueEsportivo->setCopa($dados['copa']);
@@ -62,6 +63,10 @@ class ParqueEsportivoBLL {
                 if ($dao->persist($parqueEsportivo)) {
                     Retorno::setStatus(1);
                     Retorno::setMensagem("Parque esportivo cadastrado com sucesso, efetue o login através do menu \"Quadras\"!");
+                    
+                    $estatisticaQuadraBLL = new EstatisticaQuadraBLL();
+                    
+                    $estatisticaQuadraBLL->insert($parqueEsportivo);
 
                     return Retorno::toJson();
                 } else {
@@ -137,8 +142,8 @@ class ParqueEsportivoBLL {
 
                 $parqueEsportivo = $dao->getById($_SESSION['id']);
 
-                if ($parqueEsportivo->getSenha() == $dados['senha']) {
-                    $parqueEsportivo->setSenha($dados['nova_senha']);
+                if ($parqueEsportivo->getSenha() == md5($dados['senha'])) {
+                    $parqueEsportivo->setSenha(md5($dados['nova_senha']));
 
                     $dao->persist($parqueEsportivo);
 
@@ -222,7 +227,7 @@ class ParqueEsportivoBLL {
             if (empty($parquesEsportivos)) {
                 return json_encode(false);
             } else {
-                foreach ($parquesEsportivos as $parque) {
+                foreach ($parquesEsportivos as $parque) {                    
                     $json[] = $parque->toJson();
                 }
                 return json_encode($json);

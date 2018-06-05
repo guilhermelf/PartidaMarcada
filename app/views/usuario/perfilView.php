@@ -112,7 +112,7 @@
             <?php if($dados->getEstatistica()->getAvaliacoes() == 0) {?>
                 <div class="row">
                     <div class="cell-sm-12">
-                        <span class="perfil-label">Você ainda não foi avaliado</span>
+                        <span class="perfil-label">Usuário ainda não foi avaliado</span>
                     </div>    
                 </div>
             <?php } else { ?>

@@ -19,13 +19,46 @@
                     url: "/partidamarcada/partida/listarMinhasNovasPartidas",
                     dataType: "json",
                     success: function (resposta) {
-                        $.each(resposta, function (k, v) {
-                            $("#minhas-partidas").find(".content").find(".p-2").append(
-                                "<a href='/partidamarcada/partida/partida/" + v.id + "' class='minhas-partidas'>" + 
-                                    v.data + ", das " + v.inicio + "h às " + (v.inicio + 1) + "h, partida de " + v.esporte.nome + ", na quadra " + v.quadra.numero + " da(o) " + v.quadra.parqueEsportivo.nome + 
-                                "</a><br />"
-                            );
-                        });
+                        if(resposta) {
+                            $.each(resposta, function (k, v) {
+                                $("#minhas-partidas").find(".content").find(".p-2").append(
+                                    "<a href='/partidamarcada/partida/partida/" + v.id + "' class='minhas-partidas'>" + 
+                                        v.data + ", das " + v.inicio + "h às " + (v.inicio + 1) + "h, partida de " + v.esporte.nome + ", na quadra " + v.quadra.numero + " da(o) " + v.quadra.parqueEsportivo.nome + 
+                                    "</a><br />"
+                                );
+                            });
+                        } else {
+                            $("#minhas-partidas").find(".content").find(".p-2").append("Nenhuma partida agendada!");
+                        }
+                    }
+                });
+
+                 //buscar partidas antigas cadastradas pelo usuário
+                $('.minhasPartidas-passadas').remove();
+                $.ajax({
+                    async: false,
+                    type: "post",
+                    url: "/partidamarcada/partida/listarMinhasAntigasPartidas",
+                    dataType: "json",
+                    success: function (resposta) {
+                        if(resposta) {
+                            $.each(resposta, function (k, v) {
+                                $.ajax({
+                                    async: false,
+                                    type: "post",
+                                    url: "/partidamarcada/partida/avaliacaoExiste/" + v.id,
+                                    dataType: "json",
+                                    success: function (resposta2) {
+                                        if(!resposta2) {
+                                            $("#minhas-partidas-passadas").find(".content").find(".p-2").append("<a title='Avaliar partida' class='partida-passada-ver minhas-partidas-passadas' href='/partidamarcada/partida/avaliar/" + v.id + "'><span style='display:none;' class=id-ver>" + v.id + "</span>" + v.data + ", das " + v.inicio + "h às " + (v.inicio + 1) + "h, partida de " + v.esporte.nome + ", na quadra " + v.quadra.numero + " da(o) " + v.quadra.parqueEsportivo.nome + "</a>" +                               
+                                            "<br />");
+                                        }
+                                    }
+                                });
+                            });
+                        } else {
+                            $("#minhas-partidas-passadas").find(".content").find(".p-2").append("Nenhuma avaliação está pendente.");
+                        }
                     }
                 });
 
@@ -130,13 +163,13 @@
     </head>
     <body>
         <?php include 'app/views/header/headerUsuario.php'; ?>
-        <div data-role="dialog" data-close-button="true" data-overlay="true" id="resposta" class="padding20">
+        <div data-role="dialog" data-close-button="false" data-overlay="true" id="resposta" class="padding20">
             <div class="dialog-title resposta-titulo"></div>
             <div class="dialog-content resposta-mensagem"></div>
         </div>       
         <div class="conteudo container">
             <div id="div-partidas" style="display: block;">
-                <div data-role="accordion" data-one-frame="true" data-show-active="true" data-active-heading-class="bg-cyan fg-white">
+                <div data-role="accordion" data-one-frame="false" data-show-active="true" data-active-heading-class="bg-cyan fg-white">
                     <div class="frame active" id="minhas-partidas" class="bg-cyan fg-white">
                         <div class="heading accor"><span class="mif-calendar icon"></span> Próximas partidas</div>
                         <div class="content">
@@ -155,10 +188,10 @@
                             </form>
                         </div>
                     </div>
-                    <div class="frame active">
+                    <div class="frame" id="minhas-partidas-passadas">
                         <div class="heading bg-cyan fg-white accor"><span class="mif-user-plus icon"></span> Avaliaçãos pendentes</div>
                         <div class="content">
-                            <div class="content">Módulo ainda não desenvolvido.</div>
+                            <div class="p-2"></div>
                         </div>
                     </div>
                 </div>
