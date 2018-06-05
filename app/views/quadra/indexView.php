@@ -26,7 +26,7 @@
                 success: function (resposta) {
                     if(resposta) {
                         $.each(resposta, function(k, v) {
-                            $('#select-inicio').append('<option value="' + k + '">' + k + '</option');
+                            $('#select-inicio').append('<option value="' + k + '">' + k + 'h às ' + (resposta[k] + 1) + 'h</option');
                         })
                     }
                 }
