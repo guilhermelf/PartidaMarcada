@@ -51,8 +51,15 @@ class AvaliacaoOrganizadorBLL {
                 $avaliacaoOrganizador->setParqueEsportivo($parqueEsportivo);
                 $avaliacaoOrganizador->setUsuario($usuario);
                 $avaliacaoOrganizador->setPartida($partida);
-                $avaliacaoOrganizador->setQualidade($dados['avaliacao']);
-
+                $avaliacaoOrganizador->setAvaliacao($dados['avaliacao']);
+                
+                $usuario->getEstatistica()->setOrganizador($usuario->getEstatistica()->getOrganizador() + $avaliacaoOrganizador->getAvaliacao());
+                $usuario->getEstatistica()->setOrganizadasOnline($usuario->getEstatistica()->getOrganizadasOnline() + 1);
+                
+                $estatisticaAtletaDAO = new EstatisticaAtletaDAO();
+                
+                $estatisticaAtletaDAO->persist($usuario->getEstatistica());
+               
                 $dao = new AvaliacaoOrganizadorDAO();
 
                 if ($dao->persist($avaliacaoOrganizador)) {

@@ -52,16 +52,24 @@ class PartidaBLL {
         if ($dao->persist($partida)) {
             $estatistica = $partida->getUsuario()->getEstatistica();
             
-            $estatisticaQuadra = $partida->getQuadra()->getParqueEsportivo()->getEstatistica();
-                        
+            $estatisticaQuadra = $partida->getQuadra()->getParqueEsportivo()->getEstatistica();   
+            
             $estatisticaQuadra->setPartidas($estatisticaQuadra->getPartidas() - 1);
                 
             $estatistica->setPontos($estatistica->getPontos() - 50);
             $estatistica->setPartidasMarcadas($estatistica->getPartidasMarcadas() - 1);
-
+            
             $estatisticaDAO = new EstatisticaAtletaDAO();
-
             $estatisticaDAO->persist($estatistica);
+            
+            foreach ($partida->getParticipantes() as $participante) {
+                
+                $participante->getUsuario()->getEstatistica()->setParticipacoes($participante->getUsuario()->getEstatistica()->getParticipacoes() - 1);
+                $participante->getUsuario()->getEstatistica()->setPontos($participante->getUsuario()->getEstatistica()->getPontos() - 10);
+                
+                $estatisticaDAO->persist($participante->getUsuario()->getEstatistica());
+            }
+      
             
             Retorno::setStatus(1);
             Retorno::setMensagem("Partida cancelada com sucesso!");
@@ -124,7 +132,7 @@ class PartidaBLL {
                             $agendamento->setInicio($partida->getInicio());
                             $agendamento->setStatus(0);
                             $agendamento->setPartida($partida);
-                            $agendamento->setValor(100);
+                            $agendamento->setValor($partida->getQuadra()->getValor());
                             $agendamento->setQuadra($partida->getQuadra());
 
                             $agendamentoDAO = new AgendamentoDAO();

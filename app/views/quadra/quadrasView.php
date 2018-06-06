@@ -62,6 +62,7 @@
                                         "<td>" + v.numero + "</td>" +
                                         "<td>" + v.tamanho + "</td>" +
                                         "<td>" + v.piso.nome + "</td>" +
+                                        "<td>R$ " + v.valor + "</td>" +
                                         "<td>" + esportes + "</td>" +
                                         "<td>" + 
                                             "<span style='cursor:pointer' class='mif-pencil btn-editar-quadra'></span>" +
@@ -156,6 +157,7 @@
                         $('#editar-id').val(resposta.id);
                         $('#atnumero').val(resposta.numero);
                         $('#attamanho').val(resposta.tamanho);
+                        $('#atvalor').val(resposta.valor);
                         $('#select-atpiso').val(resposta.piso.id);
 
                         $.each(resposta.esportes, function (key, value) {
@@ -229,6 +231,7 @@
                         <th style="width: 10%">#</th>
                         <th style="width: 10%">Tamanho</th>
                         <th style="width: 10%">Piso</th>
+                        <th style="width: 10%">Valor</th>
                         <th>Esportes</th>
                         <th style="width: 10%">Editar</th>
                         <th style="width: 10%" class="calendario">Horários</th>
@@ -250,7 +253,7 @@
                         <div class="cell-sm-2">
                             <label>Número da quadra</label>
                         </div>                 
-                        <div class="cell-sm-2">                      
+                        <div class="cell-sm-1">                      
                             <input type="text" name="numero" id="atnumero">
                         </div>
                         <div class="cell-sm-1">
@@ -261,11 +264,17 @@
 								<option value="0">Piso</option>
 							</select>                
                         </div>
-                        <div class="cell-sm-3">
+                        <div class="cell-sm-2">
                             <label>Número de jogadores</label>
                         </div>
                         <div class="cell-sm-1">                      
                             <input type="text" name="tamanho" id="attamanho">
+                        </div>
+                        <div class="cell-sm-1">
+                            <label>Valor</label>
+                        </div>
+                        <div class="cell-sm-1">                      
+                            <input type="text" name="valor" id="atvalor">
                         </div>
                     </div>
                     <br />
@@ -289,7 +298,7 @@
                             <div class="cell-sm-2">
                                 <label>Número da quadra</label>
                             </div>
-                            <div class="cell-sm-2">               
+                            <div class="cell-sm-1">               
                                 <input type="text" name="numero" id="numero">
                             </div>
                             <div class="cell-sm-1">
@@ -299,12 +308,18 @@
                                 <select name="piso" id="select-piso">
                                     <option>Selecione</option>
                                 </select>
-                            </div>
-                            <div class="cell-sm-3">
+                            </div>                        
+                            <div class="cell-sm-2">
                                 <label>Número de jogadores</label>
                             </div>
-                            <div class="cell-sm-2">
+                            <div class="cell-sm-1">
                                 <input type="text" name="tamanho" id="tamanho">
+                            </div>
+                            <div class="cell-sm-1">
+                                <label>Valor</label>
+                            </div>
+                            <div class="cell-sm-1">               
+                                <input type="text" name="valor" id="valor">
                             </div>
                         </div>
                         <br />

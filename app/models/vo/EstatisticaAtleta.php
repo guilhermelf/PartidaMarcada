@@ -166,6 +166,7 @@ class EstatisticaAtleta {
             'pontos' => $this->getPontos(),
             'pontualidade' => $this->getPontualidade(),
             'organizadasOnline' => $this->getOrganizadasOnline(),
+            'idUsuario' => $this->getUsuario()->getId(),
             'nome' => $this->getUsuario()->getNome()." ".$this->getUsuario()->getSobrenome(). " (".$this->getUsuario()->getApelido().")",
         );
     } 

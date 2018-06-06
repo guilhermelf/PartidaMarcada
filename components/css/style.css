@@ -72,12 +72,7 @@ and open the template in the editor.
 }
 
 .form-cadastro {    
-    width: 80%;
     margin: 0 auto;
-    
-    border: 1px #ccc dashed;
-    
-    padding: 15px 50px 15px 50px;
 }
 
 input[type="button"] {color: #fff;}
@@ -218,7 +213,6 @@ body {
     background-color: #fff;
     margin: 0 auto !important;
     width: 70%;
-    top: 85px;
     z-index: 5000;
     border: solid 2px;
 }
@@ -229,4 +223,8 @@ body {
 
 .selecionar-parque {
     cursor: pointer;
+}
+
+.confirmacao {
+    padding: 8px;
 }

@@ -110,6 +110,7 @@ class EstatisticaQuadra {
             'estrutura' => $this->getEstrutura(),
             'atendimento' => $this->getAtendimento(),
             'partidas' => $this->getPartidas(),
+            'idParqueEsportivo' => $this->getParqueEsportivo()->getId(),
             'nome' => $this->getParqueEsportivo()->getNome()
         );
     } 

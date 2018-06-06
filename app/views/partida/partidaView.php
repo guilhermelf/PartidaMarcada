@@ -372,16 +372,18 @@
             <div id="div-dados-partida">
                 <?php 
                     if(!$dados->getStatus()) {
-                        echo "<h2 class='align-center fg-red'>Partida cancelada pelo organizador!</h2><br />";
+                        echo "<h2 class='align-center bg-red fg-white confirmacao'>Partida cancelada pelo organizador!</h2><br />";
                     } else if($dados->getStatus() == 2){
-                        echo "<h2 class='align-center fg-red'>Partida cancelada. Agendamento não aceito pela quadra!</h2><br />";
+                        echo "<h2 class='align-center bg-red fg-white confirmacao'>Partida cancelada. Agendamento não aceito pela quadra!</h2><br />";
                     } else if($dados->getQuadra()->getParqueEsportivo()->getServicos()) {
                         if($dados->getAgendamento()->getStatus() == 0) {
-                            echo "<h2 class='align-center fg-red'>Quadra ainda não confirmou o agendamento!</h2><br />";
+                            echo "<h2 class='align-center fg-white bg-orange confirmacao'>Quadra ainda não confirmou o agendamento!</h2><br />";
                         } else if($dados->getAgendamento()->getStatus() == 1){
-                            echo "<h2 class='align-center fg-red'>Partida Marcada!</h2><br />";
+                            echo "<h2 class='align-center bg-green fg-white confirmacao'>Partida Marcada! Agendamento confirmado com a quadra!</h2><br />";
                         }
-                    } 
+                    } else {
+                        echo "<h2 class='align-center bg-green fg-white confirmacao'>Partida Marcada! Essa quadra não utiliza o sistema para marcar horário</h2><br />";
+                    }
                 ?>
                 <h3>Informações da partida</h3>
                 <br />             
@@ -389,7 +391,7 @@
                     <div class="cell-sm-12">
                         <span class="perfil-label">
                             <?php echo "Partida de " . $dados->getEsporte()->getNome() . " (" . $dados->getQuadra()->getTamanho() . ") no(a) " .
-                                $dados->getQuadra()->getParqueEsportivo()->getNome() . ", na quadra de número " . $dados->getQuadra()->getNumero() . ".";?>
+                                $dados->getQuadra()->getParqueEsportivo()->getNome() . ", na quadra de número " . $dados->getQuadra()->getNumero() . " (" . $dados->getQuadra()->getPiso()->getNome() .").";?>
                         </span>
                     </div>
                     <div class="cell-sm-12">

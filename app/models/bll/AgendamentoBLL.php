@@ -117,6 +117,32 @@ class AgendamentoBLL {
         $dao = new AgendamentoDAO();
         
         if ($dao->persist($agendamento)) {
+            
+            $estatistica = $partida->getUsuario()->getEstatistica();
+            
+            $estatisticaQuadra = $partida->getQuadra()->getParqueEsportivo()->getEstatistica();   
+            
+            $estatisticaQuadra->setPartidas($estatisticaQuadra->getPartidas() - 1);
+            
+            $estatisticaQuadraDAO = new EstatisticaQuadraDAO();
+            
+            $estatisticaQuadraDAO->persist($estatisticaQuadra);
+                
+            $estatistica->setPontos($estatistica->getPontos() - 50);
+            $estatistica->setPartidasMarcadas($estatistica->getPartidasMarcadas() - 1);
+            $estatisticaDAO = new EstatisticaAtletaDAO();
+            
+            $estatisticaDAO->persist($estatistica);
+            
+            foreach ($partida->getParticipantes() as $participante) {
+                $estatisticaDAO2 = new EstatisticaAtletaDAO();
+                
+                $participante->getUsuario()->getEstatistica()->setParticipacoes($participante->getUsuario()->getEstatistica()->getParticipacoes() - 1);
+                $participante->getUsuario()->getEstatistica()->setPontos($participante->getUsuario()->getEstatistica()->getPontos() - 10);
+                
+                $estatisticaDAO->persist($participante->getUsuario()->getEstatistica());
+            }       
+            
             Retorno::setStatus(1);
             Retorno::setMensagem("Agendamento negado com sucesso!");
             

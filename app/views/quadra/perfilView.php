@@ -85,38 +85,25 @@
             <?php } else { ?>
                 <div class="row">
                     <div class="cell-sm-12">
-                        <span class="perfil-label">Atendimento: </span> <input data-static="true" data-role="rating" data-value="<?php echo ($dados->getEstatistica()->getAtendimento()/$dados->getEstatistica()->getAvaliacoes()); ?>">
+                        <span class="perfil-label">Atendimento: </span><span title="<?php echo ($dados->getEstatistica()->getAtendimento()/$dados->getEstatistica()->getAvaliacoes()); ?>"><input data-static="true" data-role="rating" data-value="<?php echo ($dados->getEstatistica()->getAtendimento()/$dados->getEstatistica()->getAvaliacoes()); ?>"></span>
                     </div>    
                 </div>
                 <div class="row">
                     <div class="cell-sm-12">
-                        <span class="perfil-label">Estrutura: </span> <input data-static="true" data-role="rating" data-value="<?php echo ($dados->getEstatistica()->getEstrutura()/$dados->getEstatistica()->getAvaliacoes()); ?>">
+                        <span class="perfil-label">Estrutura: </span><span title="<?php echo ($dados->getEstatistica()->getEstrutura()/$dados->getEstatistica()->getAvaliacoes()); ?>"><input data-static="true" data-role="rating" data-value="<?php echo ($dados->getEstatistica()->getEstrutura()/$dados->getEstatistica()->getAvaliacoes()); ?>"></span>
                     </div>    
                 </div>
                 <div class="row">
                     <div class="cell-sm-12">
-                        <span class="perfil-label">Qualidade: </span> <input data-static="true" data-role="rating" data-value="<?php echo ($dados->getEstatistica()->getQualidade()/$dados->getEstatistica()->getAvaliacoes()); ?>">
+                        <span class="perfil-label">Qualidade: </span><span title="<?php echo ($dados->getEstatistica()->getQualidade()/$dados->getEstatistica()->getAvaliacoes()); ?>"><input data-static="true" data-role="rating" data-value="<?php echo ($dados->getEstatistica()->getQualidade()/$dados->getEstatistica()->getAvaliacoes()); ?>"></span>
                     </div>    
                 </div>
                 <div class="row">
                     <div class="cell-sm-12">
-                        <span>Você tem um total de <?php echo $dados->getEstatistica()->getAvaliacoes(); ?> avaliações.</span>
+                        <span>Total de <?php echo $dados->getEstatistica()->getAvaliacoes(); ?> avaliações.</span>
                     </div>    
                 </div>
             <?php } ?>
-                <form id="form-adicionar-amigo">
-                <br />
-                <?php if($_SESSION['tipo'] == 'usuario') { ?>
-                    <div class="row">
-                        <div class="cell-sm-12">
-                            <input type="button" class="button bg-lightBlue place-right" value="Adicionar aos amigos" id="btn-adicionar-amigo">
-                            <input type="hidden" name="usuario" value="<?php echo $dados->getId(); ?>">
-                        </div>
-                    </div>
-                <?php } ?>
-                
-                <br />&nbsp;
-                </form>
             </div>
         </div>
     </body>

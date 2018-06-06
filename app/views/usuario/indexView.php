@@ -35,6 +35,7 @@
 
                  //buscar partidas antigas cadastradas pelo usuário
                 $('.minhasPartidas-passadas').remove();
+                var existe = false;
                 $.ajax({
                     async: false,
                     type: "post",
@@ -48,17 +49,18 @@
                                     type: "post",
                                     url: "/partidamarcada/partida/avaliacaoExiste/" + v.id,
                                     dataType: "json",
-                                    success: function (resposta2) {
+                                    success: function (resposta2) {                                      
                                         if(!resposta2) {
+                                            existe = true;
                                             $("#minhas-partidas-passadas").find(".content").find(".p-2").append("<a title='Avaliar partida' class='partida-passada-ver minhas-partidas-passadas' href='/partidamarcada/partida/avaliar/" + v.id + "'><span style='display:none;' class=id-ver>" + v.id + "</span>" + v.data + ", das " + v.inicio + "h às " + (v.inicio + 1) + "h, partida de " + v.esporte.nome + ", na quadra " + v.quadra.numero + " da(o) " + v.quadra.parqueEsportivo.nome + "</a>" +                               
                                             "<br />");
                                         }
                                     }
                                 });
                             });
-                        } else {
-                            $("#minhas-partidas-passadas").find(".content").find(".p-2").append("Nenhuma avaliação está pendente.");
                         }
+                        if(!existe)
+                            $("#minhas-partidas-passadas").find(".content").find(".p-2").append("Nenhuma avaliação está pendente.");                     
                     }
                 });
 
@@ -70,23 +72,22 @@
                     dataType: 'json',
                     url: "/partidamarcada/amigo/amizadesPendentes",
                     success: function (resposta) {
-                        if(resposta) {
+                        if (resposta) {
+                            console.log(resposta);
                             $.each(resposta, function (k, v) {
-
                                 $('#tabela-amigos-pendentes').find('tbody').append(
-                                        "<tr class='amigos'>" +
-                                        "<td>" + v.usuario1.nome + " " + v.usuario1.sobrenome + " (" + v.usuario1.apelido + ")" + "</td>" +
+                                        "<tr class='amigos-pendentes'>" +
+                                        "<td><a href='/partidamarcada/usuario/perfil/" + v.usuario1id + "'>" + v.usuario1nome +"</a></td>" +
                                         "<td width='50px;'>" +
                                         "<span style='cursor:pointer; float:left;' class='mif-checkmark fg-green btn-amizade-aceitar' title='Aceitar'></span>" +
                                         "<span style='cursor:pointer; float:right;' class='mif-cross fg-red btn-amizade-rejeitar' title='Rejeitar'></span>" +
                                         "<span class='id-amizade' style='display:none; cursor:pointer;'>" + v.id + "</span>" +
                                         "</td>" +
                                         "</tr>");
-
                             });
                         } else {
                             $('#tabela-amigos-pendentes').find('tbody').append(
-                                    "<tr class='amigos'>" +
+                                    "<tr class='amigos-pendentes'>" +
                                     "<td colspan='2'>Nenhuma solicitação de amizade.</td>" +
                                     "</tr>");
                         }

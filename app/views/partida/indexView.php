@@ -14,6 +14,8 @@
     </head>
     <script>
         $(document).ready(function () {
+            $('#minhas-partidas-passadas').find('.heading').click();
+
             $('#btn-buscar-partida').on('click', function() { 
                 $.ajax({
                     data: $('#buscar-partida-publica').serialize(),
@@ -48,7 +50,8 @@
                 url: "/partidamarcada/usuario/buscarUsuario/",
                 dataType: 'json',
                 success: function (resposta) {
-                    $('#buscar-partida-cidade').val(resposta.cidade.nome);                  
+                    $('#buscar-partida-cidade').val(resposta.cidade.nome);
+                    $('#buscar-quadra-cidade').val(resposta.cidade.nome);        
                 }
             });
 
@@ -617,7 +620,7 @@
                             <input type="text" name="endereco" placeholder="Endereço">
                         </div>
                         <div class="cell-sm-3">   
-                            <input type="text" name="cidade" placeholder="Cidade">
+                            <input type="text" name="cidade" placeholder="Cidade" id="buscar-quadra-cidade">
                         </div>
                         <div class="cell-sm-2"> 
                             <button class="button success" id="btn-selecionar-parqueesportivo-buscar">Buscar</button>
@@ -645,7 +648,7 @@
 
         <div class="conteudo container">         
             <div id="div-partidas" style="display: block;">
-                <div data-role="accordion" data-one-frame="true" data-show-active="true" data-active-heading-class="bg-cyan fg-white">
+                <div data-role="accordion" data-one-frame="false" data-show-active="true" data-active-heading-class="bg-cyan fg-white">
                     <div class="frame active" id="minhas-partidas" class="bg-cyan fg-white">
                         <div class="heading accor"><span class="mif-calendar icon"></span> Próximas partidas</div>
                         <div class="content">
@@ -677,7 +680,7 @@
                                         <input type="text" name="esporte" placeholder="Esporte">
                                     </div>
                                     <div class="cell-sm-3">   
-                                        <input type="text" name="cidade" id="buscar-partida-cidade" placeholder="Cidade">
+                                        <input type="text" name="cidade" id="buscar-partida-cidade">
                                     </div>
                                     <div class="cell-sm-3"> 
                                         <button class="button success" id="btn-buscar-partida">Buscar</button>

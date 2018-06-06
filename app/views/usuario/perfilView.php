@@ -112,28 +112,47 @@
             <?php if($dados->getEstatistica()->getAvaliacoes() == 0) {?>
                 <div class="row">
                     <div class="cell-sm-12">
-                        <span class="perfil-label">Usuário ainda não foi avaliado</span>
+                        <span class="perfil-label">Atleta ainda não foi avaliado por outros atletas</span>
                     </div>    
                 </div>
             <?php } else { ?>
                 <div class="row">
                     <div class="cell-sm-12">
-                        <span class="perfil-label">Comportamento: </span> <input data-static="true" data-role="rating" data-value="<?php echo ($dados->getEstatistica()->getComportamento()/$dados->getEstatistica()->getAvaliacoes()); ?>">
+                        <span class="perfil-label">Comportamento: </span><span title="<?php echo ($dados->getEstatistica()->getComportamento()/$dados->getEstatistica()->getAvaliacoes()); ?>"><input data-static="true" data-role="rating" data-value="<?php echo ($dados->getEstatistica()->getComportamento()/$dados->getEstatistica()->getAvaliacoes()); ?>"></span>
                     </div>    
                 </div>
                 <div class="row">
                     <div class="cell-sm-12">
-                        <span class="perfil-label">Habilidade: </span> <input data-static="true" data-role="rating" data-value="<?php echo ($dados->getEstatistica()->getHabilidade()/$dados->getEstatistica()->getAvaliacoes()); ?>">
+                        <span class="perfil-label">Habilidade: </span><span title="<?php echo ($dados->getEstatistica()->getHabilidade()/$dados->getEstatistica()->getAvaliacoes()); ?>"><input data-static="true" data-role="rating" data-value="<?php echo ($dados->getEstatistica()->getHabilidade()/$dados->getEstatistica()->getAvaliacoes()); ?>"></span>
                     </div>    
                 </div>
                 <div class="row">
                     <div class="cell-sm-12">
-                        <span class="perfil-label">Pontualidade: </span> <input data-static="true" data-role="rating" data-value="<?php echo ($dados->getEstatistica()->getPontualidade()/$dados->getEstatistica()->getAvaliacoes()); ?>">
+                        <span class="perfil-label">Pontualidade: </span><span title="<?php echo ($dados->getEstatistica()->getPontualidade()/$dados->getEstatistica()->getAvaliacoes()); ?>"><input data-static="true" data-role="rating" data-value="<?php echo ($dados->getEstatistica()->getPontualidade()/$dados->getEstatistica()->getAvaliacoes()); ?>"></span>
                     </div>    
                 </div>
                 <div class="row">
                     <div class="cell-sm-12">
-                        <span>Você tem um total de <?php echo $dados->getEstatistica()->getAvaliacoes(); ?> avaliações.</span>
+                        <span>Total de <?php echo $dados->getEstatistica()->getAvaliacoes(); ?> avaliações.</span>
+                    </div>    
+                </div>
+            <?php } ?>
+            <hr />
+            <?php if($dados->getEstatistica()->getOrganizadasOnline() == 0) {?>
+                <div class="row">
+                    <div class="cell-sm-12">
+                        <span class="perfil-label">Atleta ainda não foi avaliado por administradores de quadras</span>
+                    </div>    
+                </div>              
+            <?php } else { ?>
+                <div class="row">
+                    <div class="cell-sm-12">
+                        <span title="Avaliação feita pelos administradores de quadras" class="perfil-label">Avaliação como organizador: </span><span title="<?php echo ($dados->getEstatistica()->getOrganizador()/$dados->getEstatistica()->getOrganizadasOnline()); ?>"><input data-static="true" data-role="rating" data-value="<?php echo ($dados->getEstatistica()->getOrganizador()/$dados->getEstatistica()->getOrganizadasOnline()); ?>"></span>
+                    </div>    
+                </div>
+                <div class="row">
+                    <div class="cell-sm-12">
+                        <span>Total de <?php echo $dados->getEstatistica()->getOrganizadasOnline(); ?> avaliações.</span>
                     </div>    
                 </div>
             <?php } ?>

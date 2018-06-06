@@ -92,7 +92,7 @@ class PartidaController extends Controller {
     function avaliacaoOrganizadorExiste($partida) {
         $bll = new AvaliacaoOrganizadorBLL();
         
-        echo $bll->avaliacaoOrganizadorExiste($_SESSION['id'], 41);
+        echo $bll->avaliacaoOrganizadorExiste($_SESSION['id'], $partida);
     }
     
     function salvarAvaliacao() {          

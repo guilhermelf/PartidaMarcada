@@ -48,6 +48,7 @@ class QuadraBLL {
                 $quadra->setAtivo(1);
                 $quadra->setPiso($piso);
                 $quadra->setTamanho($dados['tamanho']);
+                $quadra->setValor($dados['valor']);
                 $quadra->setNumero($dados['numero']);
                 $quadra->setParqueEsportivo($parqueEsportivo);              
 
@@ -92,6 +93,7 @@ class QuadraBLL {
                 $quadra->setPiso($piso);
                 $quadra->setTamanho($dados['tamanho']);
                 $quadra->setNumero($dados['numero']);
+                $quadra->setValor($dados['valor']);
 
                 $dao = new QuadraDAO();
 

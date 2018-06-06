@@ -22,22 +22,24 @@
                    $.each(resposta, function(k, v) {
                        if(v.avaliacoes == 0) {
                             $("#tabela-estatisticas-atletas").find('tbody').append("<tr>" +
-                                "<td>" + v.nome + "</td>" +
+                                "<td><a target='_blank' href='/partidamarcada/usuario/perfil/" + v.idUsuario + "'>" + v.nome + "</a></td>" +
                                 "<td>" + v.participacoes + "</td>" +
                                 "<td>" + v.partidasMarcadas + "</td>" +
                                 "<td></td>" +
                                 "<td></td>" +
                                 "<td></td>" +
+                                "<td>" + v.avaliacoes + "</td>" +
                                 "<td>" + v.pontos + "</td>" +
                             "</tr>");
                        } else {
                             $("#tabela-estatisticas-atletas").find('tbody').append("<tr>" +
-                                "<td>" + v.nome + "</td>" +
+                                "<td><a target='_blank' href='/partidamarcada/usuario/perfil/" + v.idUsuario + "'>" + v.nome + "</a></td>" +
                                 "<td>" + v.participacoes + "</td>" +
                                 "<td>" + v.partidasMarcadas + "</td>" +
-                                "<td title='Total de " + v.avaliacoes + " avaliações'><span style='display: none;'>" + v.comportamento/v.avaliacoes + "</span>" + '<input data-static="true" data-role="rating" data-value="' + v.comportamento/v.avaliacoes + '"></td>' +
-                                "<td title='Total de " + v.avaliacoes + " avaliações'><span style='display: none;'>" + v.habilidade/v.avaliacoes + "</span>" + '<input data-static="true" data-role="rating" data-value="' + v.habilidade/v.avaliacoes + '"></td>' +
-                                "<td title='Total de " + v.avaliacoes + " avaliações'><span style='display: none;'>" + v.pontualidade/v.avaliacoes + "</span>" + '<input data-static="true" data-role="rating" data-value="' + v.pontualidade/v.avaliacoes + '"></td>' +
+                                "<td title='" + v.comportamento/v.avaliacoes + "'><span style='display: none;'>" + v.comportamento/v.avaliacoes + "</span>" + '<input data-static="true" data-role="rating" data-value="' + v.comportamento/v.avaliacoes + '"></td>' +
+                                "<td title='" + v.habilidade/v.avaliacoes + "'><span style='display: none;'>" + v.habilidade/v.avaliacoes + "</span>" + '<input data-static="true" data-role="rating" data-value="' + v.habilidade/v.avaliacoes + '"></td>' +
+                                "<td title='" + v.pontualidade/v.avaliacoes + "'><span style='display: none;'>" + v.pontualidade/v.avaliacoes + "</span>" + '<input data-static="true" data-role="rating" data-value="' + v.pontualidade/v.avaliacoes + '"></td>' +
+                                "<td>" + v.avaliacoes + "</td>" +
                                 "<td>" + v.pontos + "</td>" +
                             "</tr>");
                         }
@@ -61,19 +63,21 @@
                    $.each(resposta, function(k, v) {
                        if(v.avaliacoes == 0) {
                             $("#tabela-estatisticas-quadras").find('tbody').append("<tr>" +
-                                "<td>" + v.nome + "</td>" +
+                                "<td><a target='_blank' href='/partidamarcada/parqueesportivo/perfil/" + v.idParqueEsportivo + "'>" + v.nome + "</a></td>" +
                                 "<td>" + v.partidas + "</td>" +
                                 "<td></td>" +
                                 "<td></td>" +
                                 "<td></td>" +
+                                "<td>" + v.avaliacoes + "</td>" +
                             "</tr>");
                        } else {
                             $("#tabela-estatisticas-quadras").find('tbody').append("<tr>" +
-                                "<td>" + v.nome + "</td>" +
+                                "<td><a target='_blank' href='/partidamarcada/parqueesportivo/perfil/" + v.idParqueEsportivo + "'>" + v.nome + "</a></td>" +
                                 "<td>" + v.partidas + "</td>" +
-                                "<td title='Total de " + v.avaliacoes + " avaliações'><span style='display: none;'>" + v.atendimento/v.avaliacoes + "</span>" + '<input data-static="true" data-role="rating" data-value="' + v.atendimento/v.avaliacoes + '"></td>' +
-                                "<td title='Total de " + v.avaliacoes + " avaliações'><span style='display: none;'>" + v.estrutura/v.avaliacoes + "</span>" + '<input data-static="true" data-role="rating" data-value="' + v.estrutura/v.avaliacoes + '"></td>' +
-                                "<td title='Total de " + v.avaliacoes + " avaliações'><span style='display: none;'>" + v.qualidade/v.avaliacoes + "</span>" + '<input data-static="true" data-role="rating" data-value="' + v.qualidade/v.avaliacoes + '"></td>' +
+                                "<td title='" + v.atendimento/v.avaliacoes + "'><span style='display: none;'>" + v.atendimento/v.avaliacoes + "</span>" + '<input data-static="true" data-role="rating" data-value="' + v.atendimento/v.avaliacoes + '"></td>' +
+                                "<td title='" + v.estrutura/v.avaliacoes + "'><span style='display: none;'>" + v.estrutura/v.avaliacoes + "</span>" + '<input data-static="true" data-role="rating" data-value="' + v.estrutura/v.avaliacoes + '"></td>' +
+                                "<td title='" + v.qualidade/v.avaliacoes + "'><span style='display: none;'>" + v.qualidade/v.avaliacoes + "</span>" + '<input data-static="true" data-role="rating" data-value="' + v.qualidade/v.avaliacoes + '"></td>' +
+                                "<td>" + v.avaliacoes + "</td>" +
                             "</tr>");
                         }
                    })
@@ -100,8 +104,8 @@
             <div class="dialog-content resposta-mensagem"></div>
         </div>       
         <div class="conteudo container">
-            <div data-role="accordion" data-one-frame="false" data-show-active="true">                                    
-                <div class="frame active">
+            <div data-role="accordion" data-one-frame="false" data-show-active="false">                                    
+                <div class="frame">
                     <div class="heading accor"><span class="mif-chart-bars2 icon"></span> Ranking dos atletas</div>
                     <div class="content">
                         <table id='tabela-estatisticas-atletas' class="table striped hovered">
@@ -112,6 +116,7 @@
                                 <th>Comportamento</th>
                                 <th>Habilidade</th>
                                 <th>Pontualidade</th>
+                                <th title="Avaliações recebidas de outros atletas">Avaliações</th>
                                 <th>Pontos</th>
                             </thead>
                             <tbody>
@@ -130,6 +135,7 @@
                                 <th>Atendimento</th>
                                 <th>Estrutura</th>
                                 <th>Qualidade</th>
+                                <th title="Avaliações recebidas">Avaliações</th>
                             </thead>
                             <tbody>
 
