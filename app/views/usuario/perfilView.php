@@ -77,9 +77,29 @@
         <div class="conteudo container">
             <h3><?php echo $dados->getNome() . " " . $dados->getSobrenome(); ?><?php echo ($dados->getApelido() != "" ? " (" . $dados->getApelido() . ")" : ""); ?></h3>
             <hr />
+            <?php 
+                $badges = false;
+
+                if($dados->getEstatistica()->getHabilidade()/$dados->getEstatistica()->getAvaliacoes() > 4) {
+                    echo "<img class='badge' src='../../img/badges/crown.png' title='Craque' width='50px'>";
+                    $badges = true;
+                }
+                if($dados->getEstatistica()->getComportamento()/$dados->getEstatistica()->getAvaliacoes() > 4) {
+                    echo "<img class='badge' src='../../img/badges/like.png' title='Comportamento exemplar' width='50px'>";
+                    $badges = true;
+                }
+                if($dados->getEstatistica()->getPontualidade()/$dados->getEstatistica()->getAvaliacoes() > 4) {
+                    echo "<img class='badge' src='../../img/badges/clock.png' title='Pontual' width='50px'>";
+                    $badges = true;
+                }
+
+                if($badges) {
+                    echo "<br /><hr />";
+                }
+            ?>
             <br />
             <div class="row">
-                <div class="cell-sm-12">
+                <div class="cell-sm-6">
                     <span class="perfil-label">Data de nascimento: </span> <?php echo date_format($dados->getDataNascimento(), 'd/m/Y'); ?>
                 </div>
             </div>

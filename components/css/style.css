@@ -228,3 +228,7 @@ body {
 .confirmacao {
     padding: 8px;
 }
+
+.badge {
+    margin-right: 10px;
+}
