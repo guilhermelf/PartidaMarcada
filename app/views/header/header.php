@@ -1,4 +1,4 @@
-<div class="app-bar">
+<div class="app-bar-expand-md">
 
     <span class="app-bar-divider"></span>
     <ul class="h-menu">

@@ -7,6 +7,12 @@ and open the template in the editor.
     Created on : 04/04/2016, 13:49:47
     Author     : Guilherme Longaray
 */
+.conteudo {
+    background-color: #fff;
+    width: 100%;
+    margin: 0 auto;  
+    position: relative;
+}
 
 .container {
     width: 100%;
@@ -19,6 +25,7 @@ and open the template in the editor.
     }
     .conteudo {    
         width: 100%;
+        padding: 120px 30px 0 30px;
     }
 }
 
@@ -28,6 +35,7 @@ and open the template in the editor.
     }
     .conteudo {    
         width: 100%;
+        padding: 120px 30px 0 30px;
     }
 }
 
@@ -37,6 +45,7 @@ and open the template in the editor.
     }
     .conteudo {    
         width: 80%;
+        padding: 60px 30px 0 30px;
     }
 }
 
@@ -46,6 +55,7 @@ and open the template in the editor.
     }
     .conteudo {    
         width: 80%;
+        padding: 60px 30px 0 30px;
     }
 }
 
@@ -55,20 +65,12 @@ and open the template in the editor.
     }
     .conteudo {    
         width: 80%;
+        padding: 60px 30px 0 30px;
     }
 }
 
-.app-bar {
-    background-color: #fff !important;
-}
-
-.conteudo {
-    background-color: #fff;
-    width: 100%;
-    margin: 0 auto;  
-    position: relative;
-    
-    padding: 60px 30px 0 30px;
+.h-menu {
+    background-color: #20b2aa !important;
 }
 
 .form-cadastro {    
@@ -91,7 +93,7 @@ input[type="button"] {color: #fff;}
 }
 
 body {
-    /*background-image: url('../../img/background.jpg'); */
+    background-image: url('../../img/background.jpg'); 
 }
 
 .app-bar {

@@ -104,6 +104,9 @@
             <div class="dialog-content resposta-mensagem"></div>
         </div>       
         <div class="conteudo container">
+            <p class="text-leader2 align-center">Clique nos listas para ver os melhores classificados</p>
+            <hr />
+            <br />
             <div data-role="accordion" data-one-frame="false" data-show-active="false">                                    
                 <div class="frame">
                     <div class="heading accor"><span class="mif-chart-bars2 icon"></span> Ranking dos atletas</div>
@@ -147,4 +150,3 @@
         </div>
     </body>
 </html>
-        

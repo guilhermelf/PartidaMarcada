@@ -25,7 +25,7 @@ class UsuarioBLL {
 
         if ($usuario) {
             $_SESSION['id'] = $usuario->getId();
-            $_SESSION['nome'] = $usuario->getNome() . " " . $usuario->getSobrenome();
+            $_SESSION['nome'] = $usuario->getNome();
             $_SESSION['tipo'] = "usuario";
 
             Retorno::setStatus(1);

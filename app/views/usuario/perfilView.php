@@ -80,17 +80,53 @@
             <?php 
                 $badges = false;
 
-                if($dados->getEstatistica()->getHabilidade()/$dados->getEstatistica()->getAvaliacoes() > 4) {
-                    echo "<img class='badge' src='../../img/badges/crown.png' title='Craque' width='50px'>";
+                if($dados->getEstatistica()->getOrganizadasOnline() > 0) {
+                    //badge de avaliacao de administradores de quadra
+                    if($dados->getEstatistica()->getOrganizador()/$dados->getEstatistica()->getOrganizadasOnline() >= 4) {
+                        echo "<img class='badge' src='../../img/badges/fan.png' title='Organizador de elite' width='50px'>";
+                        $badges = true;
+                    }
+                }
+
+                //organizou de mais de 100 partidas
+                if($dados->getEstatistica()->getPartidasMarcadas() >= 100) {
+                    echo "<img class='badge' src='../../img/badges/schedule.png' title='Mais de 100 partidas marcadas' width='50px'>";
+                    $badges = true;
+                } else if($dados->getEstatistica()->getPartidasMarcadas() >= 10) {
+                    echo "<img class='badge' src='../../img/badges/tickets.png' title='Mais de 10 partidas marcadas' width='50px'>";
                     $badges = true;
                 }
-                if($dados->getEstatistica()->getComportamento()/$dados->getEstatistica()->getAvaliacoes() > 4) {
-                    echo "<img class='badge' src='../../img/badges/like.png' title='Comportamento exemplar' width='50px'>";
+                
+                //participou de mais de 100 partidas
+                if($dados->getEstatistica()->getParticipacoes() >= 100) {
+                    echo "<img class='badge' src='../../img/badges/medal.png' title='Mais de 100 partidas jogadas' width='50px'>";
+                    $badges = true;
+                } else if($dados->getEstatistica()->getParticipacoes() >= 50) {
+                    echo "<img class='badge' src='../../img/badges/medal-1.png' title='Mais de 50 partidas jogadas' width='50px'>";
+                    $badges = true;
+                } else if($dados->getEstatistica()->getParticipacoes() >= 10) {
+                    echo "<img class='badge' src='../../img/badges/medal-2.png' title='Mais de 10 partidas jogadas' width='50px'>";
                     $badges = true;
                 }
-                if($dados->getEstatistica()->getPontualidade()/$dados->getEstatistica()->getAvaliacoes() > 4) {
-                    echo "<img class='badge' src='../../img/badges/clock.png' title='Pontual' width='50px'>";
-                    $badges = true;
+
+                if($dados->getEstatistica()->getAvaliacoes() > 0) {
+                    //badge de habilidade > 4
+                    if($dados->getEstatistica()->getHabilidade()/$dados->getEstatistica()->getAvaliacoes() >= 4) {
+                        echo "<img class='badge' src='../../img/badges/head-hitting.png' title='Joga muito' width='50px'>";
+                        $badges = true;
+                    }
+
+                    //badge de comportamento > 4
+                    if($dados->getEstatistica()->getComportamento()/$dados->getEstatistica()->getAvaliacoes() >= 4) {
+                        echo "<img class='badge' src='../../img/badges/like.png' title='Comportamento exemplar' width='50px'>";
+                        $badges = true;
+                    }
+
+                    //badge de pontualidade > 4
+                    if($dados->getEstatistica()->getPontualidade()/$dados->getEstatistica()->getAvaliacoes() >= 4) {
+                        echo "<img class='badge' src='../../img/badges/clock.png' title='Pontual' width='50px'>";
+                        $badges = true;
+                    }
                 }
 
                 if($badges) {

@@ -134,13 +134,13 @@ class AgendamentoBLL {
             
             $estatisticaDAO->persist($estatistica);
             
-            foreach ($partida->getParticipantes() as $participante) {
-                $estatisticaDAO2 = new EstatisticaAtletaDAO();
-                
-                $participante->getUsuario()->getEstatistica()->setParticipacoes($participante->getUsuario()->getEstatistica()->getParticipacoes() - 1);
-                $participante->getUsuario()->getEstatistica()->setPontos($participante->getUsuario()->getEstatistica()->getPontos() - 10);
-                
-                $estatisticaDAO->persist($participante->getUsuario()->getEstatistica());
+            foreach ($partida->getParticipantes() as $participante) {                           
+                if($participante->getStatus() == 1) {                 
+                    $participante->getUsuario()->getEstatistica()->setParticipacoes($participante->getUsuario()->getEstatistica()->getParticipacoes() - 1);
+                    $participante->getUsuario()->getEstatistica()->setPontos($participante->getUsuario()->getEstatistica()->getPontos() - 10);
+
+                    $estatisticaDAO->persist($participante->getUsuario()->getEstatistica());
+                }               
             }       
             
             Retorno::setStatus(1);

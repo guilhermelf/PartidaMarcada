@@ -14,7 +14,7 @@
     });
 </script>
 
-<div class="app-bar" id="menu-quadra">
+<div class="app-bar-expand-md" id="menu-quadra">
     <span class="app-bar-divider"></span>
     <!--<ul class="app-bar-menu">
         <li>
@@ -32,7 +32,12 @@
         <li><a href="/partidamarcada">Partida Marcada</a></li>
         <li id="online" style="display: none;"><a href="/partidamarcada">Partidas</a></li>
         <li><a href="/partidamarcada/parqueesportivo/quadras">Gerenciar quadras</a></li>
-        <li><a href="/partidamarcada/ranking">Rankings</a></li>
+        <li><a href="#" class="dropdown-toggle">Rankings</a>              
+            <ul class="d-menu" data-role="dropdown">
+                <li><a href="/partidamarcada/ranking" class="fg-white1 fg-hover-yellow">Rankings</a></li>
+                <li><a href="/partidamarcada/ranking/medalhas" class="fg-white1 fg-hover-yellow">Medalhas</a></li>
+            </ul>
+        </li>
         <li><a href="#" class="dropdown-toggle"><?php echo $quadra; ?></a>              
             <ul class="d-menu" data-role="dropdown">
                 <li><a href="/partidamarcada/parqueesportivo/perfil/<?php echo $_SESSION['id']; ?>" class="fg-white1 fg-hover-yellow"><span style="display:none;" id="var-id-usuario"><?php echo $_SESSION['id']; ?></span>Meu perfil</a></li>

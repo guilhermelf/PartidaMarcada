@@ -225,6 +225,14 @@ class ParticipanteBLL {
         $participante = $bll->getById($participante);
         $participante->setStatus(1);
         
+        $estatistica = $participante->getUsuario()->getEstatistica();
+        $estatistica->setPontos($estatistica->getPontos() + 10);
+        $estatistica->setParticipacoes($estatistica->getParticipacoes() + 1);
+        
+        $estatisticaDAO = new EstatisticaAtletaDAO();
+        
+        $estatisticaDAO->persist($estatistica);
+        
         return $dao->persist($participante);
     }
     

@@ -11,4 +11,16 @@ class RankingController extends Controller {
             }
         }
     }
+    
+    function medalhas() {
+        if(empty($_SESSION['tipo']))
+            $this->View('ranking/medalhas');
+        else {
+            if (isset($_SESSION['tipo'])) {
+                $this->View('ranking/medalhas');
+            } else {
+                header("location: /partidamarcada/");
+            }
+        }
+    }
 }
