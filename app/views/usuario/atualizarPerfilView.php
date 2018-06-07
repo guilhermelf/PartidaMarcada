@@ -92,10 +92,7 @@
                     $('#dt_nascimento').val(resposta.dataNascimento);
                     $('#select-estado').val(resposta.cidade.estado.id);
                     $('#cep').val(resposta.cep);
-                    $('#select-visibilidade').val(resposta.visibilidade.id);
                     $('#select-genero').val(resposta.genero.id);
-                    resposta.mostrarTelefone ? $('#mostrar_telefone').val(1) : $('#mostrar_telefone').val(0);
-                    resposta.mostrarEndereco ? $('#mostrar_endereco').val(1) : $('#mostrar_endereco').val(0);
 
                     $('#select-estado').change();
                     $('#select-cidade').val(resposta.cidade.id);
@@ -128,7 +125,6 @@
 
                             $("#resposta").data('dialog').open();
                         }
-                        console.log(resposta);
                     }
                 });
             })
@@ -202,38 +198,6 @@
                     <div class="cell-sm-2">                  
                         <input type="text" name="telefone" id="telefone" placeholder="Telefone">
                     </div>     
-                </div>
-                <br />
-                <hr />
-                <h4>Opções de privacidade</h4>
-                <hr />
-                <div class="row">
-                    <div class="cell-sm-2"> 
-                        <label>Exibir endereço?</label>
-                    </div>
-                    <div class="cell-sm-2"> 
-                        <select id="mostrar_endereco" name="mostrar_endereco" placeholder="">
-                            <option value="1">Sim</option>
-                            <option value="0">Não</option>
-                        </select>
-                    </div>
-                    <div class="cell-sm-2">
-                        <label>Exibir telefone?</label>
-                    </div>
-                    <div class="cell-sm-2"> 
-                        <select id="mostrar_telefone" name="mostrar_telefone">
-                            <option value="1">Sim</option>
-                            <option value="0">Não</option>
-                        </select>
-                    </div>
-                    <div class="cell-sm-2">
-                        <label>Visibilidade do perfil</label>
-                    </div>
-                    <div class="cell-sm-2"> 
-                        <select id="select-visibilidade" name="visibilidade">
-                            <option>Selecione</option>
-                        </select>
-                    </div>
                 </div>
                 <br />
                 <input type="button" class="cell-sm-12 button bg-lightBlue" value="Atualizar informações" id="btn-usuario-atualizar"> 

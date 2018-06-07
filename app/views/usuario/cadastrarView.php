@@ -1,14 +1,62 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
         <link rel="stylesheet" href="/partidamarcada/components/metro-ui-css/css/metro-all.css" />
         <link href="/partidamarcada/components/css/style.css" rel="stylesheet">
         <script src="/partidamarcada/components/jquery/jquery.min.js"></script>
+        <script src="/partidamarcada/components/jquery/jquery.mask.min.js"></script>
         <script src="/partidamarcada/components/js/scripts.js"></script>
         <script src="/partidamarcada/components/metro-ui-css/js/metro.js"></script>
         <title>PartidaMarcada.com</title>
     </head>
+    <script>
+        $(document).ready(function() {
+
+            //validar form
+            $('#btn-usuario-cadastrar').on('click', function() {
+                var valid = true,
+                    message = '';
+            
+                $('form input').each(function() {
+                    var $this = $(this);
+            
+                    if(!$this.val()) {
+                        var inputName = $this.attr('name');
+
+                        if(inputName == "email2") {
+                            inputName = 'confirmar e-mail';
+                        }
+
+                        if(inputName == "senha2") {
+                            inputName = 'confirmar senha';
+                        }
+
+                        if(inputName == "dt_nascimento") {
+                            inputName = 'data de nascimento';
+                        }
+
+                        valid = false;
+                        message += 'Preencha o campo ' + inputName + '!<br />';
+                    }
+                });
+            
+                if(!valid) {
+                    $(".resposta-titulo").html("Erro");
+                    $(".resposta-mensagem").html(message);
+                    $("#resposta").attr('style', 'background-color: #ce352c; color: #fff;');
+
+                    $("#resposta").data('dialog').open();
+
+                    return false;
+                }
+                
+            });
+
+            $("#telefone").mask("99999-9999");
+            $("#nascimento").mask("99/99/9999");
+        });
+    </script>
     <body>
         <?php include 'app/views/header/header.php'; ?>
         <div data-role="dialog" data-close-button="true" data-overlay="true" id="resposta" class="padding20">
@@ -61,7 +109,7 @@
 						</div>
 					
 						<div class="cell-sm-2">         
-                            <input type="text" data-role="calendarpicker" data-format="%d/%m/%Y" name="dt_nascimento" data-locale="pt-BR" placeholder="Nascimento">
+                            <input type="text" id="nascimento" data-role="calendarpicker" data-format="%d/%m/%Y" name="dt_nascimento" data-locale="pt-BR" placeholder="Nascimento">
 						</div>					
 					</div>
                     <br />
@@ -94,45 +142,14 @@
                             <input type="text" name="cep" placeholder="CEP">
                         </div>
                         <div class="cell-sm-1">                  
-                                <input type="text" name="ddd" placeholder="DDD">
+                            <input type="text" name="ddd" placeholder="DDD">
                         </div>       
                         <div class="cell-sm-2">                  
-                            <input type="text" name="telefone" placeholder="Telefone">
+                            <input type="text" id="telefone" name="telefone" placeholder="Telefone">
                         </div>     
                     </div>
                     <br />
                     <hr />
-                    <h4>Opções de privacidade</h4>
-                    <hr />
-                    <div class="row">
-                        <div class="cell-sm-2"> 
-                            <label>Exibir endereço?</label>
-                        </div>
-                        <div class="cell-sm-2"> 
-                            <select name="mostrar_endereco" placeholder="">
-                                <option value="1">Sim</option>
-                                <option value="0">Não</option>
-                            </select>
-                        </div>
-                        <div class="cell-sm-2">
-                            <label>Exibir telefone?</label>
-                        </div>
-                        <div class="cell-sm-2"> 
-                            <select name="mostrar_telefone">
-                                <option value="1">Sim</option>
-                                <option value="0">Não</option>
-                            </select>
-                        </div>
-                        <div class="cell-sm-2">
-                            <label>Visibilidade do perfil</label>
-                        </div>
-                        <div class="cell-sm-2"> 
-                            <select id="select-visibilidade" name="visibilidade">
-                                <option>Selecione</option>
-                            </select>
-                        </div>
-                    </div>
-                    <br />
                     <input type="button" class="cell-sm-12 button bg-lightBlue" value="Cadastrar" id="btn-usuario-cadastrar">
                     <br />&nbsp;
                 </div>

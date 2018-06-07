@@ -3,7 +3,76 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-$(document).ready(function () {
+$(document).ready(function () { 
+
+    //funcao validar data
+    function validarData(data) {
+        var comp = data.split('/');
+        var m = parseInt(comp[1], 10);
+        var d = parseInt(comp[0], 10);
+        var y = parseInt(comp[2], 10);
+        var date = new Date(y,m-1,d);
+
+        console.log(hoje.getTime());
+        console.log(date.getTime());
+
+        if (date.getFullYear() == y && date.getMonth() + 1 == m && date.getDate() == d) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
+
+    //funcao validar data futura
+    function validarDataFutura(data) {
+        var comp = data.split('/');
+        var m = parseInt(comp[1], 10);
+        var d = parseInt(comp[0], 10);
+        var y = parseInt(comp[2], 10);
+        var date = new Date(y,m-1,d);     
+        
+        var data = new Date();
+        var day = data.getDate();
+        var month = data.getMonth();
+        var year = data.getFullYear();
+
+        var hoje = new Date(year, month, day);
+
+        if (date.getFullYear() == y && date.getMonth() + 1 == m && date.getDate() == d) {
+            if(date.getTime() > hoje.getTime()) {
+                return 1;
+            } else {    
+                return 0;
+            }
+        } else {
+            return 0;
+        }
+    }
+
+    //funcao validar data passada
+    function validarDataPassada(data) {
+        var comp = data.split('/');
+        var m = parseInt(comp[1], 10);
+        var d = parseInt(comp[0], 10);
+        var y = parseInt(comp[2], 10);
+        var date = new Date(y,m-1,d);     
+        
+        var data = new Date();
+        var day = data.getDate();
+        var month = data.getMonth();
+        var year = data.getFullYear();
+
+        var hoje = new Date(year, month, day);
+        if (date.getFullYear() == y && date.getMonth() + 1 == m && date.getDate() == d) {
+            if(date.getTime() < hoje.getTime()) {
+                return 1;
+            } else {    
+                return 0;
+            }
+        } else {
+            return 0;
+        }
+    }
 
     //botao de mostrar login usuario
     $('#usuario-mostrar').on('click', function() {
@@ -36,6 +105,16 @@ $(document).ready(function () {
 
     //cadastrar usuário
     $("#btn-usuario-cadastrar").on('click', function () {
+        if(!validarDataPassada($('#nascimento').val())) {
+  
+            $(".resposta-titulo").html("Erro");
+            $(".resposta-mensagem").html("Data de nascimento inválida!");
+            $("#resposta").attr('style', 'background-color: #ce352c; color: #fff;');
+
+            $("#resposta").data('dialog').open();
+            
+            return false;
+        }
     
         $.ajax({
             type: "post",

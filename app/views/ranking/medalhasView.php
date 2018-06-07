@@ -27,9 +27,9 @@
             <br />
             <div class="row">
                 <div class="cell-sm-12">
-                    <p class="text-leader2">As medalhas são exibidas no perfil dos atletas e visam destacar, não só os atletas que mais utilizam o sistema para agendar/participar de atividades, 
+                    <p class="text-leader2">As medalhas são exibidas no perfil dos atletas e visam destacar, não só os que mais utilizam o sistema para agendar/participar de atividades 
                     mas também os que são melhores avaliados por atletas e administradores de quadras.</p>
-                    <p class="text-leader2">Os critérios para receber medalhas, estão descritos abaixo:</p>
+                    <p class="text-leader2">Os critérios para receber medalhas estão descritos abaixo:</p>
                 </div>
             </div>
             <br />
@@ -40,7 +40,7 @@
                 </div>
                 <div class="cell-sm-11">
                     <p><strong>Organizador de elite</strong><br />
-                    Medalha conferida aos atletas que receberam avaliação média maior ou igual a 4, dos administradores de quadras</p>
+                    Medalha conferida aos atletas que receberam avaliação média maior ou igual a 4 dos administradores de quadras</p>
                 </div>
             </div>
             <hr />

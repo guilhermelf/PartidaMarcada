@@ -123,9 +123,6 @@ class UsuarioBLL {
                 $generoBLL = new GeneroBLL();
                 $genero = $generoBLL->getById($dados['genero']);
 
-                $visibilidadeBLL = new VisibilidadeBLL();
-                $visibilidade = $visibilidadeBLL->getById($dados['visibilidade']);
-
                 $data = Retorno::invertDate($dados['dt_nascimento']);                                 
                 
                 $usuario = new Usuario();
@@ -143,8 +140,6 @@ class UsuarioBLL {
                 $usuario->setAtivo(1);
                 $usuario->setCidade($cidade);
                 $usuario->setDataNascimento(new \DateTime($data));
-                $usuario->setMostrarEndereco($dados['mostrar_endereco']);
-                $usuario->setMostrarTelefone($dados['mostrar_telefone']);
                 $usuario->setDdd($dados['ddd']);
                 $usuario->setEmail($dados['email']);
                 $usuario->setEndereco($dados['endereco']);
@@ -153,7 +148,6 @@ class UsuarioBLL {
                 $usuario->setSenha(md5($dados['senha']));
                 $usuario->setSobrenome($dados['sobrenome']);
                 $usuario->setTelefone($dados['telefone']);
-                $usuario->setVisibilidade($visibilidade);
 
                 $dao = new UsuarioDAO();
 
@@ -186,10 +180,9 @@ class UsuarioBLL {
             $generoBLL = new GeneroBLL();
             $genero = $generoBLL->getById($dados['genero']);
 
-            $visibilidadeBLL = new VisibilidadeBLL();
-            $visibilidade = $visibilidadeBLL->getById($dados['visibilidade']);
-
             $usuario = $this->getById($_SESSION['id']);
+            
+            $data = Retorno::invertDate($dados['dt_nascimento']);    
 
             $usuario->setNome($dados['nome']);
             
@@ -202,16 +195,13 @@ class UsuarioBLL {
             $usuario->setCep($dados['cep']);
             $usuario->setAtivo(1);
             $usuario->setCidade($cidade);
-            $usuario->setDataNascimento(new \DateTime($dados['dt_nascimento']));
-            $usuario->setMostrarEndereco($dados['mostrar_endereco']);
-            $usuario->setMostrarTelefone($dados['mostrar_telefone']);
+            $usuario->setDataNascimento(new \DateTime($data));
             $usuario->setDdd($dados['ddd']);
             $usuario->setEndereco($dados['endereco']);
             $usuario->setGenero($genero);
             $usuario->setNumero($dados['numero']);
             $usuario->setSobrenome($dados['sobrenome']);
             $usuario->setTelefone($dados['telefone']);
-            $usuario->setVisibilidade($visibilidade);
 
             $dao = new UsuarioDAO();
 
@@ -228,7 +218,9 @@ class UsuarioBLL {
             }
         } catch (Exception $ex) {
             Retorno::setStatus(0);
-            return Retorno::setMensagem("Erro ao atualizar perfil!");
+            
+            Retorno::setMensagem($ex->getMessage());
+            return Retorno::toJson();
         }
     }
 

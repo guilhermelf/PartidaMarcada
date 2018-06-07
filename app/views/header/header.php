@@ -17,7 +17,6 @@
                 <li><a href="/partidamarcada/parqueesportivo/cadastrar">Cadastrar</a></li>         
             </ul>
         </li>
-        <li><a href="">Sobre</a></li>
     </ul>
 
     <div id="div-usuario-logar" style="display: none">

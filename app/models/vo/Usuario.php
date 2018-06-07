@@ -29,18 +29,6 @@ class Usuario {
      */
     private $ativo;
     
-    
-    /**
-     * @Column(type="boolean", name="mostrar_endereco")
-     */
-    private $mostrarEndereco;
-    
-    
-    /**
-     * @Column(type="boolean", name="mostrar_telefone")
-     */
-    private $mostrarTelefone;
-    
     /**
      * @Column(type="string", name="cep")
      */
@@ -72,7 +60,7 @@ class Usuario {
     private $numero;
     
     /**
-     * @Column(type="integer", name="telefone")
+     * @Column(type="string", name="telefone")
      */
     private $telefone;
     
@@ -97,12 +85,6 @@ class Usuario {
      * @JoinColumn(name="id_genero", referencedColumnName="id_genero")
      */
     private $genero;
-    
-    /**
-     * @ManyToOne(targetEntity="Visibilidade", cascade={"persist"})
-     * @JoinColumn(name="id_visibilidade", referencedColumnName="id_visibilidade")
-     */
-    private $visibilidade; 
     
     /**
      * @OneToOne(targetEntity="EstatisticaAtleta", mappedBy="usuario")
@@ -169,10 +151,6 @@ class Usuario {
         return $this->genero;
     }
 
-    function getVisibilidade() {
-        return $this->visibilidade;
-    }
-
     function setId($id) {
         $this->id = $id;
     }
@@ -232,26 +210,6 @@ class Usuario {
     function setGenero($genero) {
         $this->genero = $genero;
     }
-
-    function setVisibilidade($visibilidade) {
-        $this->visibilidade = $visibilidade;
-    }
-    
-    function getMostrarEndereco() {
-        return $this->mostrarEndereco;
-    }
-
-    function getMostrarTelefone() {
-        return $this->mostrarTelefone;
-    }
-
-    function setMostrarEndereco($mostrarEndereco) {
-        $this->mostrarEndereco = $mostrarEndereco;
-    }
-
-    function setMostrarTelefone($mostrarTelefone) {
-        $this->mostrarTelefone = $mostrarTelefone;
-    }
     
     function getEstatistica() {
         return $this->estatistica;
@@ -283,9 +241,6 @@ class Usuario {
             'telefone' => $this->getTelefone(),
             'senha' => $this->getSenha(),
             'genero' => $this->getGenero()->toJson(),
-            'visibilidade' => $this->getVisibilidade()->toJson(),
-            'mostrarTelefone' => $this->getMostrarTelefone(),
-            'mostrarEndereco' => $this->getMostrarEndereco(),
             'estatistica' => $estatistica
         );
     } 

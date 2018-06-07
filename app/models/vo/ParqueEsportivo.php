@@ -75,7 +75,7 @@ class ParqueEsportivo {
     private $numero;
     
     /**
-     * @Column(type="integer", name="telefone")
+     * @Column(type="string", name="telefone")
      */
     private $telefone;
     

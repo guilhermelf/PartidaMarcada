@@ -126,6 +126,12 @@
 
                             </tbody>
                         </table>
+
+                        <p class="text-secondary"><strong>Critérios de pontuação</strong><br />
+                        • 100 pontos ao se cadastrar no sistema<br />
+                        • 50 pontos por partida marcada<br />
+                        • 10 pontos por partida jogada 
+                    </p>
                     </div>
                 </div>
                 <div class="frame">
