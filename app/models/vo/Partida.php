@@ -183,6 +183,12 @@ class Partida {
             $participantes[] = $part->toJson();
         }
         
+        if($this->agendamento == null) {
+            $agendamento = null;
+        } else {
+            $agendamento = $this->getAgendamento()->getStatus();
+        }
+        
         return array(           
             'id' => $this->getId(),
             'data' => date_format($this->getData(), 'd/m/Y'),
@@ -194,7 +200,8 @@ class Partida {
             'quadra' => $this->getQuadra()->toJson(),
             'usuario' => $this->getUsuario()->toJson(), 
             'status' => $this->getStatus(),
-            'participantes' => $participantes
+            'participantes' => $participantes,
+            'agendamento' => $agendamento
         );
     } 
 }
