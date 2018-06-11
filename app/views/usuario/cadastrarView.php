@@ -12,17 +12,47 @@
     </head>
     <script>
         $(document).ready(function() {
+            //funcao validar data passada
+            function validarDataPassada() {
+                return 0;
+            }
 
-            //validar form
+            function validarDataPassada(data) {
+                var comp = data.split('/');
+                var m = parseInt(comp[1], 10);
+                var d = parseInt(comp[0], 10);
+                var y = parseInt(comp[2], 10);
+                var date = new Date(y,m-1,d);     
+                
+                var data = new Date();
+                var day = data.getDate();
+                var month = data.getMonth();
+                var year = data.getFullYear();
+
+                var hoje = new Date(year, month, day);
+                if (date.getFullYear() == y && date.getMonth() + 1 == m && date.getDate() == d) {
+                    if(date.getTime() < hoje.getTime()) {
+                        return 1;
+                    } else {    
+                        return 0;
+                    }
+                } else {
+                    return 0;
+                }
+            }
+
+            //validar form e cadastrar usuário
             $('#btn-usuario-cadastrar').on('click', function() {
-                var valid = true,
+                var valid = 1,
                     message = '';
             
-                $('form input').each(function() {
+                $('#form-usuario-cadastrar input').each(function() {
                     var $this = $(this);
             
                     if(!$this.val()) {
                         var inputName = $this.attr('name');
+
+                        //alert(inputName + " - " + valid);
 
                         if(inputName == "email2") {
                             inputName = 'confirmar e-mail';
@@ -36,7 +66,7 @@
                             inputName = 'data de nascimento';
                         }
 
-                        valid = false;
+                        valid = 0;
                         message += 'Preencha o campo ' + inputName + '!<br />';
                     }
                 });
@@ -49,8 +79,43 @@
                     $("#resposta").data('dialog').open();
 
                     return false;
-                }
-                
+                } else if(!validarDataPassada($('#nascimento').val())) {
+    
+                    $(".resposta-titulo").html("Erro");
+                    $(".resposta-mensagem").html("Data de nascimento inválida!");
+                    $("#resposta").attr('style', 'background-color: #ce352c; color: #fff;');
+
+                    $("#resposta").data('dialog').open();
+                    
+                    return false;
+                } else {
+
+                    $.ajax({
+                        type: "post",
+                        dataType: 'json',
+                        data: $("#form-usuario-cadastrar").serialize(),
+                        url: "/partidamarcada/usuario/salvar",
+                        success: function (resposta) {
+                            
+                            if (resposta.status) {
+                                $(".resposta-titulo").html("Sucesso");                             
+                                setTimeout(function () {
+                                    window.location.href = "/partidamarcada"
+                                }, 3000);
+                                $("#resposta").attr('style', 'background-color: #60a917; color: #fff;');
+                                $(".resposta-mensagem").html(resposta.mensagem);
+                                $("#resposta").data('dialog').open();
+                            } else {
+                                $(".resposta-titulo").html("Erro");
+                                $(".resposta-mensagem").html(resposta.mensagem);
+                                $("#resposta").attr('style', 'background-color: #ce352c; color: #fff;');
+                            }
+                            $("#resposta").data('dialog').open();
+                            
+                            return false;
+                        }
+                    });
+                }                
             });
 
             $("#telefone").mask("99999-9999");

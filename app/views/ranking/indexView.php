@@ -63,7 +63,7 @@
                    $.each(resposta, function(k, v) {
                        if(v.avaliacoes == 0) {
                             $("#tabela-estatisticas-quadras").find('tbody').append("<tr>" +
-                                "<td><a target='_blank' href='/partidamarcada/parqueesportivo/perfil/" + v.idParqueEsportivo + "'>" + v.nome + "</a></td>" +
+                                "<td><a target='_blank' href='/partidamarcada/parqueEsportivo/perfil/" + v.idParqueEsportivo + "'>" + v.nome + "</a></td>" +
                                 "<td>" + v.partidas + "</td>" +
                                 "<td></td>" +
                                 "<td></td>" +
@@ -72,7 +72,7 @@
                             "</tr>");
                        } else {
                             $("#tabela-estatisticas-quadras").find('tbody').append("<tr>" +
-                                "<td><a target='_blank' href='/partidamarcada/parqueesportivo/perfil/" + v.idParqueEsportivo + "'>" + v.nome + "</a></td>" +
+                                "<td><a target='_blank' href='/partidamarcada/parqueEsportivo/perfil/" + v.idParqueEsportivo + "'>" + v.nome + "</a></td>" +
                                 "<td>" + v.partidas + "</td>" +
                                 "<td title='" + v.atendimento/v.avaliacoes + "'><span style='display: none;'>" + v.atendimento/v.avaliacoes + "</span>" + '<input data-static="true" data-role="rating" data-value="' + v.atendimento/v.avaliacoes + '"></td>' +
                                 "<td title='" + v.estrutura/v.avaliacoes + "'><span style='display: none;'>" + v.estrutura/v.avaliacoes + "</span>" + '<input data-static="true" data-role="rating" data-value="' + v.estrutura/v.avaliacoes + '"></td>' +
@@ -111,21 +111,25 @@
                 <div class="frame">
                     <div class="heading accor"><span class="mif-chart-bars2 icon"></span> Ranking dos atletas</div>
                     <div class="content">
-                        <table id='tabela-estatisticas-atletas' class="table striped hovered">
-                            <thead>
-                                <th>Nome</th>
-                                <th>Partidas</th>
-                                <th>Partidas Organizadas</th>
-                                <th>Comportamento</th>
-                                <th>Habilidade</th>
-                                <th>Pontualidade</th>
-                                <th title="Avaliações recebidas de outros atletas">Avaliações</th>
-                                <th>Pontos</th>
-                            </thead>
-                            <tbody>
+                        <div class="row">
+                            <div class="cell-sm-12">
+                                <table id='tabela-estatisticas-atletas' class="table striped hovered">
+                                    <thead>
+                                        <th>Nome</th>
+                                        <th>Partidas</th>
+                                        <th title="Número de partidas marcadas pelo atleta">Marcadas</th>
+                                        <th>Comportamento</th>
+                                        <th>Habilidade</th>
+                                        <th>Pontualidade</th>
+                                        <th title="Avaliações recebidas de outros atletas">Avaliações</th>
+                                        <th>Pontos</th>
+                                    </thead>
+                                    <tbody>
 
-                            </tbody>
-                        </table>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
 
                         <p class="text-secondary"><strong>Critérios de pontuação</strong><br />
                         • 100 pontos ao se cadastrar no sistema<br />
@@ -137,19 +141,23 @@
                 <div class="frame">
                     <div class="heading accor"><span class="mif-chart-bars2 icon"></span> Ranking das quadras</div>
                     <div class="content">
-                    <table id='tabela-estatisticas-quadras' class="table striped hovered">
-                            <thead>
-                                <th>Nome</th>
-                                <th>Partidas</th>
-                                <th>Atendimento</th>
-                                <th>Estrutura</th>
-                                <th>Qualidade</th>
-                                <th title="Avaliações recebidas">Avaliações</th>
-                            </thead>
-                            <tbody>
+                    <div class="row">
+                        <div class="cell-sm-12">
+                            <table id='tabela-estatisticas-quadras' class="table striped hovered">
+                                    <thead>
+                                        <th>Nome</th>
+                                        <th>Partidas</th>
+                                        <th>Atendimento</th>
+                                        <th>Estrutura</th>
+                                        <th>Qualidade</th>
+                                        <th title="Avaliações recebidas">Avaliações</th>
+                                    </thead>
+                                    <tbody>
 
-                            </tbody>
-                        </table>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                     </div>
                 </div>                   
             </div>

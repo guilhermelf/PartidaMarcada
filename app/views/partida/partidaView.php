@@ -391,7 +391,7 @@
                     <div class="cell-sm-12">
                         <span class="perfil-label">
                             <?php echo "Partida de " . $dados->getEsporte()->getNome() . " (" . $dados->getQuadra()->getTamanho() . ") no(a) " .
-                                "<a href='/partidamarcada/parqueesportivo/perfil/" . $dados->getQuadra()->getParqueEsportivo()->getId() . "'>".
+                                "<a href='/partidamarcada/parqueEsportivo/perfil/" . $dados->getQuadra()->getParqueEsportivo()->getId() . "'>".
                                 $dados->getQuadra()->getParqueEsportivo()->getNome() . "</a>, na quadra de número " . $dados->getQuadra()->getNumero() . " (" . $dados->getQuadra()->getPiso()->getNome() .").";?>
                         </span>
                     </div>
