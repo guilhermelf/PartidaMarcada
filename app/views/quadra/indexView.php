@@ -171,7 +171,7 @@
             url: "/partidamarcada/partida/buscarPartidasPassadasParqueEsportivo",
             dataType: "json",
             success: function (resposta) {
-                if(resposta) {
+                if(resposta) {                   
                     $.each(resposta, function (k, v) {
                         $.ajax({
                                 async: false,
@@ -179,7 +179,6 @@
                                 url: "/partidamarcada/partida/avaliacaoOrganizadorExiste/" + v.id,
                                 dataType: "json",
                                 success: function (resposta2) {
-                                    console.log(resposta2);
                                     if(resposta2) {
                                         $("#div-antigas-partidas-parque").find(".p-2").append(
                                             "<a href='/partidamarcada/partida/partida/" + v.id + "' class='antigasPartidas'>" + 

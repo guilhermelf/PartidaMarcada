@@ -123,7 +123,7 @@
                     $(".resposta-mensagem").html(resposta.mensagem);
                     $("#resposta").attr('style', 'background-color: #60a917; color: #fff;');
                     setTimeout(function(){ 
-                        window.location.href = "/partidamarcada/parqueesportivo"; }, 3000
+                        window.location.href = "/partidamarcada/parqueEsportivo"; }, 3000
                     );                
                 } else {
                     $(".resposta-titulo").html("Erro");

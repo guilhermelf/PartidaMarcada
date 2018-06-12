@@ -56,7 +56,7 @@ class AvaliacaoOrganizadorDAO {
 
             return (empty($participantes) ? 0 : 1);
         } catch (Exception $ex) {
-            return false;
+            return 0;
         }
     }
 }

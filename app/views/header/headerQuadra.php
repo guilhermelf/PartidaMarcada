@@ -31,7 +31,7 @@
     <ul class="h-menu">
         <li><a href="/partidamarcada">Partida Marcada</a></li>
         <li id="online" style="display: none;"><a href="/partidamarcada">Partidas</a></li>
-        <li><a href="/partidamarcada/parqueesportivo/quadras">Gerenciar quadras</a></li>
+        <li><a href="/partidamarcada/parqueEsportivo/quadras">Gerenciar quadras</a></li>
         <li><a href="#" class="dropdown-toggle">Rankings</a>              
             <ul class="d-menu" data-role="dropdown">
                 <li><a href="/partidamarcada/ranking" class="fg-white1 fg-hover-yellow">Rankings</a></li>
@@ -40,10 +40,10 @@
         </li>
         <li><a href="#" class="dropdown-toggle"><?php echo $quadra; ?></a>              
             <ul class="d-menu" data-role="dropdown">
-                <li><a href="/partidamarcada/parqueesportivo/perfil/<?php echo $_SESSION['id']; ?>" class="fg-white1 fg-hover-yellow"><span style="display:none;" id="var-id-usuario"><?php echo $_SESSION['id']; ?></span>Meu perfil</a></li>
-                <li><a href="/partidamarcada/parqueesportivo/atualizarperfil" class="fg-white2 fg-hover-yellow">Atualizar perfil</a></li>
-                <li><a href="/partidamarcada/parqueesportivo/alteraremail" class="fg-white2 fg-hover-yellow">Alterar e-mail</a></li>
-                <li><a href="/partidamarcada/parqueesportivo/alterarsenha" class="fg-white2 fg-hover-yellow">Alterar senha</a></li>
+                <li><a href="/partidamarcada/parqueEsportivo/perfil/<?php echo $_SESSION['id']; ?>" class="fg-white1 fg-hover-yellow"><span style="display:none;" id="var-id-usuario"><?php echo $_SESSION['id']; ?></span>Meu perfil</a></li>
+                <li><a href="/partidamarcada/parqueEsportivo/atualizarperfil" class="fg-white2 fg-hover-yellow">Atualizar perfil</a></li>
+                <li><a href="/partidamarcada/parqueEsportivo/alteraremail" class="fg-white2 fg-hover-yellow">Alterar e-mail</a></li>
+                <li><a href="/partidamarcada/parqueEsportivo/alterarsenha" class="fg-white2 fg-hover-yellow">Alterar senha</a></li>
                 <li class="divider"></li>
                 <li><a href="" class="fg-white3 fg-hover-yellow" id="btn-quadra-deslogar">Sair</a></li>
             </ul>
@@ -56,7 +56,7 @@
 
         $.ajax({
             type: "get",
-            url: "/partidamarcada/parqueesportivo/deslogar",
+            url: "/partidamarcada/parqueEsportivo/deslogar",
             success: function (resposta) {
                 window.location.href = "/partidamarcada";
             }

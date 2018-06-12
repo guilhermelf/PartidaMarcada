@@ -7,7 +7,7 @@ class IndexController extends Controller {
             if ($_SESSION['tipo'] == "usuario") {
                 $this->View('usuario/index');
             } else {
-                header("location: /partidamarcada/parqueesportivo");
+                header("location: /partidamarcada/parqueEsportivo");
             }
         }
     }
