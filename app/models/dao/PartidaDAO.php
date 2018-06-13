@@ -251,5 +251,4 @@ class PartidaDAO {
             return $ex->getMessage();
         }
     }
-    
 }

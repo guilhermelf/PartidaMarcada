@@ -35,7 +35,7 @@
                     }                                                                     
                         $("#resposta").data('dialog').open();
                         setTimeout(function () {    
-                            window.location.href = "/partidamarcada/parqueesportivo"
+                            window.location.href = "/partidamarcada/parqueEsportivo"
                         }, 3000);    
                 }
             })
@@ -111,7 +111,7 @@
                         $("#resposta").data('dialog').open();
 
                         setTimeout(function () {
-                            window.location.href = "/partidamarcada/parqueesportivo/"
+                            window.location.href = "/partidamarcada/parqueEsportivo/"
                         }, 2000);
                     } else {
                         $(".resposta-titulo").html("Erro");
@@ -260,7 +260,7 @@
                                     $("#resposta").data('dialog').open();
                                     
                                     setTimeout(function () {    
-                                        window.location.href = "/partidamarcada/parqueesportivo"
+                                        window.location.href = "/partidamarcada/parqueEsportivo"
                                     }, 3000);
                                 }
                             });
@@ -306,7 +306,7 @@
                                     $("#resposta").data('dialog').open();
                                     
                                     setTimeout(function () {    
-                                        window.location.href = "/partidamarcada/parqueesportivo"
+                                        window.location.href = "/partidamarcada/parqueEsportivo"
                                     }, 3000);
                                 }
                             });
