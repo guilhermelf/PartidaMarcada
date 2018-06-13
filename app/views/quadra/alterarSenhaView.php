@@ -18,13 +18,13 @@
                     type: "post",
                     dataType: 'json',
                     data: $("#form-quadra-alterarsenha").serialize(),
-                    url: "/partidamarcada/parqueesportivo/atualizarSenha",
+                    url: "/partidamarcada/parqueEsportivo/atualizarSenha",
                     success: function (resposta) {
                         if (resposta.status) {
                             $(".resposta-titulo").html("Sucesso");
                             $("#resposta").attr('style', 'background-color: #60a917; color: #fff;');
                             setTimeout(function () {
-                                window.location.href = "/partidamarcada/parqueesportivo";
+                                window.location.href = "/partidamarcada/parqueEsportivo";
                             }, 2000);
                         } else {
                             $(".resposta-titulo").html("Erro");

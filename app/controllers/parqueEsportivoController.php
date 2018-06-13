@@ -66,7 +66,7 @@ class ParqueEsportivoController extends Controller {
             if (empty($_SESSION['tipo']) or $_SESSION['tipo'] != 'quadra')
             $this->AccessDenied();
         else
-            $this->View('quadra/alteraremail');
+            $this->View('quadra/alterarEmail');
         } catch (Exception $ex) {
             $this->AccessDenied();
         }
@@ -87,7 +87,7 @@ class ParqueEsportivoController extends Controller {
         if (empty($_SESSION['tipo']) or $_SESSION['tipo'] != 'quadra')
             $this->AccessDenied();
         else
-            $this->View('quadra/alterarsenha');
+            $this->View('quadra/alterarSenha');
     }
 
     function atualizarSenha() {
@@ -128,7 +128,7 @@ class ParqueEsportivoController extends Controller {
         if (empty($_SESSION['tipo']) or $_SESSION['tipo'] != 'quadra')
             $this->AccessDenied();
         else
-            $this->View('quadra/atualizarperfil');
+            $this->View('quadra/atualizarPerfil');
     }
     
     function buscarParqueEsportivo() {

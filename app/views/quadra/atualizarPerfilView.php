@@ -77,7 +77,7 @@
             $.ajax({
                 async: false,
                 type: "post",
-                url: "/partidamarcada/parqueesportivo/buscarparqueesportivo",
+                url: "/partidamarcada/parqueEsportivo/buscarParqueEsportivo",
                 dataType: 'json',
                 success: function (resposta) {
 
@@ -107,7 +107,7 @@
                     type: "post",
                     dataType: 'json',
                     data: $("#form-quadra-atualizar").serialize(),
-                    url: "/partidamarcada/parqueesportivo/atualizar",
+                    url: "/partidamarcada/parqueEsportivo/atualizar",
                     success: function (resposta) {
                         if (resposta.status) {
                             $(".resposta-titulo").html("Sucesso");
@@ -117,7 +117,7 @@
                             $("#resposta").data('dialog').open();
 
                             setTimeout(function () {
-                                window.location.href = "/partidamarcada/parqueesportivo"
+                                window.location.href = "/partidamarcada/parqueEsportivo"
                             }, 2000);
                         } else {
                             $(".resposta-titulo").html("Erro");

@@ -37,7 +37,7 @@
                                             $("#resposta").data('dialog').open();
 
                                             setTimeout(function () {
-                                                window.location.href = "/partidamarcada/parqueesportivo/horarios"
+                                                window.location.href = "/partidamarcada/parqueEsportivo/horarios"
                                             }, 3000);
                                         } else {
                                             $(".resposta-titulo").html("Erro");

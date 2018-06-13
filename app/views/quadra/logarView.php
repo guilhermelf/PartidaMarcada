@@ -28,7 +28,7 @@
                             $("#resposta").attr('style', 'background-color: #60a917; color: #fff;');
                             $("#resposta").data('dialog').open();
                             setTimeout(function() {
-                                window.location.href = "/partidamarcada/parqueesportivo";
+                                window.location.href = "/partidamarcada/parqueEsportivo";
                             }, 2000);                           
                         } else {
                             $(".resposta-titulo").html("Erro");

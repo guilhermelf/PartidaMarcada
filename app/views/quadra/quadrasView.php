@@ -69,7 +69,7 @@
                                             "<span class='id-quadra' style='display:none; cursor:pointer;'>" + v.id + "</span>" +
                                         "</td>" +
                                         "<td class='calendario'>" + 
-                                            "<a href='/partidamarcada/parqueesportivo/horarios/" + v.id + "'><span style='cursor:pointer;' class='mif-calendar btn-calendario'></span></a>" + 
+                                            "<a href='/partidamarcada/parqueEsportivo/horarios/" + v.id + "'><span style='cursor:pointer;' class='mif-calendar btn-calendario'></span></a>" + 
                                         "</td>" + 
                                     "</tr>"
                                     );
@@ -112,7 +112,7 @@
                             $("#resposta").data('dialog').open();
 
                             setTimeout(function () {
-                                window.location.href = "/partidamarcada/parqueesportivo/quadras"
+                                window.location.href = "/partidamarcada/parqueEsportivo/quadras"
                             }, 2000);
                         } else {
                             $(".resposta-titulo").html("Erro");
@@ -201,7 +201,7 @@
                             $("#resposta").data('dialog').open();
 
                             setTimeout(function () {
-                                window.location.href = "/partidamarcada/parqueesportivo/quadras"
+                                window.location.href = "/partidamarcada/parqueEsportivo/quadras"
                             }, 2000);
                         } else {
                             $(".resposta-titulo").html("Erro");

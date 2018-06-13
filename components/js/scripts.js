@@ -85,7 +85,7 @@ $(document).ready(function () {
             type: "post",
             dataType: 'json',
             data: $("#form-quadra-cadastrar").serialize(),
-            url: "/partidamarcada/parqueesportivo/salvar",
+            url: "/partidamarcada/parqueEsportivo/salvar",
             success: function (resposta) {
 
                 if (resposta.status) {

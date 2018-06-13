@@ -18,7 +18,7 @@
                     type: "post",
                     dataType: 'json',
                     data: $("#form-quadra-alteraremail").serialize(),
-                    url: "/partidamarcada/parqueesportivo/atualizarEmail",
+                    url: "/partidamarcada/parqueEsportivo/atualizarEmail",
                     success: function (resposta) {
                         if (resposta.status) {
                             $(".resposta-titulo").html("Sucesso");
