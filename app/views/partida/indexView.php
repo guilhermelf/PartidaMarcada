@@ -623,13 +623,13 @@
                         <div class="cell-sm-3">   
                             <input type="text" name="endereco" placeholder="Endereço">
                         </div>
-                        <div class="cell-sm-3">   
+                        <div class="cell-sm-2">   
                             <input type="text" name="cidade" placeholder="Cidade" id="buscar-quadra-cidade">
                         </div>
                         <div class="cell-sm-2"> 
                             <button class="button success" id="btn-selecionar-parqueesportivo-buscar">Buscar</button>
                         </div>
-                        <div class="cell-sm-1"> 
+                        <div class="cell-sm-2"> 
                             <button class="cell-sm-12 button success fg-white bg-red" id="btn-selecionar-parqueesportivo-cancelar">Cancelar</button>
                         </div>
                     </div>

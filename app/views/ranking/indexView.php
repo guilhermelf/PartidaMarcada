@@ -7,8 +7,10 @@
         <script src="/partidamarcada/components/jquery/jquery.min.js"></script>
         <script src="/partidamarcada/components/js/scripts.js"></script>
         <script src="/partidamarcada/components/metro-ui-css/js/metro.js"></script>
-        <link rel="stylesheet" type="text/css" href="/partidamarcada/components/jquery/datatable/datatables.min.css"/>
+        <link rel="stylesheet" type="text/css" href="/partidamarcada/components/jquery/datatable/datatables.min.css" />
+        <link rel="stylesheet" type="text/css" href="/partidamarcada/components/jquery/datatable/Responsive-2.2.2/css/responsive.bootstrap.min.css" />
         <script type="text/javascript" src="/partidamarcada/components/jquery/datatable/datatables.min.js"></script>
+        <script type="text/javascript" src="/partidamarcada/components/jquery/datatable/Responsive-2.2.2/js/dataTables.responsive.min.js"></script>   
         <title>Partida Marcada</title>
     </head>
     <script>
@@ -46,6 +48,7 @@
                    })
                    
                    $('#tabela-estatisticas-atletas').DataTable({
+                        responsive: true,
                         "order": [[ 6, "desc" ]],
                         "paging":   false,
                         "info":     false,
@@ -83,6 +86,7 @@
                    })
                    
                    $('#tabela-estatisticas-quadras').DataTable({
+                        responsive: true,
                         "order": [[ 1, "desc" ]],
                         "paging":   false,
                         "info":     false,
@@ -113,21 +117,23 @@
                     <div class="content">
                         <div class="row">
                             <div class="cell-sm-12">
-                                <table id='tabela-estatisticas-atletas' class="table striped hovered">
-                                    <thead>
-                                        <th>Nome</th>
-                                        <th>Partidas</th>
-                                        <th title="Número de partidas marcadas pelo atleta">Marcadas</th>
-                                        <th>Comportamento</th>
-                                        <th>Habilidade</th>
-                                        <th>Pontualidade</th>
-                                        <th title="Avaliações recebidas de outros atletas">Avaliações</th>
-                                        <th>Pontos</th>
-                                    </thead>
-                                    <tbody>
+                                <div class="table-responsive">
+                                    <table id='tabela-estatisticas-atletas' class="table striped hovered display" cellspacing="0" width="100%">
+                                        <thead>
+                                            <th>Nome</th>
+                                            <th>Partidas</th>
+                                            <th title="Número de partidas marcadas pelo atleta">Marcadas</th>
+                                            <th>Comportamento</th>
+                                            <th>Habilidade</th>
+                                            <th>Pontualidade</th>
+                                            <th title="Avaliações recebidas de outros atletas">Avaliações</th>
+                                            <th>Pontos</th>
+                                        </thead>
+                                        <tbody>
 
-                                    </tbody>
-                                </table>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
 
@@ -143,7 +149,7 @@
                     <div class="content">
                     <div class="row">
                         <div class="cell-sm-12">
-                            <table id='tabela-estatisticas-quadras' class="table striped hovered">
+                            <table id='tabela-estatisticas-quadras' class="table striped hovered" cellspacing="0" width="100%">
                                     <thead>
                                         <th>Nome</th>
                                         <th>Partidas</th>
