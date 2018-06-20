@@ -226,11 +226,14 @@ class ParqueEsportivoBLL {
             $json = [];
             if (empty($parquesEsportivos)) {
                 return json_encode(false);
-            } else {
-                foreach ($parquesEsportivos as $parque) {                    
-                    $json[] = $parque->toJson();
+            } else {     
+                foreach ($parquesEsportivos as $parque) {   
+                    $parqueDAO = new ParqueEsportivoDAO();
+
+                    $parqueEsportivo = $parqueDAO->getById($parque['1']);              
+                    $json[] = $parqueEsportivo->toJson();
                 }
-                return json_encode($json);
+                return $json;
             }
         } catch (Exception $ex) {
             return $ex->getMessage();

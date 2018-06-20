@@ -108,7 +108,7 @@
                     url: "/partidamarcada/parqueEsportivo/pesquisar",
                     dataType: "json",
                     success: function (resposta) {
-                        if(!resposta) {
+                        if(resposta == 'false') {
                             $('#div-resultado-buscar').find("p").text("Nenhuma quadra encontrada!");
                             
                             $('#div-resultado-buscar').show();
@@ -621,7 +621,7 @@
                             <input type="text" name="nome" placeholder="Nome">
                         </div>
                         <div class="cell-sm-3">   
-                            <input type="text" name="endereco" placeholder="Endereço">
+                            <input type="text" name="esporte" placeholder="Esporte">
                         </div>
                         <div class="cell-sm-2">   
                             <input type="text" name="cidade" placeholder="Cidade" id="buscar-quadra-cidade">

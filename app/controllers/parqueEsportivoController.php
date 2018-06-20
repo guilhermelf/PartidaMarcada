@@ -152,7 +152,7 @@ class ParqueEsportivoController extends Controller {
         else {
             $bll = new ParqueEsportivoBLL();
 
-            echo $bll->pesquisar($_POST);
+            echo json_encode($bll->pesquisar($_POST));
         }
     }
     

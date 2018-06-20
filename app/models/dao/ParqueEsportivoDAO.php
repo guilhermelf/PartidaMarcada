@@ -56,31 +56,31 @@ class ParqueEsportivoDAO {
     
     function pesquisar($dados) {
         try {
-            $sql = "SELECT p FROM ParqueEsportivo p JOIN p.cidade c WHERE 1 = 1";
+            $sql = "SELECT DISTINCT IDENTITY(q.parqueEsportivo) FROM Quadra q JOIN q.parqueEsportivo p JOIN p.cidade c JOIN q.esportes e WHERE 1 = 1";
 
             if ($dados['nome'] != "")
                 $sql .= " AND p.nome LIKE :nome";
 
+            if ($dados['esporte'] != "")
+                $sql .= " AND e.nome LIKE :esporte";
+
             if ($dados['cidade'] != "")
                 $sql .= " AND c.nome LIKE :cidade";
-
-            if ($dados['endereco'] != "")
-                $sql .= " AND p.endereco LIKE :endereco";
 
             $query = DataBase::getFactory()->createQuery($sql);
             
             if ($dados['nome'] != "")
                 $query->setParameter('nome', '%' . $dados['nome'] . '%');
             
+            if ($dados['esporte'] != "")
+                $query->setParameter('esporte', '%' . $dados['esporte'] . '%');
+            
             if ($dados['cidade'] != "")
                 $query->setParameter('cidade', '%' . $dados['cidade'] . '%');
-            
-            if ($dados['endereco'] != "")
-                $query->setParameter('endereco', '%' . $dados['endereco'] . '%');
 
-            $usuarios = $query->getResult();
+            $parques = $query->getResult(\Doctrine\ORM\Query::HYDRATE_OBJECT);
 
-            return (empty($usuarios) ? false : $usuarios);
+            return (empty($parques) ? 0 : $parques);
         } catch (Exception $ex) {
             return $ex->getMessage();
         }
