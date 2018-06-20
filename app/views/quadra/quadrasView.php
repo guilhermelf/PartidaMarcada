@@ -7,11 +7,15 @@
         <script src="/partidamarcada/components/jquery/jquery.min.js"></script>
         <script src="/partidamarcada/components/js/scripts.js"></script>
         <script src="/partidamarcada/components/metro-ui-css/js/metro.js"></script>
+        <link rel="stylesheet" type="text/css" href="/partidamarcada/components/jquery/datatable/datatables.min.css" />
+        <link rel="stylesheet" type="text/css" href="/partidamarcada/components/jquery/datatable/Responsive-2.2.2/css/responsive.bootstrap.min.css" />
+        <script type="text/javascript" src="/partidamarcada/components/jquery/datatable/datatables.min.js"></script>
+        <script type="text/javascript" src="/partidamarcada/components/jquery/datatable/Responsive-2.2.2/js/dataTables.responsive.min.js"></script>   
         <title>Partida Marcada</title>
     </head>
     <script>
 
-        $(document).ready(function () {
+        $(document).ready(function () {      
             //buscar esportes
             $('.esportes').remove();
             $.ajax({
@@ -215,6 +219,13 @@
                 });
                 return false;
             });
+
+            $('#tabela-quadras').DataTable({
+                responsive: true,
+                "paging":   false,
+                "info":     false,
+                "searching":   false
+            });
         });
     </script>
     <body>
@@ -226,7 +237,7 @@
         <div class="conteudo container">
             <h4 class="align-center">Relação de quadras</h4>
             <div id="gerenciar-quadras">
-                <table id='tabela-quadras' class="table striped hovered">
+                <table id='tabela-quadras' class="table striped hovered" cellspacing="0" width="100%">
                     <thead>
                         <th style="width: 10%">#</th>
                         <th style="width: 10%">Tamanho</th>
