@@ -1,16 +1,22 @@
 <!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
 <html>
     <head>
-        <title>Acesso negado!</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+        <link rel="stylesheet" href="/partidamarcada/components/metro-ui-css/css/metro-all.css" />
+        <link href="/partidamarcada/components/css/style.css" rel="stylesheet">
+        <script src="/partidamarcada/components/jquery/jquery.min.js"></script>
+        <script src="/partidamarcada/components/js/scripts.js"></script>
+        <script src="/partidamarcada/components/metro-ui-css/js/metro.js"></script>
+        <title>Partida Marcada</title>
     </head>
-    <body>
-        <div>403 acesso negado.</div>
+    <body> 
+        <div data-role="dialog" data-close-button="false" data-overlay="true" id="resposta" class="padding20">
+            <div class="dialog-title resposta-titulo"></div>
+            <div class="dialog-content resposta-mensagem"></div>
+        </div>    
+        <div class="conteudo container">
+            <h1 class="align-center">Acesso negado!</h1>
+            <a href="/partidamarcada"><h3 class="align-center">Voltar ao partida marcada</h3></a>
+        </div>
     </body>
 </html>
