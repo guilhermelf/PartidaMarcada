@@ -35,7 +35,6 @@
 
                  //buscar partidas antigas cadastradas pelo usuário
                 $('.minhasPartidas-passadas').remove();
-                var existe = false;
                 $.ajax({
                     async: false,
                     type: "post",
@@ -49,18 +48,20 @@
                                     type: "post",
                                     url: "/partidamarcada/partida/avaliacaoExiste/" + v.id,
                                     dataType: "json",
-                                    success: function (resposta2) {                                      
-                                        if(!resposta2) {
-                                            existe = true;
-                                            $("#minhas-partidas-passadas").find(".content").find(".p-2").append("<a title='Avaliar partida' class='partida-passada-ver minhas-partidas-passadas' href='/partidamarcada/partida/avaliar/" + v.id + "'><span style='display:none;' class=id-ver>" + v.id + "</span>" + v.data + ", das " + v.inicio + "h às " + (v.inicio + 1) + "h, partida de " + v.esporte.nome + ", na quadra " + v.quadra.numero + " da(o) " + v.quadra.parqueEsportivo.nome + "</a>" +                               
-                                            "<br />");
+                                    success: function (resposta2) {
+                                        if(!resposta2) {                                       
+                                            if((!v.quadra.parqueEsportivo.servicos) || (v.agendamento != null && v.agendamento == 1)) {
+                                                $("#minhas-partidas-passadas").find(".content").find(".p-2").append("<a class='partida-passada-ver minhas-partidas-passadas' href='/partidamarcada/partida/partida/" + v.id + "'><span style='display:none;' class=id-ver>" + v.id + "</span>" + v.data + ", das " + v.inicio + "h às " + (v.inicio + 1) + "h, partida de " + v.esporte.nome + ", na quadra " + v.quadra.numero + " da(o) " + v.quadra.parqueEsportivo.nome + "</a>" +
+                                                "<span class='opcoes-partida'><a title='Avaliar partida' href='/partidamarcada/partida/avaliar/" + v.id + "'><span class='mif-checkmark mif fg-green'></span></a></span>" + 
+                                                "<br />");
+                                            }
                                         }
                                     }
                                 });
                             });
+                        } else {
+                            $("#minhas-partidas-passadas").find(".content").find(".p-2").append("Você não participou de nenhuma partida ainda.");
                         }
-                        if(!existe)
-                            $("#minhas-partidas-passadas").find(".content").find(".p-2").append("Nenhuma avaliação está pendente.");                     
                     }
                 });
 
