@@ -16,6 +16,30 @@
         $(document).ready(function () {
             $('#minhas-partidas-passadas').find('.heading').click();
 
+            $("#txt-data").on('focus', function() {
+                if($('#cadastrar-quadra').val().length == 0) {
+                    $(".resposta-titulo").html("Atenção");
+                    $("#resposta").attr('style', 'background-color: #ff9447; color: #fff;');                          
+                    
+                    $(".resposta-mensagem").html("Selecione uma quadra antes de escolher um horário!"); 
+                    $("#resposta").data('dialog').open();
+
+                    return false;
+                }
+            });
+
+            $("#select-inicio").on('focus', function() {
+                if(!$('#txt-data').val()) {
+                    $(".resposta-titulo").html("Atenção");
+                    $("#resposta").attr('style', 'background-color: #ff9447; color: #fff;');                          
+                    
+                    $(".resposta-mensagem").html("Selecione uma quadra e uma data para visualizar os horários!"); 
+                    $("#resposta").data('dialog').open();
+
+                    return false;
+                }
+            });
+
             $('#btn-buscar-partida').on('click', function() { 
                 $.ajax({
                     data: $('#buscar-partida-publica').serialize(),
@@ -805,30 +829,30 @@
                         <div class="cell-sm-4">
                             <select name="inicio" id="select-inicio-atualizar" title="Horário">
                                 <option value="-1">Horário</option>
-                                <option value="0">das 00h às 01h</option>
-                                <option value="1">das 01h às 02h</option>
-                                <option value="2">das 02h às 03h</option>
-                                <option value="3">das 03h às 04h</option>
-                                <option value="4">das 04h às 05h</option>
-                                <option value="5">das 05h às 06h</option>
-                                <option value="6">das 06h às 07h</option>
-                                <option value="7">das 07h às 08h</option>
-                                <option value="8">das 08h às 09h</option>
-                                <option value="9">das 09h às 10h</option>
-                                <option value="10">das 10h às 11h</option>
-                                <option value="11">das 11h às 12h</option>
-                                <option value="12">das 12h às 13h</option>
-                                <option value="13">das 13h às 14h</option>
-                                <option value="14">das 14h às 15h</option>
-                                <option value="15">das 15h às 16h</option>
-                                <option value="16">das 16h às 17h</option>
-                                <option value="17">das 17h às 18h</option>
-                                <option value="18">das 18h às 19h</option>
-                                <option value="19">das 19h às 20h</option>
-                                <option value="20">das 20h às 21h</option>
-                                <option value="21">das 21h às 22h</option>
-                                <option value="22">das 22h às 23h</option>
-                                <option value="23">das 23h às 00h</option>
+                                <option value="0">00h às 01h</option>
+                                <option value="1">01h às 02h</option>
+                                <option value="2">02h às 03h</option>
+                                <option value="3">03h às 04h</option>
+                                <option value="4">04h às 05h</option>
+                                <option value="5">05h às 06h</option>
+                                <option value="6">06h às 07h</option>
+                                <option value="7">07h às 08h</option>
+                                <option value="8">08h às 09h</option>
+                                <option value="9">09h às 10h</option>
+                                <option value="10">10h às 11h</option>
+                                <option value="11">11h às 12h</option>
+                                <option value="12">12h às 13h</option>
+                                <option value="13">13h às 14h</option>
+                                <option value="14">14h às 15h</option>
+                                <option value="15">15h às 16h</option>
+                                <option value="16">16h às 17h</option>
+                                <option value="17">17h às 18h</option>
+                                <option value="18">18h às 19h</option>
+                                <option value="19">19h às 20h</option>
+                                <option value="20">20h às 21h</option>
+                                <option value="21">21h às 22h</option>
+                                <option value="22">22h às 23h</option>
+                                <option value="23">23h às 00h</option>
                             </select>
 						</div>
                         <div class="cell-sm-3"> 

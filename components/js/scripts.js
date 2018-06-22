@@ -107,28 +107,71 @@ $(document).ready(function () {
 
     //cadastrar partida
     $("#btn-partida-cadastrar").on('click', function () {
-        $.ajax({
-            type: "post",
-            dataType: 'json',
-            data: $("#form-partida-cadastrar").serialize(),
-            url: "/partidamarcada/partida/salvar",
-            success: function (resposta) {    
-                if (resposta.status) {
-                    $(".resposta-titulo").html("Sucesso");
-                    $("#resposta").attr('style', 'background-color: #60a917; color: #fff;');  
-                } else {
-                    $(".resposta-titulo").html("Erro");                   
-                    $("#resposta").attr('style', 'background-color: #ce352c; color: #fff;');
-                }          
-                $("#resposta").data('dialog').open();  
-                $(".resposta-mensagem").html(resposta.mensagem);
-                setTimeout(function () {    
-                    window.location.href = "/partidamarcada/partida/gerenciar"
-                }, 2000);   
-            }
+
+        var valid = 1,
+        message = '';
+
+        $('#form-partida-cadastrar input').each(function() {        
+            var $this = $(this);
+                
+            if(!$this.val()) {
+                var inputName = $this.attr('name');
+                
+                if(inputName == "id_parque") {
+                    valid = 0;
+                    message += 'Selecione um parque esportivo!<br />';
+                } else if(inputName == "quadra") {
+                    valid = 0;
+                    message += 'Selecione uma quadra!<br />';
+                } else if(inputName == "data") {
+                    valid = 0;
+                    message += 'Selecione uma data!<br />';
+                } else if(inputName == "jogadores") {
+                    valid = 0;
+                    message += 'Informe o número de jogadores!<br />';
+                } 
+            }            
         });
 
-        return false;
+        if(valid) {
+            if($('#select-esporte').val() == 0) {
+                valid = 0;
+                message += 'Selecione um esporte!<br />';
+            } 
+        }
+
+        if(valid) {
+            $.ajax({
+                type: "post",
+                dataType: 'json',
+                data: $("#form-partida-cadastrar").serialize(),
+                url: "/partidamarcada/partida/salvar",
+                success: function (resposta) {    
+                    if (resposta.status) {
+                        $(".resposta-titulo").html("Sucesso");
+                        $("#resposta").attr('style', 'background-color: #60a917; color: #fff;');  
+                    } else {
+                        $(".resposta-titulo").html("Erro");                   
+                        $("#resposta").attr('style', 'background-color: #ce352c; color: #fff;');
+                    }          
+                    $("#resposta").data('dialog').open();  
+                    $(".resposta-mensagem").html(resposta.mensagem);
+                    setTimeout(function () {    
+                        window.location.href = "/partidamarcada/partida/gerenciar"
+                    }, 2000);   
+                }
+            });
+
+            return false;
+        } else {
+            $(".resposta-titulo").html("Erro");
+            $(".resposta-mensagem").html(message);
+            $("#resposta").attr('style', 'background-color: #ce352c; color: #fff;');
+
+            $("#resposta").data('dialog').open();
+
+            return false;
+        }
     });
 
     //atualizar dados partida
