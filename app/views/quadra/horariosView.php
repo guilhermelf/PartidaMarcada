@@ -6,11 +6,14 @@
         <link href="/partidamarcada/components/css/style.css" rel="stylesheet">
         <script src="/partidamarcada/components/jquery/jquery.min.js"></script>
         <script src="/partidamarcada/components/js/scripts.js"></script>
+        <script src="/partidamarcada/components/jquery/jquery.mask.min.js"></script>
         <script src="/partidamarcada/components/metro-ui-css/js/metro.js"></script>
         <title>Partida Marcada</title>
     </head>
     <script>
         $(document).ready(function () {
+            $("#txt-data").mask("99/99/9999");
+
             //liberar horario cancelando reserva
             $('#tabela-horarios').on('click', '.cancelar-reserva', function() {
                 agendamento = $(this).find('.id-reserva').text();

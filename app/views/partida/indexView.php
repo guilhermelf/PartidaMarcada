@@ -9,11 +9,14 @@
         <script src="/partidamarcada/components/metro-ui-css/js/metro.js"></script>
         <script src="/partidamarcada/components/jquery/timepicker/jquery.timepicker.js"></script>
         <link rel="stylesheet" href="/partidamarcada/components/jquery/timepicker/jquery.timepicker.css" />
+        <script src="/partidamarcada/components/jquery/jquery.mask.min.js"></script>
         
         <title>Partida Marcada</title>
     </head>
     <script>
         $(document).ready(function () {
+            $("#txt-data").mask("99/99/9999");
+
             $('#minhas-partidas-passadas').find('.heading').click();
 
             $("#txt-data").on('focus', function() {

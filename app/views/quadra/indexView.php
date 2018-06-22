@@ -7,11 +7,12 @@
         <script src="/partidamarcada/components/jquery/jquery.min.js"></script>
         <script src="/partidamarcada/components/js/scripts.js"></script>
         <script src="/partidamarcada/components/metro-ui-css/js/metro.js"></script>
+        <script src="/partidamarcada/components/jquery/jquery.mask.min.js"></script>
         <title>Partida Marcada</title>
     </head>
     <script>
     $(document).ready(function() {
-
+        $("#txt-data").mask("99/99/9999");
         $('#btn-avaliar-organizador').on('click', function(){
             
             $('#div-avaliar-organizador').hide();
@@ -207,6 +208,7 @@
             url: "/partidamarcada/agendamento/buscarAgendamentosPendentes",
             dataType: "json",
             success: function (resposta) {
+                console.log(resposta);
                 if(resposta) {
                     $.each(resposta, function (k, v) {
                         $("#agendamentos-pendentes").find(".content").find(".p-2").append("<a target='_blank' class='agendamentosPendentes' href='/partidamarcada/partida/partida/" + v.partida.id + "'><span style='display:none;' class=id-agendamento>" + v.id + "</span>" + v.partida.data + ", das " + v.partida.inicio + "h às " + (v.partida.inicio + 1) + "h, partida de " + v.partida.esporte.nome + ", na quadra " + v.partida.quadra.numero + ", organizada por " + v.partida.usuario.nome + "</a>" +
